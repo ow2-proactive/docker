@@ -55,7 +55,7 @@ RUN pip install torchtext gensim implicit
 
 RUN pip install scikit-image graphviz opencv-contrib-python-headless
 RUN pip install bokeh visdom
-RUN pip install boto boto3 bz2file
+RUN pip install boto boto3 bz2file s3fs
 
 RUN pip install cassandra-driver cx-Oracle elasticsearch mysql-connector-python pymongo pymssql PyMySQL pyodbc pyOpenSSL sqlalchemy SecretStorage
 
