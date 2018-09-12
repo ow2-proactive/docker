@@ -12,8 +12,8 @@ RUN apt-get update && apt-get install -y \
         && apt-get autoclean && apt-get clean \
         && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Install Visdom from Facebook Research
-# -------------------------------------
+# Install Visdom (Facebook Research) from source
+# ----------------------------------------------
 RUN git clone https://github.com/facebookresearch/visdom.git
 RUN cd visdom && pip install -e . && easy_install .
 

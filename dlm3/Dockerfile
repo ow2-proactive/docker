@@ -54,7 +54,7 @@ RUN pip install torchvision
 RUN pip install torchtext gensim implicit
 
 RUN pip install scikit-image graphviz opencv-contrib-python-headless
-RUN pip install bokeh visdom
+RUN pip install bokeh
 RUN pip install boto boto3 bz2file s3fs
 
 RUN pip install cassandra-driver cx-Oracle elasticsearch mysql-connector-python pymongo pymssql PyMySQL pyodbc pyOpenSSL sqlalchemy SecretStorage
@@ -70,11 +70,21 @@ RUN pip install azure-cognitiveservices-vision-computervision azure-cognitiveser
 
 RUN pip install azure-mgmt-machinelearningcompute azure-mgmt-batchai
 
+RUN pip install cntk
+RUN pip install mxnet
+RUN pip install pyspark
+
 RUN pip install dask distributed
 RUN pip install dlib
 
 RUN pip install -U jupyter jupyterlab
 RUN pip install py4j wget lxml validators
 RUN pip install proactive
+
+# Install Visdom (Facebook Research) from source
+# ----------------------------------------------
+RUN git clone https://github.com/facebookresearch/visdom.git
+RUN cd visdom && pip install -e . && easy_install .
+RUN rm -rf visdom
 
 RUN rm -rf ~/.cache/pip
