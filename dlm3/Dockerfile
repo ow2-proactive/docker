@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
         wget \
         git \
         unzip \
+	libaio1 \
         nano \
         freetds-dev \
         unixodbc \
@@ -86,5 +87,13 @@ RUN pip install proactive
 RUN git clone https://github.com/facebookresearch/visdom.git
 RUN cd visdom && pip install -e . && easy_install .
 RUN rm -rf visdom
+
+# Install ODPI-C libraries for Oracle xe-11g database
+# ----------------------------------------------
+WORKDIR /
+COPY instantclient-basic-linux.x64-11.2.0.4.0.zip /
+RUN mkdir -p /opt/oracle && unzip instantclient-basic-linux.x64-11.2.0.4.0.zip  &&  mv instantclient_11_2/ /opt/oracle/ && rm  instantclient-basic-linux.x64-11.2.0.4.0.zip 
+RUN sh -c "echo /opt/oracle/instantclient_11_2 > /etc/ld.so.conf.d/oracle-instantclient.conf"
+RUN ldconfig
 
 RUN rm -rf ~/.cache/pip
