@@ -75,6 +75,11 @@ RUN pip install cntk
 RUN pip install mxnet
 RUN pip install pyspark
 
+RUN pip install xgboost
+RUN pip install swig
+RUN pip install auto-sklearn
+RUN pip install tpot
+
 RUN pip install dask distributed
 RUN pip install dlib
 
