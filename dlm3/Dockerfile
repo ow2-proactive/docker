@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
         cmake \
         pkg-config \
         wget \
+	swig \
         git \
         unzip \
 	libaio1 \
@@ -76,7 +77,6 @@ RUN pip install mxnet
 RUN pip install pyspark
 
 RUN pip install xgboost
-RUN pip install swig
 RUN pip install auto-sklearn
 RUN pip install tpot
 
