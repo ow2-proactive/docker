@@ -2,6 +2,8 @@ FROM python:3.6
 
 WORKDIR /root
 
+RUN ln -s $(which python3) /usr/local/bin/python3
+
 # Install generic packages
 # ------------------------
 RUN apt-get update && apt-get install -y \
