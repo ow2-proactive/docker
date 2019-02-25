@@ -83,6 +83,7 @@ RUN pip install xgboost
 RUN pip install auto-sklearn
 RUN pip install tpot
 RUN pip install git+https://github.com/AIworx-Labs/chocolate@master
+RUN pip install ghalton
 
 RUN pip install dask distributed
 RUN pip install dlib
