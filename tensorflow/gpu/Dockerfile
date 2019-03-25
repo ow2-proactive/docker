@@ -10,6 +10,7 @@ RUN export JAVA_HOME
 RUN apt-get clean
 
 RUN pip install py4j
+RUN pip install keras --no-deps
 
 RUN rm -rf ~/.cache/pip
 
