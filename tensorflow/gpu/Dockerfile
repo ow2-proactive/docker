@@ -11,6 +11,8 @@ RUN apt-get clean
 
 RUN pip install py4j
 RUN pip install keras --no-deps
+RUN pip install pyyaml
+RUN pip install scipy
 
 RUN rm -rf ~/.cache/pip
 
