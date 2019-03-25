@@ -2,7 +2,7 @@ FROM python:3.6
 
 WORKDIR /root
 
-RUN ln -sf $(which python3) /usr/local/bin/python3
+#RUN ln -sf $(which python3) /usr/local/bin/python3
 
 # Install generic packages
 # ------------------------
@@ -79,10 +79,11 @@ RUN pip install cntk
 RUN pip install mxnet
 RUN pip install pyspark
 
-RUN pip install xgboost
+RUN pip install xgboost catboost
 RUN pip install auto-sklearn
 RUN pip install tpot
 RUN pip install git+https://github.com/AIworx-Labs/chocolate@master
+RUN pip install ghalton
 
 RUN pip install dask distributed
 RUN pip install dlib
