@@ -38,9 +38,10 @@ RUN apt-get install -y \
         libhdf5-dev \
         libtbb2 \
         libtbb-dev \
-        libgl1-mesa-glx \
-        && apt-get autoclean && apt-get clean \
-        && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+        libgl1-mesa-glx
+
+#RUN apt-get autoclean && apt-get clean \
+#        && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install python
 #RUN apt-get install python3 python3-pip python3-dev
@@ -61,11 +62,11 @@ RUN pip3 -V
 
 # Install java
 # ------------
-RUN apt-get update && apt-get install -y openjdk-8-jdk
+RUN apt-get install -y openjdk-8-jdk
 RUN apt-get install ca-certificates-java && update-ca-certificates -f
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
-RUN apt-get clean
+#RUN apt-get clean
 
 # Install python libraries
 # ------------------------
@@ -102,7 +103,12 @@ RUN pip install beautifulsoup4 tqdm dill
 #RUN pip install azure-cognitiveservices-vision-computervision azure-cognitiveservices-vision-contentmoderator azure-cognitiveservices-vision-customvision azure-cognitiveservices-search-websearch azure-cognitiveservices-search-imagesearch azure-cognitiveservices-search-entitysearch azure-cognitiveservices-search-customsearch azure-cognitiveservices-search-visualsearch azure-cognitiveservices-search-videosearch azure-cognitiveservices-search-newssearch  azure-cognitiveservices-language-textanalytics azure-cognitiveservices-language-spellcheck azure-mgmt-cognitiveservices
 #RUN pip install azure-mgmt-machinelearningcompute azure-mgmt-batchai
 
-RUN pip install cntk-gpu
+RUN apt-get install openmpi-bin -y
+RUN ln -s /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.20 /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.1
+RUN ln -s /usr/lib/x86_64-linux-gnu/libmpi.so.20.10.1 /usr/lib/x86_64-linux-gnu/libmpi.so.12
+#RUN pip install cntk-gpu
+RUN pip install https://cntk.ai/PythonWheel/GPU/cntk_gpu-2.6-cp36-cp36m-linux_x86_64.whl
+
 RUN pip install mxnet
 RUN pip install pyspark
 
