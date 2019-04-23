@@ -70,6 +70,8 @@ RUN pip install -f http://h2o-release.s3.amazonaws.com/h2o/latest_stable_Py.html
 RUN pip install beautifulsoup4 tqdm dill
 RUN pip install psycopg2 psycopg2-binary
 
+RUN pip install pantab
+
 # azure-cognitiveservices-vision-face
 RUN pip install azure-cognitiveservices-vision-computervision azure-cognitiveservices-vision-contentmoderator azure-cognitiveservices-vision-customvision azure-cognitiveservices-search-websearch azure-cognitiveservices-search-imagesearch azure-cognitiveservices-search-entitysearch azure-cognitiveservices-search-customsearch azure-cognitiveservices-search-visualsearch azure-cognitiveservices-search-videosearch azure-cognitiveservices-search-newssearch  azure-cognitiveservices-language-textanalytics azure-cognitiveservices-language-spellcheck azure-mgmt-cognitiveservices
 
@@ -107,3 +109,13 @@ RUN sh -c "echo /opt/oracle/instantclient_11_2 > /etc/ld.so.conf.d/oracle-instan
 RUN ldconfig
 
 RUN rm -rf ~/.cache/pip
+
+# Install Tableau Extract API
+#------------------------------------------------
+RUN wget -O SDK.tar.gz "https://downloads.tableau.com/tssoftware/extractapi-py-linux-x86_64-2019-1-2.tar.gz" \
+    	&& mkdir -p /sdk \
+    	&& tar -xzf SDK.tar.gz -C /sdk --strip-components=1 \
+    	&& rm SDK.tar.gz \
+    	&& cd /sdk \
+    	&& python setup.py install \
+    	&& rm -rf /sdk
