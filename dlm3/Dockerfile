@@ -71,6 +71,7 @@ RUN pip install beautifulsoup4 tqdm dill
 RUN pip install psycopg2 psycopg2-binary
 
 RUN pip install pantab
+RUN pip install tableauserverclient
 
 # azure-cognitiveservices-vision-face
 RUN pip install azure-cognitiveservices-vision-computervision azure-cognitiveservices-vision-contentmoderator azure-cognitiveservices-vision-customvision azure-cognitiveservices-search-websearch azure-cognitiveservices-search-imagesearch azure-cognitiveservices-search-entitysearch azure-cognitiveservices-search-customsearch azure-cognitiveservices-search-visualsearch azure-cognitiveservices-search-videosearch azure-cognitiveservices-search-newssearch  azure-cognitiveservices-language-textanalytics azure-cognitiveservices-language-spellcheck azure-mgmt-cognitiveservices
