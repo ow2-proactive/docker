@@ -93,7 +93,8 @@ RUN pip install dlib
 
 RUN pip install -U jupyter jupyterlab
 RUN pip install py4j wget lxml validators
-RUN pip install proactive
+RUN pip install proactive --upgrade
+RUN pip install proactive-jupyter-kernel --upgrade
 
 # Install Visdom (Facebook Research) from source
 # ----------------------------------------------
