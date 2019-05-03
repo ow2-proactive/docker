@@ -3,6 +3,7 @@ FROM activeeon/dlm3
 WORKDIR /root
 
 RUN pip install -U proactive --upgrade
+RUN pip install -U proactive-jupyter-kernel --upgrade
 
 RUN rm -rf ~/.cache/pip
 
