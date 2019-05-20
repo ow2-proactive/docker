@@ -82,8 +82,8 @@ RUN pip install scikit-learn
 RUN pip install pandas pandas-ml pandasql
 RUN pip install networkx nltk pymc3 statsmodels luminol tsfresh
 
-#RUN pip install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp36-cp36m-linux_x86_64.whl
-RUN pip install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
+RUN pip install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp36-cp36m-linux_x86_64.whl
+#RUN pip install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
 RUN pip install torchvision
 RUN pip install torchtext gensim implicit
 
