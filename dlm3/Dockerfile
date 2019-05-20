@@ -11,10 +11,10 @@ RUN apt-get update && apt-get install -y \
         cmake \
         pkg-config \
         wget \
-	swig \
+        swig \
         git \
         unzip \
-	libaio1 \
+        libaio1 \
         nano \
         freetds-dev \
         unixodbc \
@@ -97,6 +97,13 @@ RUN pip install dlib
 RUN pip install -U jupyter jupyterlab
 RUN pip install py4j wget lxml validators
 
+RUN pip install eli5
+RUN pip uninstall matplotlib
+RUN pip install matplotlib==2.2.2
+RUN pip install mpld3
+RUN pip install shap
+RUN pip install pdpbox
+
 RUN pip install proactive proactive-jupyter-kernel --upgrade
 RUN python -m proactive-jupyter-kernel.install
 
@@ -119,9 +126,9 @@ RUN rm -rf ~/.cache/pip
 # Install Tableau Extract API
 #------------------------------------------------
 RUN wget -O SDK.tar.gz "https://downloads.tableau.com/tssoftware/extractapi-py-linux-x86_64-2019-1-2.tar.gz" \
-    	&& mkdir -p /sdk \
-    	&& tar -xzf SDK.tar.gz -C /sdk --strip-components=1 \
-    	&& rm SDK.tar.gz \
-    	&& cd /sdk \
-    	&& python setup.py install \
-    	&& rm -rf /sdk
+      && mkdir -p /sdk \
+      && tar -xzf SDK.tar.gz -C /sdk --strip-components=1 \
+      && rm SDK.tar.gz \
+      && cd /sdk \
+      && python setup.py install \
+      && rm -rf /sdk
