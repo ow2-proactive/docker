@@ -98,7 +98,7 @@ RUN pip install -U jupyter jupyterlab
 RUN pip install py4j wget lxml validators
 
 RUN pip install eli5
-RUN pip uninstall matplotlib
+#RUN pip uninstall matplotlib
 RUN pip install matplotlib==2.2.2
 RUN pip install mpld3
 RUN pip install shap
