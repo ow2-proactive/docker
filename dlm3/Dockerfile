@@ -104,6 +104,8 @@ RUN pip install mpld3
 RUN pip install shap
 RUN pip install pdpbox
 
+RUN pip install flask
+
 RUN pip install proactive proactive-jupyter-kernel --upgrade
 RUN python -m proactive-jupyter-kernel.install
 
