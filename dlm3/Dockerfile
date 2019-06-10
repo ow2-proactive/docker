@@ -47,7 +47,8 @@ RUN apt-get clean
 # Install python libraries
 # ------------------------
 RUN pip install cython
-RUN pip install tensorflow keras
+RUN pip install tensorflow==1.5
+RUN pip install keras
 
 RUN pip install scikit-learn
 RUN pip install pandas pandas-ml pandasql
