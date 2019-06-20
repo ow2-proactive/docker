@@ -105,6 +105,7 @@ RUN pip install shap
 RUN pip install pdpbox
 
 RUN pip install flask
+RUN pip install numpy==1.16.1
 
 RUN pip install proactive proactive-jupyter-kernel --upgrade
 RUN python -m proactive-jupyter-kernel.install
