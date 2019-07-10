@@ -1,5 +1,4 @@
 FROM continuumio/anaconda3
-MAINTAINER MKL < mohamed-khalil.labidi@activeeon.com >
 
 WORKDIR /root
 
