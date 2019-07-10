@@ -26,7 +26,7 @@ docker build -t activeeon/jupyterlab:conda -f ./Dockerfile.conda .
 docker run -it -p 8888:8888 activeeon/jupyterlab:conda
 ```
 
-## Docker images
+### Docker images
 
 ```
 https://hub.docker.com/r/activeeon/jupyterlab
