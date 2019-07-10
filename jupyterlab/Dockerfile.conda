@@ -2,11 +2,11 @@ FROM continuumio/anaconda3
 
 WORKDIR /root
 
-RUN apt-get update && apt-get install -y
+RUN apt-get update
 
 # Install java
 # ------------
-RUN apt-get update && apt-get install -y openjdk-8-jdk
+RUN apt-get install -y openjdk-8-jdk
 RUN apt-get install ca-certificates-java && update-ca-certificates -f
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
