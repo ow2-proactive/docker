@@ -105,7 +105,10 @@ RUN pip install shap
 RUN pip install pdpbox
 
 RUN pip install flask
-RUN pip install numpy==1.16.1
+
+RUN pip uninstall numpy
+RUN rm -r /usr/local/lib/python3.6/site-packages/numpy
+RUN pip install numpy==1.16.4
 
 RUN pip install proactive proactive-jupyter-kernel --upgrade
 RUN python -m proactive-jupyter-kernel.install
