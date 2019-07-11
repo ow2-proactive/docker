@@ -106,8 +106,8 @@ RUN pip install pdpbox
 
 RUN pip install flask
 
-RUN pip uninstall numpy
-RUN rm -r /usr/local/lib/python3.6/site-packages/numpy
+RUN pip uninstall numpy -y
+RUN rm -rf /usr/local/lib/python3.6/site-packages/numpy
 RUN pip install numpy==1.16.4
 
 RUN pip install proactive proactive-jupyter-kernel --upgrade
