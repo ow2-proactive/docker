@@ -84,7 +84,7 @@ RUN pip install networkx nltk pymc3 statsmodels luminol tsfresh
 
 RUN pip install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp36-cp36m-linux_x86_64.whl
 #RUN pip install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
-RUN pip install torchvision
+RUN pip install torchvision==0.2.2.post2
 RUN pip install torchtext gensim implicit
 
 RUN pip install eli5 shap
