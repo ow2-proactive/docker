@@ -81,6 +81,8 @@ RUN pip install azure-cognitiveservices-vision-computervision azure-cognitiveser
 
 RUN pip install azure-mgmt-machinelearningcompute azure-mgmt-batchai
 
+RUN pip install azureml-sdk
+
 RUN pip install cntk
 RUN pip install mxnet
 RUN pip install pyspark
