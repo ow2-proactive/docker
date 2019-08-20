@@ -38,9 +38,9 @@ RUN apt-get update && apt-get install -y \
 
 # Install java
 # ------------
-RUN apt-get update && apt-get install -y openjdk-8-jdk
+RUN apt-get update && apt-get install -y openjdk-11-jdk
 RUN apt-get install ca-certificates-java && update-ca-certificates -f
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
 RUN export JAVA_HOME
 RUN apt-get clean
 
@@ -78,9 +78,7 @@ RUN pip install tensorboardX
 
 # azure-cognitiveservices-vision-face
 RUN pip install azure-cognitiveservices-vision-computervision azure-cognitiveservices-vision-contentmoderator azure-cognitiveservices-vision-customvision azure-cognitiveservices-search-websearch azure-cognitiveservices-search-imagesearch azure-cognitiveservices-search-entitysearch azure-cognitiveservices-search-customsearch azure-cognitiveservices-search-visualsearch azure-cognitiveservices-search-videosearch azure-cognitiveservices-search-newssearch  azure-cognitiveservices-language-textanalytics azure-cognitiveservices-language-spellcheck azure-mgmt-cognitiveservices
-
 RUN pip install azure-mgmt-machinelearningcompute azure-mgmt-batchai
-
 RUN pip install azureml-sdk
 
 RUN pip install cntk
@@ -112,8 +110,8 @@ RUN pip uninstall numpy -y
 RUN rm -rf /usr/local/lib/python3.6/site-packages/numpy
 RUN pip install numpy==1.16.4
 
-RUN pip install proactive proactive-jupyter-kernel --upgrade
-RUN python -m proactive-jupyter-kernel.install
+#RUN pip install proactive proactive-jupyter-kernel --upgrade
+#RUN python -m proactive-jupyter-kernel.install
 
 # Install Visdom (Facebook Research) from source
 # ----------------------------------------------
