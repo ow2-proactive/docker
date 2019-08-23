@@ -79,7 +79,7 @@ RUN pip install tensorboardX
 # azure-cognitiveservices-vision-face
 RUN pip install azure-cognitiveservices-vision-computervision azure-cognitiveservices-vision-contentmoderator azure-cognitiveservices-vision-customvision azure-cognitiveservices-search-websearch azure-cognitiveservices-search-imagesearch azure-cognitiveservices-search-entitysearch azure-cognitiveservices-search-customsearch azure-cognitiveservices-search-visualsearch azure-cognitiveservices-search-videosearch azure-cognitiveservices-search-newssearch  azure-cognitiveservices-language-textanalytics azure-cognitiveservices-language-spellcheck azure-mgmt-cognitiveservices
 RUN pip install azure-mgmt-machinelearningcompute azure-mgmt-batchai
-RUN pip install azureml-sdk
+RUN pip install azureml-sdk==1.0.48
 
 RUN pip install cntk
 RUN pip install mxnet
