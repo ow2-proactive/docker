@@ -1,0 +1,39 @@
+FROM continuumio/anaconda3:2019.03
+
+WORKDIR /root
+
+RUN apt-get update
+
+RUN mkdir /root/.utils
+ADD install_latest.py /root/.utils/install_latest.py
+
+# Install java
+# ------------
+RUN apt-get install -y openjdk-8-jdk
+RUN apt-get install -y ca-certificates-java && update-ca-certificates -f
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+RUN export JAVA_HOME
+RUN apt-get clean
+
+# Install latest version of ProActive library
+# ------------------------
+RUN python /root/.utils/install_latest.py proactive
+
+# Install Graphviz
+# ------------------------
+RUN apt-get clean all
+RUN apt-get update
+RUN apt-get dist-upgrade -y
+RUN apt-get install -y --fix-missing graphviz-dev
+RUN conda install -y graphviz
+
+# Install latest version of ProActive Jupyter Kernel
+# ------------------------
+RUN python /root/.utils/install_latest.py proactive-jupyter-kernel
+RUN python -m proactive-jupyter-kernel.install
+
+ADD jupyter_notebook_config.py /root/.jupyter/jupyter_notebook_config.py
+
+EXPOSE 8888
+
+ENTRYPOINT ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]
