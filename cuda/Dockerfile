@@ -17,10 +17,10 @@ RUN apt-get install -y \
         cmake \
         pkg-config \
         wget \
-	swig \
+        swig \
         git \
         unzip \
-	libaio1 \
+        libaio1 \
         nano \
         freetds-dev \
         unixodbc \

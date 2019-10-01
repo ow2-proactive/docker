@@ -1,6 +1,5 @@
-# docker build -t activeeon/rapidsai:cuda10.0-runtime-ubuntu16.04 .
 # docker build -t activeeon/rapidsai:latest .
-FROM rapidsai/rapidsai:cuda10.0-runtime-ubuntu16.04
+FROM rapidsai/rapidsai:cuda10.0-runtime-ubuntu18.04
 
 # Install java
 # ------------
@@ -12,11 +11,6 @@ RUN apt-get clean
 
 RUN pip install py4j
 RUN conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
-#RUN conda install -c menpo opencv3
-
-#RUN pip install keras --no-deps
-#RUN pip install pyyaml
-#RUN pip install scipy
 
 # Install Visdom (Facebook Research) from source
 # ----------------------------------------------
