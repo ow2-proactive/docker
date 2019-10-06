@@ -1,0 +1,28 @@
+# docker build -t activeeon/cntk:2.4-cpu-python3.5 -f Dockerfile.cpu .
+FROM microsoft/cntk:2.4-cpu-python3.5
+
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends software-properties-common nano ncdu curl
+
+# Install java
+# ------------
+RUN add-apt-repository ppa:openjdk-r/ppa -y
+RUN apt-get update
+RUN apt-get install -y openjdk-11-jdk
+RUN apt-get install -y ca-certificates-java && update-ca-certificates -f
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
+RUN export JAVA_HOME
+
+RUN ln -s /usr/bin/python3 /usr/bin/python
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+RUN python get-pip.py
+
+RUN pip install py4j
+RUN /root/anaconda3/envs/cntk-py35/bin/pip install py4j
+
+#RUN chmod -v -R 777 /root/anaconda3
+
+# Clean-up
+RUN apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /root
