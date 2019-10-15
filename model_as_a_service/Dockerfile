@@ -10,4 +10,6 @@ RUN pip install -r requirements.txt
 
 COPY nginx.conf /etc/nginx
 
+RUN chmod 777 /model_as_service
+
 RUN chmod +x ./start.sh
