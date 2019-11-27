@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
 
 # Install Visdom (Facebook Research) from source
 # ----------------------------------------------
-RUN git clone https://github.com/facebookresearch/visdom.git
+RUN git clone https://github.com/ow2-proactive/visdom.git
 RUN cd visdom && pip install -e . && easy_install .
 
 RUN rm -rf ~/.cache/pip
