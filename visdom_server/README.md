@@ -1,3 +1,8 @@
+### Visdom
+```
+https://github.com/ow2-proactive/visdom.git
+```
+
 ### Docker build
 ```
 docker build -t activeeon/visdom_server .
