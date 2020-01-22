@@ -71,7 +71,7 @@ RUN pip install -f http://h2o-release.s3.amazonaws.com/h2o/latest_stable_Py.html
 RUN pip install beautifulsoup4 tqdm dill
 RUN pip install psycopg2 psycopg2-binary
 
-RUN pip install pantab
+RUN pip install pantab==0.1.0
 RUN pip install tableauserverclient
 
 RUN pip install tensorboardX
