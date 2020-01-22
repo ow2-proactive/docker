@@ -107,6 +107,7 @@ RUN pip install shap
 RUN pip install pdpbox
 
 RUN pip install flask
+RUN pip install -U flask-cors
 
 RUN pip uninstall numpy -y
 RUN rm -rf /usr/local/lib/python3.6/site-packages/numpy
