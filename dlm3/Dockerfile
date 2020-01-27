@@ -64,7 +64,8 @@ RUN pip install bokeh
 RUN pip install boto boto3 bz2file s3fs
 RUN pip install Pillow==6.1
 
-RUN pip install cassandra-driver cx-Oracle elasticsearch mysql-connector-python pymongo pymssql PyMySQL pyodbc pyOpenSSL SecretStorage
+RUN pip install cassandra-driver cx-Oracle elasticsearch pymongo pymssql PyMySQL pyodbc pyOpenSSL SecretStorage
+RUN pip install mysql-connector-python==8.0.17
 RUN pip install sqlalchemy==1.3.5
 
 RUN pip install tabulate colorama future
