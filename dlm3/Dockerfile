@@ -62,8 +62,10 @@ RUN pip install torchtext gensim implicit
 RUN pip install scikit-image graphviz opencv-contrib-python-headless
 RUN pip install bokeh
 RUN pip install boto boto3 bz2file s3fs
+RUN pip install Pillow==6.1
 
-RUN pip install cassandra-driver cx-Oracle elasticsearch mysql-connector-python pymongo pymssql PyMySQL pyodbc pyOpenSSL sqlalchemy SecretStorage
+RUN pip install cassandra-driver cx-Oracle elasticsearch mysql-connector-python pymongo pymssql PyMySQL pyodbc pyOpenSSL SecretStorage
+RUN pip install sqlalchemy==1.3.5
 
 RUN pip install tabulate colorama future
 RUN pip install -f http://h2o-release.s3.amazonaws.com/h2o/latest_stable_Py.html h2o
