@@ -1,6 +1,6 @@
 # docker build -t activeeon/coco-annotator .
-# docker run --rm --name coco -v /var/run/docker.sock:/var/run/docker.sock activeeon/coco-annotator
-# docker exec coco docker-compose down
+# docker run -d --rm --name coco-annotator -v /var/run/docker.sock:/var/run/docker.sock activeeon/coco-annotator
+# docker exec coco-annotator docker-compose down
 FROM activeeon/docker
 
 WORKDIR /tmp
