@@ -1,12 +1,31 @@
-FROM continuumio/anaconda3:2019.03
+FROM continuumio/anaconda3:2020.02
 
-WORKDIR /root
+WORKDIR /tmp/Notebooks
+
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update
+RUN apt-get install -y --no-install-recommends apt-utils
+RUN python -m pip install --upgrade pip
 
-# Install java
-# ------------
-RUN apt-get install -y openjdk-8-jdk
+# Install JupyterLab Git extension
+# ------------------------
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get install -y nodejs
+RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN apt-get update
+RUN apt-get install -y yarn
+RUN python -m pip install --upgrade jupyterlab-git
+RUN jupyter lab build
+
+# Install java 8
+# -----------------------
+RUN apt-get install -y apt-transport-https ca-certificates wget dirmngr gnupg software-properties-common
+RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add -
+RUN add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
+RUN mkdir -p /usr/share/man/man1
+RUN apt-get update
+RUN apt-get install -y adoptopenjdk-8-hotspot
 RUN apt-get install -y ca-certificates-java && update-ca-certificates -f
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
@@ -16,18 +35,40 @@ RUN apt-get clean
 # ------------------------
 RUN pip install --no-input -U proactive --upgrade
 
+RUN apt-get install -y build-essential
+RUN apt-get install -y manpages-dev
+
 # Install Graphviz
 # ------------------------
-RUN apt-get install -y graphviz-dev
-RUN conda install -y graphviz
+RUN apt-get clean all
+RUN apt-get update
+RUN apt-get dist-upgrade -y
+RUN apt-get install -y --fix-missing graphviz-dev
+RUN python -m pip install graphviz
 
 # Install ProActive Jupyter Kernel
 # ------------------------
 RUN pip install --no-input proactive proactive-jupyter-kernel --upgrade
 RUN python -m proactive-jupyter-kernel.install
 
-ADD jupyter_notebook_config.py /root/.jupyter/jupyter_notebook_config.py
+# Install Bash Kernel
+# ------------------------
+RUN pip install bash_kernel
+RUN python -m bash_kernel.install
+
+# Install BeakerX Kernels
+# ------------------------
+RUN conda install -c conda-forge ipywidgets beakerx
+
+# Copying resources
+# ------------------------
+# http://jupyter-notebook.readthedocs.io/en/stable/security.html
+ADD jupyter_notebook_config.py /tmp/Notebooks/.jupyter/jupyter_notebook_config.py
+ADD GettingStarted_PA_python_client.ipynb /tmp/Notebooks/GettingStarted_PA_python_client.ipynb
+ADD GettingStarted_PA_JupyterKernel.ipynb /tmp/Notebooks/GettingStarted_PA_JupyterKernel.ipynb
 
 EXPOSE 8888
 
-ENTRYPOINT ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+ENV JUPYTERLAB_TOKEN=''
+
+ENTRYPOINT jupyter lab --port=8888 --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.token=$JUPYTERLAB_TOKEN --NotebookApp.password=''
