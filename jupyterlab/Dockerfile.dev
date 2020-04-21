@@ -47,7 +47,7 @@ RUN apt-get clean all
 RUN apt-get update
 RUN apt-get dist-upgrade -y
 RUN apt-get install -y --fix-missing graphviz-dev
-RUN python -m pip install graphviz
+RUN conda install -y graphviz
 
 # Install latest version of ProActive Jupyter Kernel
 # ------------------------
