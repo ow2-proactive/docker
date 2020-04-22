@@ -4,7 +4,8 @@
 FROM activeeon/docker
 
 WORKDIR /tmp
-RUN git clone https://github.com/jsbroks/coco-annotator
+#RUN git clone https://github.com/jsbroks/coco-annotator
+RUN git clone https://github.com/ow2-proactive/coco-annotator
 
 WORKDIR /tmp/coco-annotator
 #RUN docker-compose up -d
