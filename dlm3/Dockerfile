@@ -46,12 +46,15 @@ RUN apt-get clean
 
 # Install python libraries
 # ------------------------
+RUN pip install py4j
 RUN pip install cython
-RUN pip install tensorflow keras
 
+RUN pip install tensorflow keras
 RUN pip install scikit-learn
-RUN pip install pandas pandas-ml pandasql
-RUN pip install networkx nltk pymc3 statsmodels luminol tsfresh
+RUN pip install pandas
+#RUN pip install pandas-ml pandasql
+#RUN pip install pymc3
+RUN pip install networkx nltk statsmodels luminol tsfresh
 
 #RUN pip install http://download.pytorch.org/whl/cpu/torch-0.4.1-cp36-cp36m-linux_x86_64.whl
 RUN pip install https://download.pytorch.org/whl/cpu/torch-1.0.1.post2-cp36-cp36m-linux_x86_64.whl
@@ -63,6 +66,8 @@ RUN pip install scikit-image graphviz opencv-contrib-python-headless
 RUN pip install bokeh
 RUN pip install boto boto3 bz2file s3fs
 RUN pip install Pillow==6.1
+
+RUN pip install tensorboardX
 
 RUN pip install cassandra-driver cx-Oracle elasticsearch pymongo pymssql PyMySQL pyodbc pyOpenSSL SecretStorage
 RUN pip install mysql-connector-python==8.0.17
@@ -78,8 +83,6 @@ RUN pip install psycopg2 psycopg2-binary
 RUN pip install pantab==0.0.1b5
 RUN pip install tableauserverclient
 
-RUN pip install tensorboardX
-
 RUN pip install connexion[swagger-ui]==2.3.0
 
 # azure-cognitiveservices-vision-face
@@ -87,21 +90,22 @@ RUN pip install azure-cognitiveservices-vision-computervision azure-cognitiveser
 RUN pip install azure-mgmt-machinelearningcompute azure-mgmt-batchai
 RUN pip install azureml-sdk==1.0.48
 
-RUN pip install cntk
-RUN pip install mxnet
-RUN pip install pyspark
+#RUN pip install cntk
+#RUN pip install mxnet
+#RUN pip install pyspark
 
 RUN pip install xgboost catboost
+RUN pip install tpot==0.11.0  # to be compatible with scikit-learn==0.21
+RUN pip install scikit-learn==0.21  # to be compatible with auto-sklearn
 RUN pip install auto-sklearn
-RUN pip install tpot
+#RUN pip uninstall -y enum34  # pandas-ml
 RUN pip install git+https://github.com/AIworx-Labs/chocolate@master
 RUN pip install ghalton
 
 RUN pip install dask distributed
 RUN pip install dlib
 
-RUN pip install -U jupyter jupyterlab
-RUN pip install py4j wget lxml validators
+RUN pip install wget lxml validators
 
 RUN pip install eli5
 #RUN pip uninstall matplotlib
@@ -111,17 +115,20 @@ RUN pip install shap
 RUN pip install pdpbox
 
 RUN pip install flask
-RUN pip install -U flask-cors
+RUN pip install flask-cors
 
 RUN pip uninstall numpy -y
 RUN rm -rf /usr/local/lib/python3.6/site-packages/numpy
 RUN pip install numpy==1.16.4
+
+#RUN pip install jupyter jupyterlab
 
 #RUN pip install proactive proactive-jupyter-kernel --upgrade
 #RUN python -m proactive-jupyter-kernel.install
 
 # Install Visdom (Facebook Research) from source
 # ----------------------------------------------
+WORKDIR /tmp
 RUN git clone https://github.com/facebookresearch/visdom.git
 RUN cd visdom && pip install -e . && easy_install .
 RUN rm -rf visdom
@@ -134,8 +141,6 @@ RUN mkdir -p /opt/oracle && unzip instantclient-basic-linux.x64-11.2.0.4.0.zip  
 RUN sh -c "echo /opt/oracle/instantclient_11_2 > /etc/ld.so.conf.d/oracle-instantclient.conf"
 RUN ldconfig
 
-RUN rm -rf ~/.cache/pip
-
 # Install Tableau Extract API
 #------------------------------------------------
 RUN wget -O SDK.tar.gz "https://downloads.tableau.com/tssoftware/extractapi-py-linux-x86_64-2019-1-2.tar.gz" \
@@ -145,3 +150,5 @@ RUN wget -O SDK.tar.gz "https://downloads.tableau.com/tssoftware/extractapi-py-l
       && cd /sdk \
       && python setup.py install \
       && rm -rf /sdk
+
+RUN rm -rf ~/.cache/pip
