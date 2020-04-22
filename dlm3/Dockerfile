@@ -67,6 +67,7 @@ RUN pip install Pillow==6.1
 RUN pip install cassandra-driver cx-Oracle elasticsearch pymongo pymssql PyMySQL pyodbc pyOpenSSL SecretStorage
 RUN pip install mysql-connector-python==8.0.17
 RUN pip install sqlalchemy==1.3.5
+RUN pip install snowflake-sqlalchemy
 
 RUN pip install tabulate colorama future
 RUN pip install -f http://h2o-release.s3.amazonaws.com/h2o/latest_stable_Py.html h2o
