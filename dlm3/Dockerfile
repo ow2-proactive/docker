@@ -84,9 +84,6 @@ RUN pip install psycopg2 psycopg2-binary
 RUN pip install pantab==0.0.1b5
 RUN pip install tableauserverclient
 
-#RUN pip install werkzeug==1.0.0
-RUN pip install connexion[swagger-ui]==2.6.0
-
 # azure-cognitiveservices-vision-face
 RUN pip install azure-cognitiveservices-vision-computervision azure-cognitiveservices-vision-contentmoderator azure-cognitiveservices-vision-customvision azure-cognitiveservices-search-websearch azure-cognitiveservices-search-imagesearch azure-cognitiveservices-search-entitysearch azure-cognitiveservices-search-customsearch azure-cognitiveservices-search-visualsearch azure-cognitiveservices-search-videosearch azure-cognitiveservices-search-newssearch  azure-cognitiveservices-language-textanalytics azure-cognitiveservices-language-spellcheck azure-mgmt-cognitiveservices
 RUN pip install azure-mgmt-machinelearningcompute azure-mgmt-batchai
@@ -118,6 +115,9 @@ RUN pip install pdpbox
 
 RUN pip install flask
 RUN pip install flask-cors
+
+RUN pip install Werkzeug==0.16.1
+RUN pip install connexion[swagger-ui]==2.6.0
 
 RUN pip uninstall numpy -y
 RUN rm -rf /usr/local/lib/python3.6/site-packages/numpy
