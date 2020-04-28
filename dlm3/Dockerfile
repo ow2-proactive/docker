@@ -123,9 +123,10 @@ RUN pip uninstall numpy -y
 RUN rm -rf /usr/local/lib/python3.6/site-packages/numpy
 RUN pip install numpy==1.16.4
 
-#RUN pip install jupyter jupyterlab
+RUN pip install proactive
 
-#RUN pip install proactive proactive-jupyter-kernel --upgrade
+#RUN pip install jupyter jupyterlab
+#RUN pip install proactive-jupyter-kernel --upgrade
 #RUN python -m proactive-jupyter-kernel.install
 
 # Install Visdom (Facebook Research) from source
