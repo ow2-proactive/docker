@@ -64,7 +64,7 @@ RUN python -m bash_kernel.install
 RUN pip install beakerx
 RUN beakerx install
 
-ENV CERTFILE='/opt/conda/etc/jupyter/fullchain.pem'
+ENV CERTFILE='/opt/conda/etc/jupyter/certificate.pem'
 ENV KEYFILE='/opt/conda/etc/jupyter/privkey.pem'
 
 # Copying resources
@@ -75,6 +75,6 @@ ADD jupyter_notebook_config.py /opt/conda/etc/jupyter/jupyter_notebook_config.py
 
 EXPOSE 9999
 
-ENV JUPYTERLAB_TOKEN=''
+ENV JUPYTERLAB_TOKEN='proactive'
 
-ENTRYPOINT jupyter lab --port=9999 --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.token=$JUPYTERLAB_TOKEN --NotebookApp.password=''
+ENTRYPOINT jupyter lab --port=9999 --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.token=$JUPYTERLAB_TOKEN --NotebookApp.password='' --NotebookApp.certfile=$CERTFILE --NotebookApp.keyfile=$KEYFILE

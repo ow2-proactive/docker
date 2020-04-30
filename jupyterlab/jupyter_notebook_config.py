@@ -99,7 +99,7 @@
 #c.NotebookApp.browser = ''
 
 ## The full path to an SSL/TLS certificate file.
-c.NotebookApp.certfile = u'/opt/conda/etc/jupyter/fullchain.pem'
+c.NotebookApp.certfile = u'/opt/conda/etc/jupyter/certificate.pem'
 
 
 ## The full path to a certificate authority certificate for SSL/TLS client
