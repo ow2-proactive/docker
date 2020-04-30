@@ -8,6 +8,9 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends apt-utils
 RUN python -m pip install --upgrade pip
 
+RUN mkdir /tmp/Notebooks/.utils
+ADD install_latest.py /tmp/Notebooks/.utils/install_latest.py
+
 # Install JupyterLab Git extension
 # ------------------------
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
@@ -31,9 +34,9 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
 RUN apt-get clean
 
-# Install ProActive library
+# Install latest version of ProActive library
 # ------------------------
-RUN pip install --no-input -U proactive --upgrade
+RUN python /tmp/Notebooks/.utils/install_latest.py proactive
 
 RUN apt-get install -y build-essential
 RUN apt-get install -y manpages-dev
@@ -46,9 +49,9 @@ RUN apt-get dist-upgrade -y
 RUN apt-get install -y --fix-missing graphviz-dev
 RUN conda install -y graphviz
 
-# Install ProActive Jupyter Kernel
+# Install latest version of ProActive Jupyter Kernel
 # ------------------------
-RUN pip install --no-input proactive proactive-jupyter-kernel --upgrade
+RUN python /tmp/Notebooks/.utils/install_latest.py proactive-jupyter-kernel
 RUN python -m proactive-jupyter-kernel.install
 
 # Install Bash Kernel
@@ -58,15 +61,20 @@ RUN python -m bash_kernel.install
 
 # Install BeakerX Kernels
 # ------------------------
-RUN conda install -c conda-forge ipywidgets beakerx
+RUN pip install beakerx
+RUN beakerx install
+
+ENV CERTFILE='/opt/conda/etc/jupyter/fullchain.pem'
+ENV KEYFILE='/opt/conda/etc/jupyter/privkey.pem'
 
 # Copying resources
 # ------------------------
 # http://jupyter-notebook.readthedocs.io/en/stable/security.html
 RUN git clone https://github.com/ow2-proactive/proactive-jupyter-notebooks.git
+ADD jupyter_notebook_config.py /opt/conda/etc/jupyter/jupyter_notebook_config.py
 
-EXPOSE 8888
+EXPOSE 9999
 
 ENV JUPYTERLAB_TOKEN=''
 
-ENTRYPOINT jupyter lab --port=8888 --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.token=$JUPYTERLAB_TOKEN --NotebookApp.password=''
+ENTRYPOINT jupyter lab --port=9999 --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.token=$JUPYTERLAB_TOKEN --NotebookApp.password=''

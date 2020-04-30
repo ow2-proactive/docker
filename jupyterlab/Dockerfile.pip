@@ -48,9 +48,7 @@ RUN rm -rf ~/.cache/pip
 # Copying resources
 # ------------------------
 # http://jupyter-notebook.readthedocs.io/en/stable/security.html
-ADD jupyter_notebook_config.py /tmp/Notebooks/.jupyter/jupyter_notebook_config.py
-ADD GettingStarted_PA_python_client.ipynb /tmp/Notebooks/GettingStarted_PA_python_client.ipynb
-ADD GettingStarted_PA_JupyterKernel.ipynb /tmp/Notebooks/GettingStarted_PA_JupyterKernel.ipynb
+RUN git clone https://github.com/ow2-proactive/proactive-jupyter-notebooks.git
 
 EXPOSE 8888
 
