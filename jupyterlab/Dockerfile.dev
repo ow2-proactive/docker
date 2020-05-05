@@ -56,12 +56,12 @@ RUN python -m proactive-jupyter-kernel.install
 
 # Install Bash Kernel
 # ------------------------
-RUN pip install bash_kernel
+RUN python -m pip install bash_kernel
 RUN python -m bash_kernel.install
 
 # Install BeakerX Kernels
 # ------------------------
-RUN pip install beakerx
+RUN python -m pip install beakerx
 RUN beakerx install
 
 # Copying resources

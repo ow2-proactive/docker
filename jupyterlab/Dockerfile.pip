@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends apt-utils
+RUN python -m pip install --upgrade pip
 
 # Install JupyterLab Git extension
 # ------------------------
@@ -14,17 +15,17 @@ RUN apt-get install -y nodejs
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN apt-get update
 RUN apt-get install -y yarn
-RUN pip install --upgrade jupyterlab-git
+RUN python -m pip install --upgrade jupyterlab-git
 RUN jupyter lab build
 
 # Install Bash Kernel
 # ------------------------
-RUN pip install bash_kernel
+RUN python -m pip install bash_kernel
 RUN python -m bash_kernel.install
 
 # Install BeakerX Kernels
 # ------------------------
-RUN pip install beakerx
+RUN python -m pip install beakerx
 RUN beakerx install
 
 RUN apt-get install -y build-essential
