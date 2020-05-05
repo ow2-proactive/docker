@@ -31,6 +31,11 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
 RUN apt-get clean
 
+# Force the installation of the version 0.10.8.1 of py4j
+# This is due to the double connection from docker issue with the version 0.10.9
+# ------------------------
+RUN python -m pip install py4j==0.10.8.1
+
 # Install ProActive library
 # ------------------------
 RUN python -m pip install --no-input -U proactive --upgrade
