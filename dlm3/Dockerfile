@@ -110,7 +110,7 @@ RUN pip install eli5
 #RUN pip uninstall matplotlib
 RUN pip install matplotlib==2.2.2
 RUN pip install mpld3
-RUN pip install shap
+RUN pip install shap==0.30.0
 RUN pip install pdpbox
 
 RUN pip install flask
