@@ -1,6 +1,6 @@
 FROM python:3.6
 
-WORKDIR /root
+WORKDIR /tmp
 
 #RUN ln -sf $(which python3) /usr/local/bin/python3
 
@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
         wget \
         swig \
         git \
+        curl \
         unzip \
         libaio1 \
         nano \
@@ -32,9 +33,7 @@ RUN apt-get update && apt-get install -y \
         libhdf5-dev \
         libtbb2 \
         libtbb-dev \
-        libgl1-mesa-glx \
-        && apt-get autoclean && apt-get clean \
-        && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+        libgl1-mesa-glx
 
 # Install java
 # ------------
@@ -94,12 +93,13 @@ RUN pip install azureml-sdk==1.0.48
 #RUN pip install pyspark
 
 RUN pip install xgboost catboost
-RUN pip install tpot==0.11.0  # to be compatible with scikit-learn==0.21
 RUN pip install scikit-learn==0.21  # to be compatible with auto-sklearn
+RUN pip install tpot==0.11.0  # to be compatible with scikit-learn==0.21
 RUN pip install auto-sklearn
 #RUN pip uninstall -y enum34  # pandas-ml
-RUN pip install git+https://github.com/AIworx-Labs/chocolate@master
+RUN pip install git+https://github.com/ow2-proactive/chocolate@master
 RUN pip install ghalton
+RUN pip install hyperopt
 
 RUN pip install dask distributed
 RUN pip install dlib
@@ -134,7 +134,7 @@ RUN pip install proactive
 WORKDIR /tmp
 RUN git clone https://github.com/facebookresearch/visdom.git
 RUN cd visdom && pip install -e . && easy_install .
-RUN rm -rf visdom
+#RUN rm -rf visdom
 
 # Install ODPI-C libraries for Oracle xe-11g database
 # ----------------------------------------------
@@ -155,3 +155,6 @@ RUN wget -O SDK.tar.gz "https://downloads.tableau.com/tssoftware/extractapi-py-l
       && rm -rf /sdk
 
 RUN rm -rf ~/.cache/pip
+
+RUN apt-get autoclean && apt-get clean \
+        && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

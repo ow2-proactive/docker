@@ -1,11 +1,10 @@
 # docker build -t activeeon/cuda:latest .
-#FROM nvidia/cuda:latest
-#FROM nvidia/cuda:10.0-cudnn7-devel
+# docker run -it --rm --gpus all --privileged activeeon/cuda nvidia-smi
 FROM nvidia/cuda:10.0-cudnn7-runtime
 
-WORKDIR /root
+WORKDIR /tmp
 
-RUN apt-get update 
+RUN apt-get clean && apt-get update -y -qq
 
 # Install python
 RUN apt-get install -y python3 python3-pip python3-dev python3-setuptools
@@ -19,6 +18,7 @@ RUN apt-get install -y \
         wget \
         swig \
         git \
+        curl \
         unzip \
         libaio1 \
         nano \
@@ -40,55 +40,71 @@ RUN apt-get install -y \
         libtbb-dev \
         libgl1-mesa-glx
 
-#RUN apt-get autoclean && apt-get clean \
-#        && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# Install python
-#RUN apt-get install python3 python3-pip python3-dev
-RUN ln -s /usr/bin/python3 /usr/local/bin/python
-RUN which python
-RUN which python3
-RUN python -V
-RUN python3 -V
-
-# Install pip
-RUN wget https://bootstrap.pypa.io/get-pip.py
-RUN python get-pip.py
-RUN which pip
-RUN which pip3
-RUN pip -V
-RUN pip3 -V
-#RUN ln -s /usr/bin/pip3 /usr/local/bin/pip
-
 # Install java
 # ------------
 RUN apt-get install -y openjdk-8-jdk
 RUN apt-get install ca-certificates-java && update-ca-certificates -f
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
-#RUN apt-get clean
+
+# Install python
+RUN rm /usr/bin/python
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
+# Install pip
+RUN wget https://bootstrap.pypa.io/get-pip.py
+RUN python get-pip.py
 
 # Install python libraries
 # ------------------------
-RUN pip install cython
-RUN pip install py4j
+RUN pip install setuptools --upgrade
+RUN pip install cython py4j pyyaml wget lxml validators
 
-RUN pip install tensorflow-gpu
-RUN pip install pyyaml
-RUN pip install scipy
-RUN pip install keras --no-deps
+# https://www.tensorflow.org/install/gpu
+RUN pip install tensorflow-gpu==1.15.2 keras
 
-RUN pip install scikit-learn
-RUN pip install pandas pandas-ml pandasql
-RUN pip install networkx nltk pymc3 statsmodels luminol tsfresh
-
+# https://pytorch.org/get-started/locally/
 RUN pip install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp36-cp36m-linux_x86_64.whl
 #RUN pip install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
 RUN pip install torchvision==0.2.2.post2
-RUN pip install torchtext gensim implicit
+RUN pip install tensorboardX
 
-RUN pip install eli5 shap
+# https://rapids.ai/start.html#get-rapids
+RUN pip install cudf-cuda100==0.5 cuml-cuda100==0.5
+RUN pip install dask distributed
+
+RUN pip install scikit-learn
+#RUN pip install scikit-learn==0.21  # to be compatible with auto-sklearn
+RUN pip install pandas
+#RUN pip install pandas-ml pandasql
+#RUN pip uninstall -y enum34  # pandas-ml
+
+RUN pip install xgboost catboost
+#RUN pip install cntk
+#RUN pip install mxnet
+#RUN pip install pyspark
+
+RUN pip install tpot
+#RUN pip install tpot==0.11.0  # to be compatible with scikit-learn==0.21
+#RUN pip install auto-sklearn  # not working
+RUN pip install git+https://github.com/ow2-proactive/chocolate@master
+RUN pip install ghalton
+RUN pip install hyperopt
+
+#RUN pip install pymc3
+RUN pip install networkx torchtext nltk gensim implicit statsmodels luminol tsfresh
+
+RUN pip install eli5
+#RUN pip uninstall matplotlib
+RUN pip install matplotlib==2.2.2
+RUN pip install mpld3
+RUN pip install shap==0.30.0
+RUN pip install pdpbox
+
 RUN pip install scikit-image graphviz opencv-contrib-python-headless
+#RUN pip install dlib
+#RUN pip install Pillow==6.1
+
 RUN pip install bokeh
 RUN pip install boto boto3 bz2file s3fs
 
@@ -107,37 +123,26 @@ RUN pip install beautifulsoup4 tqdm dill
 # https://github.com/Microsoft/CNTK/issues/3499
 #RUN pip install cntk-gpu
 RUN apt-get install openmpi-bin -y
-RUN ln -s /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.20 /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.1
-RUN ln -s /usr/lib/x86_64-linux-gnu/libmpi.so.20.10.1 /usr/lib/x86_64-linux-gnu/libmpi.so.12
-RUN pip install https://cntk.ai/PythonWheel/GPU/cntk_gpu-2.6-cp36-cp36m-linux_x86_64.whl
+#RUN ln -s /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.20 /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.1
+#RUN ln -s /usr/lib/x86_64-linux-gnu/libmpi.so.20.10.1 /usr/lib/x86_64-linux-gnu/libmpi.so.12
+#RUN pip install https://cntk.ai/PythonWheel/GPU/cntk_gpu-2.6-cp36-cp36m-linux_x86_64.whl
 
-RUN pip install mxnet
-RUN pip install pyspark
+RUN pip install flask flask-cors
+RUN pip install Werkzeug==0.16.1
+RUN pip install connexion[swagger-ui]==2.6.0
 
-RUN pip install xgboost catboost
-RUN pip install auto-sklearn
-RUN pip install tpot
-RUN pip install git+https://github.com/AIworx-Labs/chocolate@master
-#RUN pip install ghalton
-RUN pip install cudf-cuda100==0.5 cuml-cuda100==0.5
+#RUN pip uninstall numpy -y
+#RUN rm -rf /usr/local/lib/python3.6/site-packages/numpy
+#RUN pip install numpy==1.16.4
 
-RUN pip install dask distributed
-RUN pip install dlib
-
-RUN pip install -U jupyter jupyterlab
-RUN pip install wget lxml validators
+#RUN pip install -U jupyter jupyterlab
 RUN pip install proactive
-
-RUN pip install tensorboardX
 
 # Install Visdom (Facebook Research) from source
 # ----------------------------------------------
-#RUN pip install setuptools
-#RUN which easy_install3
 RUN git clone https://github.com/facebookresearch/visdom.git
-#RUN cd visdom && pip install -e . && easy_install .
-RUN cd visdom && pip install -e .
-#RUN rm -rf visdom
+RUN cd visdom && pip install -e . && easy_install .
+#WARNING: The easy_install command is deprecated and will be removed in a future version.
 
 RUN rm -rf ~/.cache/pip
 
