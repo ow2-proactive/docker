@@ -113,15 +113,13 @@ RUN pip install mpld3
 RUN pip install shap==0.30.0
 RUN pip install pdpbox
 
-RUN pip install flask
-RUN pip install flask-cors
+#RUN pip install flask flask-cors
+#RUN pip install Werkzeug==0.16.1
+#RUN pip install connexion[swagger-ui]==2.6.0
 
-RUN pip install Werkzeug==0.16.1
-RUN pip install connexion[swagger-ui]==2.6.0
-
-RUN pip uninstall numpy -y
-RUN rm -rf /usr/local/lib/python3.6/site-packages/numpy
-RUN pip install numpy==1.16.4
+#RUN pip uninstall numpy -y
+#RUN rm -rf /usr/local/lib/python3.6/site-packages/numpy
+#RUN pip install numpy==1.16.4
 
 RUN pip install proactive
 

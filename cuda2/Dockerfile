@@ -136,9 +136,9 @@ RUN pip install beautifulsoup4 tqdm dill
 #RUN ln -s /usr/lib/x86_64-linux-gnu/libmpi.so.20.10.1 /usr/lib/x86_64-linux-gnu/libmpi.so.12
 #RUN pip install https://cntk.ai/PythonWheel/GPU/cntk_gpu-2.6-cp36-cp36m-linux_x86_64.whl
 
-RUN pip install flask flask-cors
-RUN pip install Werkzeug==0.16.1
-RUN pip install connexion[swagger-ui]==2.6.0
+#RUN pip install flask flask-cors
+#RUN pip install Werkzeug==0.16.1
+#RUN pip install connexion[swagger-ui]==2.6.0
 
 #RUN pip uninstall numpy -y
 #RUN rm -rf /usr/local/lib/python3.6/site-packages/numpy
