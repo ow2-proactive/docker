@@ -89,9 +89,9 @@ RUN pip install colorama
 #RUN pip install tabulate future tqdm
 RUN pip install beautifulsoup4 dill
 
-RUN pip install flask flask-cors
+#RUN pip install flask flask-cors
 #RUN pip install Werkzeug==0.16.1
-RUN pip install connexion[swagger-ui]==2.7.0
+#RUN pip install connexion[swagger-ui]==2.7.0
 
 #RUN pip install -U jupyter jupyterlab
 RUN pip install proactive

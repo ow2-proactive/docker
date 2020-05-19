@@ -1,4 +1,6 @@
+# docker build -t activeeon/model_as_a_service .
 FROM activeeon/dlm3
+
 COPY . /model_as_service
 WORKDIR /model_as_service
 

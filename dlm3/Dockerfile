@@ -1,3 +1,5 @@
+# docker build -t activeeon/dlm3:latest .
+# docker run -it --rm activeeon/dlm3 bash
 FROM python:3.6
 
 WORKDIR /tmp
