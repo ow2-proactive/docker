@@ -40,6 +40,8 @@ RUN apt-get install -y \
         libtbb-dev \
         libgl1-mesa-glx
 
+RUN apt-get install openmpi-bin -y
+
 # Install java
 # ------------
 RUN apt-get install -y openjdk-8-jdk
@@ -122,7 +124,6 @@ RUN pip install beautifulsoup4 tqdm dill
 
 # https://github.com/Microsoft/CNTK/issues/3499
 #RUN pip install cntk-gpu
-RUN apt-get install openmpi-bin -y
 #RUN ln -s /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.20 /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.1
 #RUN ln -s /usr/lib/x86_64-linux-gnu/libmpi.so.20.10.1 /usr/lib/x86_64-linux-gnu/libmpi.so.12
 #RUN pip install https://cntk.ai/PythonWheel/GPU/cntk_gpu-2.6-cp36-cp36m-linux_x86_64.whl
@@ -143,6 +144,8 @@ RUN pip install proactive
 RUN git clone https://github.com/facebookresearch/visdom.git
 RUN cd visdom && pip install -e . && easy_install .
 #WARNING: The easy_install command is deprecated and will be removed in a future version.
+
+RUN conda clean --all -y
 
 RUN rm -rf ~/.cache/pip
 

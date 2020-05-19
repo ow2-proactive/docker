@@ -9,8 +9,10 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
 RUN apt-get clean
 
+# Install python libraries
+# ------------------------
 RUN pip install py4j
-RUN pip install keras --no-deps
+RUN pip install keras
 RUN pip install pyyaml
 RUN pip install scipy
 
