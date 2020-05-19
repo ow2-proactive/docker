@@ -145,8 +145,6 @@ RUN git clone https://github.com/facebookresearch/visdom.git
 RUN cd visdom && pip install -e . && easy_install .
 #WARNING: The easy_install command is deprecated and will be removed in a future version.
 
-RUN conda clean --all -y
-
 RUN rm -rf ~/.cache/pip
 
 RUN apt-get autoclean && apt-get clean \
