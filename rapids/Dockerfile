@@ -1,6 +1,7 @@
 # docker build -t activeeon/rapidsai:latest .
+# docker run -it --rm --gpus all --privileged activeeon/rapidsai nvidia-smi
 #FROM rapidsai/rapidsai:cuda10.0-runtime-ubuntu18.04
-FROM rapidsai/rapidsai:0.13-cuda10.1-base-ubuntu18.04-py3.7
+FROM rapidsai/rapidsai:0.13-cuda10.1-runtime-ubuntu18.04-py3.7
 
 RUN apt-get clean && apt-get update -y -qq
 
