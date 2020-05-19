@@ -3,6 +3,36 @@
 #FROM rapidsai/rapidsai:cuda10.0-runtime-ubuntu18.04
 FROM rapidsai/rapidsai:0.13-cuda10.1-runtime-ubuntu18.04-py3.7
 
+#RUN which python
+# /conda/bin/python
+#RUN python -V
+# Python 3.7.4
+#RUN which pip
+# /conda/bin/pip
+#RUN pip -V
+# pip 19.2.3 from /opt/conda/lib/python3.7/site-packages/pip (python 3.7)
+#RUN which conda
+# /conda/bin/conda
+#RUN echo $PATH
+# /usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/conda/bin:/conda/bin
+
+# Fix python path
+#RUN mv /conda/bin/python /conda/bin/python_base
+#RUN mv /conda/bin/pip /conda/bin/pip_base
+#RUN mv /conda/bin/conda /conda/bin/conda_base
+#RUN ln -s /opt/conda/envs/rapids/bin/python /conda/bin/python
+#RUN ln -s /opt/conda/envs/rapids/bin/pip /conda/bin/pip
+#RUN ln -s /opt/conda/condabin/conda /conda/bin/conda
+
+# Activate conda environment in docker
+# https://stackoverflow.com/questions/55123637/activate-conda-environment-in-docker
+ENV CONDA_DEFAULT_ENV=rapids
+
+# Update conda environment and install pip
+RUN conda update -n base -c defaults conda
+RUN conda install -c anaconda pip
+
+# Update linux
 RUN apt-get clean && apt-get update -y -qq
 
 # Install generic packages
@@ -16,42 +46,57 @@ RUN apt-get install -y \
         git \
         curl \
         unzip \
-        libaio1 \
         nano \
-        freetds-dev \
-        unixodbc \
-        unixodbc-dev \
-        libjpeg-dev \
-        libtiff5-dev \
-        libpng-dev \
-        libgtk2.0-dev \
-        libavcodec-dev \
-        libavformat-dev \
-        libswscale-dev \
-        libv4l-dev \
-        libatlas-base-dev \
-        gfortran \
-        libhdf5-dev \
-        libtbb2 \
         libtbb-dev \
-        libgl1-mesa-glx
+        openmpi-bin
+ #       libaio1 \
+ #       freetds-dev \
+ #       unixodbc \
+ #       unixodbc-dev \
+ #       libjpeg-dev \
+ #       libtiff5-dev \
+ #       libpng-dev \
+ #       libgtk2.0-dev \
+ #       libavcodec-dev \
+ #       libavformat-dev \
+ #       libswscale-dev \
+ #       libv4l-dev \
+ #       libatlas-base-dev \
+ #       gfortran \
+ #       libhdf5-dev \
+ #       libtbb2 \
+ #       libtbb-dev \
+ #       libgl1-mesa-glx
 
-RUN apt-get install openmpi-bin -y
+#RUN apt-get install openmpi-bin -y
 
 # Install java
 # ------------
-RUN apt-get install -y openjdk-8-jdk
-RUN apt-get install ca-certificates-java && update-ca-certificates -f
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
-RUN export JAVA_HOME
+#RUN apt-get install -y openjdk-8-jdk
+#RUN apt-get install ca-certificates-java && update-ca-certificates -f
+#ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
+#RUN export JAVA_HOME
+RUN conda install -c anaconda openjdk
 
 # Install python libraries
 # ------------------------
-RUN pip install py4j
-RUN pip install wget validators
 
 # https://pytorch.org/get-started/locally/
 RUN conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
+
+# Fix conda paths
+#RUN conda list
+#RUN mv /conda/bin/python /conda/bin/python_base
+#RUN mv /conda/bin/pip /conda/bin/pip_base
+#RUN mv /conda/bin/conda /conda/bin/conda_base
+#RUN ln -s /opt/conda/envs/rapids/bin/python /conda/bin/python
+RUN ln -s /opt/conda/envs/rapids/bin/pip /conda/bin/pip
+#RUN ln -s /opt/conda/condabin/conda /conda/bin/conda
+#RUN conda list
+#RUN pip list
+
+RUN pip install py4j
+RUN pip install wget validators
 
 # https://www.tensorflow.org/install/gpu
 RUN pip install tensorflow-gpu keras

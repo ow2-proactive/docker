@@ -4,11 +4,11 @@ FROM python:3.6
 
 WORKDIR /tmp
 
-#RUN ln -sf $(which python3) /usr/local/bin/python3
+RUN apt-get clean && apt-get update -y -qq
 
 # Install generic packages
 # ------------------------
-RUN apt-get update && apt-get install -y \
+RUN apt-get install -y \
         build-essential \
         cmake \
         pkg-config \
@@ -37,13 +37,14 @@ RUN apt-get update && apt-get install -y \
         libtbb-dev \
         libgl1-mesa-glx
 
+RUN apt-get install openmpi-bin -y
+
 # Install java
 # ------------
-RUN apt-get update && apt-get install -y openjdk-11-jdk
+RUN apt-get install -y openjdk-11-jdk
 RUN apt-get install ca-certificates-java && update-ca-certificates -f
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
 RUN export JAVA_HOME
-RUN apt-get clean
 
 # Install python libraries
 # ------------------------
