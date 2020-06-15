@@ -7,7 +7,7 @@ WORKDIR /tmp
 RUN apt-get clean && apt-get update -y -qq
 
 # Install python
-RUN apt-get install -y python3 python3-pip python3-dev python3-setuptools
+RUN apt-get install -y python3 python3-pip python3-dev python3-setuptools python3-tk
 
 # Install generic packages
 # ------------------------
