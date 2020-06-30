@@ -8,6 +8,11 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends apt-utils
 RUN python -m pip install --upgrade pip
 
+# Install JupyterLab 2.1.0
+# ------------------------
+RUN python -m pip install jupyterlab==2.1.0
+RUN pip list
+
 # Install JupyterLab Git extension
 # ------------------------
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
