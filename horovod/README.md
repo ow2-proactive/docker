@@ -7,3 +7,9 @@ docker build -t activeeon/horovod .
 ```
 https://hub.docker.com/r/activeeon/horovod
 ```
+
+### Horovod
+```
+https://github.com/horovod/horovod/blob/master/docs/docker.rst
+https://github.com/horovod/horovod/tree/master/examples
+```
