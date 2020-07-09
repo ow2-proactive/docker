@@ -99,6 +99,8 @@ RUN pip install xgboost catboost
 RUN pip install scikit-learn==0.21  # to be compatible with auto-sklearn
 RUN pip install tpot==0.11.0  # to be compatible with scikit-learn==0.21
 RUN pip install auto-sklearn
+# https://stackoverflow.com/questions/43124775/why-python-3-6-1-throws-attributeerror-module-enum-has-no-attribute-intflag
+# Since python 3.6 the enum34 library is no longer compatible with the standard library.
 #RUN pip uninstall -y enum34  # pandas-ml
 RUN pip install git+https://github.com/ow2-proactive/chocolate@master
 RUN pip install ghalton
