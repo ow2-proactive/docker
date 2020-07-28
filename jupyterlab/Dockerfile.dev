@@ -83,4 +83,6 @@ EXPOSE 8888
 
 ENV JUPYTERLAB_TOKEN=''
 
-ENTRYPOINT jupyter lab --port=8888 --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.token=$JUPYTERLAB_TOKEN --NotebookApp.password=''
+ENV ADDITIONAL_OPTIONS=''
+
+ENTRYPOINT jupyter lab --port=8888 --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.token=$JUPYTERLAB_TOKEN --NotebookApp.password='' $ADDITIONAL_OPTIONS
