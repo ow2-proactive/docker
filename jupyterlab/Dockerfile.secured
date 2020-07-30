@@ -87,4 +87,6 @@ EXPOSE 9999
 
 ENV JUPYTERLAB_TOKEN='proactive'
 
-ENTRYPOINT jupyter lab --port=9999 --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.token=$JUPYTERLAB_TOKEN --NotebookApp.password='' --NotebookApp.certfile=$CERTFILE --NotebookApp.keyfile=$KEYFILE
+ENV ADDITIONAL_OPTIONS=''
+
+ENTRYPOINT jupyter lab --port=9999 --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.token=$JUPYTERLAB_TOKEN --NotebookApp.password='' --NotebookApp.certfile=$CERTFILE --NotebookApp.keyfile=$KEYFILE $ADDITIONAL_OPTIONS
