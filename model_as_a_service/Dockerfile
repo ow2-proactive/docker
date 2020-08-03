@@ -16,7 +16,3 @@ RUN chown -R www-data:www-data /var/www
 RUN chmod -R 776 /model_as_service
 
 RUN chmod +x ./start.sh
-
-EXPOSE 9090
-
-CMD ["python /ml_service.py", "--port", "9090"]
