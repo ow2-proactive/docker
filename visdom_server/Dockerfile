@@ -6,7 +6,8 @@
 #
 FROM python:3.6
 
-WORKDIR /root
+#WORKDIR /root
+WORKDIR /tmp
 
 # Install generic packages
 # ------------------------
@@ -25,13 +26,15 @@ RUN git clone https://github.com/facebookresearch/visdom.git
 RUN cd visdom && pip install -e . && easy_install .
 
 RUN rm -rf ~/.cache/pip
-RUN mkdir ~/.visdom
+#RUN mkdir ~/.visdom
+RUN mkdir /tmp/.visdom
 
 ENV VISDOM_HOSTNAME='localhost'
 ENV VISDOM_PORT=8097
 ENV VISDOM_LOGGING_LEVEL='INFO'
 ENV VISDOM_READONLY="False"
-ENV VISDOM_ENV_PATH="~/.visdom/"
+#ENV VISDOM_ENV_PATH="~/.visdom/"
+ENV VISDOM_ENV_PATH="/tmp/.visdom/"
 ENV VISDOM_ENABLE_LOGIN="False"
 ENV VISDOM_USERNAME=admin
 ENV VISDOM_PASSWORD=admin
