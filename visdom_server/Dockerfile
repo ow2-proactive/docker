@@ -27,8 +27,10 @@ COPY patch.diff /tmp/visdom
 RUN cd visdom && patch py/visdom/server.py patch.diff && pip install -e . && easy_install .
 
 RUN rm -rf ~/.cache/pip
+
 #RUN mkdir ~/.visdom
 RUN mkdir /tmp/.visdom
+RUN touch /tmp/.visdom/COOKIE_SECRET
 
 ENV VISDOM_HOSTNAME='localhost'
 ENV VISDOM_PORT=8097
