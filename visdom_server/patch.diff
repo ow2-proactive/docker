@@ -1,0 +1,23 @@
+diff --git a/py/visdom/server.py b/py/visdom/server.py
+index d19404b..b423d36 100644
+--- a/py/visdom/server.py
++++ b/py/visdom/server.py
+@@ -41,7 +41,8 @@ import tornado.websocket  # noqa E402: gotta install ioloop first
+ import tornado.escape     # noqa E402: gotta install ioloop first
+ 
+ LAYOUT_FILE = 'layouts.json'
+-DEFAULT_ENV_PATH = '%s/.visdom/' % expanduser("~")
++#DEFAULT_ENV_PATH = '%s/.visdom/' % expanduser("~")
++DEFAULT_ENV_PATH = '/tmp/.visdom/'
+ DEFAULT_PORT = 8097
+ DEFAULT_HOSTNAME = "localhost"
+ DEFAULT_BASE_URL = "/"
+@@ -120,7 +121,7 @@ def set_cookie(value=None):
+         cookie_secret = value
+     else:
+         cookie_secret = input("Please input your cookie secret key here: ")
+-    with open(DEFAULT_ENV_PATH + "COOKIE_SECRET", "w") as cookie_file:
++    with open(os.path.join(DEFAULT_ENV_PATH, "COOKIE_SECRET"), "w+") as cookie_file:
+         cookie_file.write(cookie_secret)
+ 
+ 
