@@ -35,15 +35,15 @@ RUN touch /tmp/.visdom/COOKIE_SECRET
 ENV VISDOM_HOSTNAME='localhost'
 ENV VISDOM_PORT=8097
 ENV VISDOM_LOGGING_LEVEL='INFO'
-ENV VISDOM_READONLY="False"
+ENV VISDOM_READONLY=false
 #ENV VISDOM_ENV_PATH="~/.visdom/"
 ENV VISDOM_ENV_PATH="/tmp/.visdom/"
-ENV VISDOM_ENABLE_LOGIN="False"
+ENV VISDOM_ENABLE_LOGIN=false
 ENV VISDOM_USERNAME=admin
 ENV VISDOM_PASSWORD=admin
 ENV VISDOM_USE_ENV_CREDENTIALS=1
 ENV VISDOM_COOKIE=visdom
-ENV VISDOM_FORCE_NEW_COOKIE="False"
+ENV VISDOM_FORCE_NEW_COOKIE=false
 ENV VISDOM_BASE_URL="/"
 
 EXPOSE $PORT
@@ -56,6 +56,6 @@ CMD python -m visdom.server \
     -base_url ${VISDOM_BASE_URL} \
     -env_path ${VISDOM_ENV_PATH} \
     -logging_level ${VISDOM_LOGGING_LEVEL} \
-    `if [ "${VISDOM_READONLY,,}" = "true" ];then echo "-readonly";fi` \
-    `if [ "${VISDOM_FORCE_NEW_COOKIE,,}" = "true" ];then echo "-force_new_cookie";fi` \
-    `if [ "${VISDOM_ENABLE_LOGIN,,}" = "true" ];then echo "-enable_login";fi`
+    `if [ "$VISDOM_READONLY" = "true" ];then echo "-readonly";fi` \
+    `if [ "$VISDOM_FORCE_NEW_COOKIE" = "true" ];then echo "-force_new_cookie";fi` \
+    `if [ "$VISDOM_ENABLE_LOGIN" = "true" ];then echo "-enable_login";fi`
