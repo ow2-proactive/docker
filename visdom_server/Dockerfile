@@ -56,6 +56,6 @@ CMD python -m visdom.server \
     -base_url ${VISDOM_BASE_URL} \
     -env_path ${VISDOM_ENV_PATH} \
     -logging_level ${VISDOM_LOGGING_LEVEL} \
-    `if [ "x$VISDOM_READONLY" = "xTrue" ];then echo "-readonly";fi` \
-    `if [ "x$VISDOM_FORCE_NEW_COOKIE" = "xTrue" ];then echo "-force_new_cookie";fi` \
-    `if [ "x$VISDOM_ENABLE_LOGIN" = "xTrue" ];then echo "-enable_login";fi`
+    `if [ "${VISDOM_READONLY,,}" = "true" ];then echo "-readonly";fi` \
+    `if [ "${VISDOM_FORCE_NEW_COOKIE,,}" = "true" ];then echo "-force_new_cookie";fi` \
+    `if [ "${VISDOM_ENABLE_LOGIN,,}" = "true" ];then echo "-enable_login";fi`
