@@ -30,7 +30,7 @@ RUN rm -rf ~/.cache/pip
 
 #RUN mkdir ~/.visdom
 RUN mkdir /tmp/.visdom
-RUN touch /tmp/.visdom/COOKIE_SECRET
+#RUN touch /tmp/.visdom/COOKIE_SECRET
 
 ENV VISDOM_HOSTNAME='localhost'
 ENV VISDOM_PORT=8097
