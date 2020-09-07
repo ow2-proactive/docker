@@ -71,8 +71,7 @@ RUN python -m bash_kernel.install
 
 # Install BeakerX Kernels
 # ------------------------
-RUN python -m pip install beakerx
-RUN beakerx install
+RUN conda install -c conda-forge ipywidgets beakerx
 
 # Copying resources
 # ------------------------
