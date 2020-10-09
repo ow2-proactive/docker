@@ -11,9 +11,9 @@ RUN python -m pip install --upgrade pip
 RUN mkdir /tmp/Notebooks/.utils
 ADD install_latest.py /tmp/Notebooks/.utils/install_latest.py
 
-# Install JupyterLab 2.1.0
+# Install JupyterLab 2.2.8
 # ------------------------
-RUN python -m pip install jupyterlab==2.1.0
+RUN python -m pip install jupyterlab==2.2.8
 RUN pip list
 
 # Install JupyterLab Git extension
@@ -25,6 +25,12 @@ RUN apt-get update
 RUN apt-get install -y yarn
 RUN python -m pip install --upgrade jupyterlab-git
 RUN jupyter lab build
+
+# Install tensorflow and jupyter-tenso
+# ------------------------
+RUN pip install tensorflow==1.15.4
+RUN pip install jupyter-tensorboard
+RUN jupyter labextension install jupyterlab_tensorboard
 
 # Install java 8
 # -----------------------
