@@ -100,4 +100,4 @@ ENV JUPYTERLAB_PASSWORD=''
 
 ENV ADDITIONAL_OPTIONS=''
 
-ENTRYPOINT jupyter lab --port=9999 --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.password=$JUPYTERLAB_PASSWORD --NotebookApp.certfile=$CERTFILE --NotebookApp.keyfile=$KEYFILE $ADDITIONAL_OPTIONS
+ENTRYPOINT jupyter lab --port=9999 --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.password=$(python -c "from IPython.lib.security import passwd; print(passwd(passphrase='$JUPYTERLAB_PASSWORD', algorithm='sha1'))") --NotebookApp.certfile=$CERTFILE --NotebookApp.keyfile=$KEYFILE $ADDITIONAL_OPTIONS
