@@ -11,9 +11,9 @@ RUN python -m pip install --upgrade pip
 RUN mkdir /tmp/Notebooks/.utils
 ADD install_latest.py /tmp/Notebooks/.utils/install_latest.py
 
-# Install JupyterLab 2.2.8
+# Install JupyterLab 2.1.0
 # ------------------------
-RUN python -m pip install jupyterlab==2.2.8
+RUN python -m pip install jupyterlab==2.1.0
 RUN pip list
 
 # Install JupyterLab Git extension
