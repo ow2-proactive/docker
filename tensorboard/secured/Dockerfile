@@ -3,6 +3,9 @@ FROM activeeon/tensorflow
 
 RUN mkdir /logs
 
+RUN pip install -U pip
+RUN pip install -U tensorboard_plugin_profile
+
 RUN apt-get update
 RUN apt-get install -y apache2-utils
 RUN apt-get install -y nginx
