@@ -10,7 +10,7 @@ RUN apt-get update
 RUN apt-get install -y apache2-utils
 RUN apt-get install -y nginx
 
-ADD nginx.conf /etc/nginx/sites-available/nginx.conf
+ADD nginx_docker.conf /etc/nginx/sites-available/nginx.conf
 
 ENV PORT=6009
 ENV LOGIN="admin"
