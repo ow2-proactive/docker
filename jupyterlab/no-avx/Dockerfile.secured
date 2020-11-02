@@ -90,7 +90,7 @@ ENV KEYFILE='/opt/conda/etc/jupyter/privkey.pem'
 # ------------------------
 # http://jupyter-notebook.readthedocs.io/en/stable/security.html
 RUN git clone https://github.com/ow2-proactive/proactive-jupyter-notebooks.git
-ADD jupyter_notebook_config.py /opt/conda/etc/jupyter/jupyter_notebook_config.py
+ADD ../jupyter_notebook_config.py /opt/conda/etc/jupyter/jupyter_notebook_config.py
 
 EXPOSE 9999
 
