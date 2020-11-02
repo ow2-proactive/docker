@@ -26,7 +26,7 @@ RUN jupyter lab build
 # Install tensorflow and jupyter-tenso
 # ------------------------
 # https://github.com/tensorflow/tensorflow/issues/19584
-RUN pip install tensorflow==1.5.1
+RUN python -m pip install --upgrade https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.5.1-py3-none-any.whl
 RUN pip install jupyter-tensorboard
 RUN jupyter labextension install jupyterlab_tensorboard
 
