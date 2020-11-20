@@ -1,4 +1,4 @@
-# docker build -t imenbizid/dlaas-cpu .
+# docker build -t activeeon/dlaas-cpu .
 FROM activeeon/dlm3
 
 COPY . /model_as_service
