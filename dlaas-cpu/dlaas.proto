@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package dlaas;
+
+
+// Common configuration for loading a model being served.
+message ModelConfig {
+  string name = 1;
+
+  string base_path = 2;
+
+  string model_platform = 3;
+
+  message Versionpolicy {
+  	repeated Specific specific = 102;
+  }
+  repeated Versionpolicy model_version_policy = 4;
+ 
+}
+
+// Static list of models to be loaded for serving.
+message ModelConfigList {
+  repeated ModelConfig config = 1;
+}
+
+// Static config
+message FileConfig{
+  repeated ModelConfigList model_config_list = 1;
+}
+
+// Static list of versions be served.
+message Specific {
+      repeated int64 versions = 1;
+ }
+
