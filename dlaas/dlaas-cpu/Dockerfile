@@ -1,9 +1,9 @@
 # docker build -t activeeon/dlaas:latest .
 FROM activeeon/dlm3
 
-COPY ../dlaas_pb2.py /model_as_service
-COPY ../dlaas.proto /model_as_service
-COPY ../utils.py /model_as_service
+COPY /dlaas/dlaas-cpu/dlaas_pb2.py /model_as_service
+COPY /dlaas/dlaas-cpu/dlaas.proto /model_as_service
+COPY /dlaas/dlaas-cpu/utils.py /model_as_service
 WORKDIR /model_as_service
 
 RUN pip install -r ../requirements.txt
