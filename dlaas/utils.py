@@ -8,7 +8,7 @@ from keras.preprocessing.image import img_to_array
 #Read the existing binary configuration file
 #or create a new one
 def read_config_file():
-	print("Reading the configuration file of Tensorflow service ")
+	print("[INFO] Reading the configuration file of Tensorflow service ")
 	ModelConfigList_instance = dlaas_pb2.ModelConfigList()
 	try:
   		f = open("config_file.bin", "rb")
@@ -35,7 +35,7 @@ def update_model_service_config_file(config_list):
 
 #add a specific model version to be deployed in the congig file
 def add_version_model_service_config(model_name, model_path = "/tmp", version = None) -> str:
-	print("Adding the Model_service ", model_name)
+	print("[INFO] Adding the Model_service ", model_name)
 	ModelConfigList_instance = dlaas_pb2.ModelConfigList()
 	#ModelConfigList_instance = read_config_file()
 	model_config = dlaas_pb2.ModelConfig()
@@ -113,21 +113,18 @@ def delete_version_model_service_config(model_name, version=None) -> str:
 								version_exists = True
 						if version_exists and count_versions>1:
 							specific_sample.versions.remove(version)
-							print("[INFO] Undeploying the version ", version, "of the model ", model_name)
-							delete_status = "The version " + str(version) + " of the model " + str(model_name) + " was successefully undeployed"
+							delete_status = "[INFO] The version " + str(version) + " of the model " + str(model_name) + " was successefully undeployed"
 						elif version_exists and count_versions == 1:
-							delete_status = "The Model " + str(model_name) + " was successefully undeployed"
+							delete_status = "[INFO] The Model " + str(model_name) + " was successefully undeployed"
 						else:
-							print("[WARN] The version ", version, "of the model ", model_name, " is not deployed")
-							delete_status = "The version " + str(version) + " of the model " + str(model_name) + " is not deployed. Please specify an already deployed version"
+							delete_status = "[ERROR] The version " + str(version) + " of the model " + str(model_name) + " is not deployed. Please specify an already deployed version"
 			else:
-				print("[INFO] Undeploying the model ", model_name)
-				delete_status = "The Model " + str(model_name) + " was successefully undeployed"
+				delete_status = "[INFO] The Model " + str(model_name) + " was successefully undeployed"
 		else:
 			ModelConfigList_instance_updated.config.append(model_config)
 	if not model_name_exists:
-		delete_status = "The Model " + str(model_name) + " is not deployed. Please specify an already deployed model"
-		print("[WARN] Model_service ", model_name ," doesn't exist")
+		delete_status = "[ERROR] The Model " + str(model_name) + " is not deployed. Please specify an already deployed model"
+		#print("[WARN] Model_service ", model_name ," doesn't exist")
 	elif version_exists and count_versions>1:
 		update_model_service_config_file(ModelConfigList_instance)
 	else:
@@ -136,7 +133,7 @@ def delete_version_model_service_config(model_name, version=None) -> str:
 
 #check if a specific model version exists in the config file
 def check_model_name_version(model_name,version) -> str:
-	print("Checking model_name version ", model_name)
+	print("[INFO] Checking model_name version ", model_name)
 	ModelConfigList_instance = dlaas_pb2.ModelConfigList()
 	ModelConfigList_instance_updated = dlaas_pb2.ModelConfigList()
 	ModelConfigList_instance = read_config_file()
@@ -164,7 +161,7 @@ def check_model_name_version(model_name,version) -> str:
 
 #check if a specific model exists in the config file
 def check_deployed_model_name_version(model_name,version) -> bool:
-	print("Checking model_name version ", model_name)
+	print("[INFO] Checking model_name version ", model_name)
 	ModelConfigList_instance = dlaas_pb2.ModelConfigList()
 	ModelConfigList_instance_updated = dlaas_pb2.ModelConfigList()
 	ModelConfigList_instance = read_config_file()
@@ -184,7 +181,7 @@ def check_deployed_model_name_version(model_name,version) -> bool:
 
 #returns the newest deployed version
 def get_newest_deployed_version(model_name) -> int:
-	print("Removing the Model_service ", model_name)
+	print("[INFO] Removing the Model_service ", model_name)
 	ModelConfigList_instance = dlaas_pb2.ModelConfigList()
 	ModelConfigList_instance_updated = dlaas_pb2.ModelConfigList()
 	ModelConfigList_instance = read_config_file()
@@ -199,4 +196,19 @@ def get_newest_deployed_version(model_name) -> int:
 					for version_sample in specific_sample.versions:
 						if version_sample>max :
 							max = version_sample
-	return max						
+	return max	
+
+# load and prepare the image
+def load_image(filename):
+	# load the image
+	img = load_img(filename, color_mode="grayscale", target_size=(28, 28))
+	# convert to array
+	img = img_to_array(img)
+	print("img")
+	# reshape into a single sample with 1 channel
+	img = img.reshape(1, 28, 28, 1)
+	# prepare pixel data
+	img = img.astype('float32')
+	img = img / 255.0
+	#print ("img :", img)
+	return img					
