@@ -199,4 +199,19 @@ def get_newest_deployed_version(model_name) -> int:
 					for version_sample in specific_sample.versions:
 						if version_sample>max :
 							max = version_sample
-	return max						
+	return max	
+
+# load and prepare the image
+def load_image(filename):
+	# load the image
+	img = load_img(filename, color_mode="grayscale", target_size=(28, 28))
+	# convert to array
+	img = img_to_array(img)
+	print("img")
+	# reshape into a single sample with 1 channel
+	img = img.reshape(1, 28, 28, 1)
+	# prepare pixel data
+	img = img.astype('float32')
+	img = img / 255.0
+	#print ("img :", img)
+	return img					
