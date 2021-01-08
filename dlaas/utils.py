@@ -1,35 +1,38 @@
 import dlaas_pb2
 import sys
 import time
+import os
 from keras.preprocessing.image import load_img
 from keras.preprocessing.image import img_to_array
 
-
+INSTANCE_PATH = os.getenv('INSTANCE_PATH') if os.getenv('INSTANCE_PATH') is not None else "/model_as_service"
+CONFIG_FILE_BIN = os.path.join(INSTANCE_PATH,"config_file.bin")
+MODELS_CONFIG = os.path.join(INSTANCE_PATH,"models.config")
 #Read the existing binary configuration file
 #or create a new one
 def read_config_file():
 	print("Reading the configuration file of Tensorflow service ")
 	ModelConfigList_instance = dlaas_pb2.ModelConfigList()
 	try:
-  		f = open("config_file.bin", "rb")
+  		f = open(CONFIG_FILE_BIN, "rb")
   		ModelConfigList_instance.ParseFromString(f.read())
   		f.close()
 	except IOError:
   		print ("[INFO]config_file.bin: Could not open file.  Creating a new one.")
-  		f = open("config_file.bin", "wb")
+  		f = open(CONFIG_FILE_BIN, "wb")
   		f.close()
 	return ModelConfigList_instance
 
 #update the binary configuration file and the txt configuration file
 def update_model_service_config_file(config_list):
 	print("[INFO] Updating the configuration file of Tensorflow service ")
-	f = open("config_file.bin", "wb")
+	f = open(CONFIG_FILE_BIN, "wb")
 	f.write(config_list.SerializeToString())
 	f.close()
 	file_config = dlaas_pb2.FileConfig()
 	file_config.model_config_list.append(config_list)
 	print(file_config)
-	f = open("models.config", "w+")
+	f = open(MODELS_CONFIG, "w+")
 	f.write(str(file_config))
 	f.close()
 
