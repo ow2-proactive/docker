@@ -1,4 +1,4 @@
-# docker build -t activeeon/dlaas:latest .
+# docker build -t activeeon/maas_dl:latest .
 FROM activeeon/dlm3
 
 COPY dlaas_pb2.py /model_as_service/dlaas_pb2.py
