@@ -93,7 +93,7 @@ RUN pip install azureml-sdk==1.0.48
 
 #RUN pip install cntk
 #RUN pip install mxnet
-RUN pip install pyspark
+#RUN pip install pyspark
 
 RUN pip install xgboost catboost
 RUN pip install scikit-learn==0.21  # to be compatible with auto-sklearn
