@@ -1,4 +1,4 @@
-# docker build -t activeeon/model_as_a_service .
+# docker build -t activeeon/maas_ml .
 FROM activeeon/dlm3
 
 COPY . /model_as_service
