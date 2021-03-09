@@ -58,6 +58,11 @@ RUN pip install tqdm
 RUN pip install pystan
 RUN pip install fbprophet
 
+#Install gluonts
+#-------------------------
+RUN pip install mxnet
+RUN pip install gluonts
+
 # Install JupyterLab 3
 # ------------------------
 RUN python -m pip install jupyterlab==3
