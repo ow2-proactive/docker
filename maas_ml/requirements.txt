@@ -6,4 +6,3 @@ connexion[swagger-ui]==2.7.0
 itsdangerous==1.1.0
 Jinja2==2.11.1
 MarkupSafe==1.1.1
-uWSGI==2.0.18
