@@ -7,6 +7,8 @@ WORKDIR /model_as_service
 RUN apt-get clean && apt-get -y update
 RUN apt-get -y install nginx
 
+RUN apt install libpython3.7-dev
+
 RUN pip install -r requirements.txt
 
 COPY nginx.conf /etc/nginx
