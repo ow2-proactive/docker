@@ -4,7 +4,7 @@ FROM activeeon/rapidsai:latest
 COPY . /model_as_service
 WORKDIR /model_as_service
 
-#ENV CFLAGS='-fno-lto'
+ENV CONDA_DEFAULT_ENV=/opt/conda/envs/rapids/bin/python
 
 RUN apt-get clean && apt-get -y update
 RUN apt-get -y install nginx
