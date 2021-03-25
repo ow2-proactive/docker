@@ -15,9 +15,7 @@ FROM rocker/ml
 RUN apt-get clean && apt-get update -y -qq
 
 # Update Java
-# https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-20-04
-RUN apt install -y default-jre
-RUN apt install -y default-jdk
+RUN apt install -y openjdk-8-jdk
 
 # Update R
 RUN install2.r -s --error \
@@ -25,10 +23,17 @@ rJava \
 caret
 
 # Update Python
-RUN python -V
-RUN which python
-RUN pip -V
 RUN pip install py4j
+
+# Fix R
+# https://github.com/rstudio/rstudio/issues/2254#issuecomment-372474049
+RUN R CMD javareconf
+
+# Update Env
+ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+ENV PATH=$PATH:$HOME/bin:$JAVA_HOME/bin:$R_HOME/bin
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib:$JAVA_HOME/jre/lib/amd64/server
+ENV R_LIBS=$R_HOME/lib
 
 # Clean
 RUN apt-get autoclean && apt-get clean \
