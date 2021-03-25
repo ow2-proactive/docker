@@ -1,9 +1,9 @@
-# docker build -t activeeon/r:ml-gpu .
-# docker run -it --rm --gpus all --privileged activeeon/r:ml-gpu bash
-# docker run -it --rm --gpus all --privileged activeeon/r:ml-gpu nvidia-smi
+# docker build -t activeeon/r-ml:gpu .
+# docker run -it --rm --gpus all --privileged activeeon/r-ml:gpu bash
+# docker run -it --rm --gpus all --privileged activeeon/r-ml:gpu nvidia-smi
 
 # user:pass rstudio:admin
-# docker run -it --rm --gpus all --privileged -e PASSWORD=admin -p 8787:8787 activeeon/r:ml-gpu
+# docker run -it --rm --gpus all --privileged -e PASSWORD=admin -p 8787:8787 activeeon/r-ml:gpu
 
 # For more info:
 # https://www.rocker-project.org/

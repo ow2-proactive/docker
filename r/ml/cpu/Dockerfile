@@ -1,8 +1,8 @@
-# docker build -t activeeon/r:ml .
-# docker run -it --rm activeeon/r:ml bash
+# docker build -t activeeon/r-ml .
+# docker run -it --rm activeeon/r-ml bash
 
 # user:pass rstudio:admin
-# docker run -it --rm -e PASSWORD=admin -p 8787:8787 activeeon/r:ml
+# docker run -it --rm -e PASSWORD=admin -p 8787:8787 activeeon/r-ml
 
 # For more info:
 # https://www.rocker-project.org/
