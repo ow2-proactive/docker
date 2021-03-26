@@ -22,7 +22,11 @@ RUN apt install -y openjdk-8-jdk
 # Update R
 RUN install2.r -s --error \
 rJava \
-caret
+caret \
+randomForest \
+kernlab \
+glmnet \
+gbm
 
 # Update Python
 RUN pip install py4j
