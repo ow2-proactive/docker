@@ -24,7 +24,8 @@ caret \
 randomForest \
 kernlab \
 glmnet \
-gbm
+gbm \
+random
 
 # Update Python
 RUN pip install py4j
