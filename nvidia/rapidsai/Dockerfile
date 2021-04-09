@@ -1,6 +1,6 @@
-# docker build -t activeeon/rapidsai:latest .
-# docker run -it --rm --gpus all --privileged activeeon/rapidsai nvidia-smi
-FROM rapidsai/rapidsai:0.18-cuda11.0-runtime-ubuntu18.04-py3.7
+# docker build -t activeeon/nvidia:rapidsai .
+# docker run -it --rm --gpus all --privileged activeeon/nvidia:rapidsai nvidia-smi
+FROM nvcr.io/nvidia/rapidsai/rapidsai:0.18-cuda11.0-runtime-ubuntu18.04
 
 # Activate conda environment in docker
 # https://stackoverflow.com/questions/55123637/activate-conda-environment-in-docker
@@ -97,9 +97,8 @@ RUN pip install proactive
 
 # Install Visdom (Facebook Research) from source
 # ----------------------------------------------
-RUN git clone https://github.com/facebookresearch/visdom.git
-RUN cd visdom && pip install -e . && easy_install .
-RUN rm -rf visdom
+RUN cd /tmp && git clone https://github.com/facebookresearch/visdom.git
+RUN cd /tmp/visdom && pip install -e . && easy_install .
 
 # Install GPU monitoring package
 # https://github.com/anderskm/gputil

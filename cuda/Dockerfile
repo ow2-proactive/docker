@@ -143,9 +143,15 @@ RUN pip install proactive
 # ----------------------------------------------
 RUN git clone https://github.com/facebookresearch/visdom.git
 RUN cd visdom && pip install -e . && easy_install .
-#WARNING: The easy_install command is deprecated and will be removed in a future version.
+# WARNING: The easy_install command is deprecated and will be removed in a future version.
 
+# Install GPU monitoring package
+# https://github.com/anderskm/gputil
+# ----------------------------------
+RUN pip install gputil
+
+# Clean
+# -----
 RUN rm -rf ~/.cache/pip
-
 RUN apt-get autoclean && apt-get clean \
         && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
