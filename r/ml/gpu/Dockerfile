@@ -168,6 +168,10 @@ ENV PATH=$PATH:$HOME/bin:$JAVA_HOME/bin:$R_HOME/bin
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib:$JAVA_HOME/jre/lib/amd64/server
 ENV R_LIBS=$R_HOME/lib
 
+# Install additional packages
+RUN install2.r \
+    stringr
+
 # Clean
 RUN apt-get autoclean && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
