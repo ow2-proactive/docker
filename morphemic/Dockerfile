@@ -63,6 +63,12 @@ RUN pip install fbprophet
 RUN pip install mxnet
 RUN pip install gluonts
 
+#Install ActiveMQ integration libraries
+#-------------------------
+RUN pip install stomp.py
+RUN pip install PyYAML
+RUN pip install Timeloop
+
 # Install JupyterLab 3
 # ------------------------
 RUN python -m pip install jupyterlab==3
