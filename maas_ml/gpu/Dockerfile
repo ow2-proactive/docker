@@ -1,15 +1,14 @@
-# docker build -t activeeon/maas_ml:gpu-latest .
+# docker build -t activeeon/maas_ml:gpu .
 FROM activeeon/rapidsai:latest
 
-COPY . /model_as_service
+COPY nginx.conf /model_as_service/nginx.conf
+COPY start.sh /model_as_service/start.sh
+COPY uwsgi.ini /model_as_service/uwsgi.ini
+COPY requirements.txt /model_as_service/requirements.txt
 WORKDIR /model_as_service
-
-ENV CONDA_DEFAULT_ENV=/opt/conda/envs/rapids/bin/python
 
 RUN apt-get clean && apt-get -y update
 RUN apt-get -y install nginx
-
-#RUN apt-get -y install libpython3.7-dev
 
 RUN pip install -r requirements.txt
 
