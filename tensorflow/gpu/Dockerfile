@@ -16,7 +16,13 @@ RUN pip install keras
 RUN pip install pyyaml
 RUN pip install scipy
 
-RUN rm -rf ~/.cache/pip
+# Install GPU monitoring package
+# https://github.com/anderskm/gputil
+# ----------------------------------
+RUN pip install gputil
 
+# Clean
+# -----
+RUN rm -rf ~/.cache/pip
 RUN apt-get autoclean && apt-get clean \
         && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
