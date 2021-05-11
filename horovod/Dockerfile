@@ -1,157 +1,92 @@
 # docker build -t activeeon/horovod .
 # docker run -it --rm --gpus all --privileged activeeon/horovod nvidia-smi
-#FROM nvidia/cuda:10.1-cudnn7-runtime
+
 FROM nvidia/cuda:10.1-devel-ubuntu18.04
 
 WORKDIR /tmp
 
-RUN apt-get clean && apt-get update -y -qq
+# TensorFlow version is tightly coupled to CUDA and cuDNN so it should be selected carefully
+ENV TENSORFLOW_VERSION=2.3.0
+ENV PYTORCH_VERSION=1.6.0
+ENV PYTORCH_LIGHTNING_VERSION=1.2.9
+ENV TORCHVISION_VERSION=0.7.0
+ENV CUDNN_VERSION=7.6.5.32-1+cuda10.1
+ENV NCCL_VERSION=2.7.8-1+cuda10.1
+ENV MXNET_VERSION=1.6.0.post0
 
-# Install generic packages
-# ------------------------
-RUN apt-get install -y \
+ENV PYSPARK_PACKAGE=pyspark==2.4.7
+ENV SPARK_PACKAGE=spark-2.4.7/spark-2.4.7-bin-hadoop2.7.tgz
+
+# Python 3.7 is supported by Ubuntu Bionic out of the box
+ARG python=3.7
+ENV PYTHON_VERSION=${python}
+
+# Set default shell to /bin/bash
+SHELL ["/bin/bash", "-cu"]
+
+RUN apt-get update && apt-get install -y --allow-downgrades --allow-change-held-packages --no-install-recommends \
         build-essential \
         cmake \
         pkg-config \
-        wget \
-        swig \
+        g++-7 \
         git \
         curl \
         unzip \
-        libaio1 \
-        nano \
-        freetds-dev \
-        unixodbc \
-        unixodbc-dev \
+        vim \
+        wget \
+        ca-certificates \
+        libcudnn7=${CUDNN_VERSION} \
+        libnccl2=${NCCL_VERSION} \
+        libnccl-dev=${NCCL_VERSION} \
         libjpeg-dev \
-        libtiff5-dev \
         libpng-dev \
-        libgtk2.0-dev \
-        libavcodec-dev \
-        libavformat-dev \
-        libswscale-dev \
-        libv4l-dev \
-        libatlas-base-dev \
-        gfortran \
-        libhdf5-dev \
-        libtbb2 \
-        libtbb-dev \
-        libgl1-mesa-glx
+        python${PYTHON_VERSION} \
+        python${PYTHON_VERSION}-dev \
+        python${PYTHON_VERSION}-distutils \
+        librdmacm1 \
+        libibverbs1 \
+        ibverbs-providers
 
-RUN apt-get install openmpi-bin -y
-
-# Install java
-# ------------
 RUN apt-get install -y openjdk-8-jdk
 RUN apt-get install ca-certificates-java && update-ca-certificates -f
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
 
-# https://repo.anaconda.com/archive/
-ENV LATEST_CONDA="2020.02"
-ENV PATH="/opt/anaconda3/bin:${PATH}"
-RUN export PATH
-RUN curl --silent -O https://repo.anaconda.com/archive/Anaconda3-$LATEST_CONDA-Linux-x86_64.sh \
-    && bash Anaconda3-$LATEST_CONDA-Linux-x86_64.sh -b -p /opt/anaconda3
-RUN conda update -n base -c defaults conda
-#RUN conda install mamba -c conda-forge
+RUN ln -s /usr/bin/python${PYTHON_VERSION} /usr/bin/python
 
-# https://docs.conda.io/en/latest/miniconda.html#linux-installers
-# https://hub.docker.com/r/continuumio/miniconda3/dockerfile
-#ENV PATH="/opt/miniconda3/bin:${PATH}"
-#RUN export PATH
-#RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux-x86_64.sh -O /tmp/miniconda.sh && \
-#    /bin/bash /tmp/miniconda.sh -b -p /opt/miniconda3 && \
-#    rm /tmp/miniconda.sh && \
-#    /opt/miniconda3/bin/conda clean -tipsy && \
-#    ln -s /opt/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-#    echo ". /opt/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
-#    echo "conda activate base" >> ~/.bashrc
-#RUN curl --silent -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86.sh \
-#    && bash Miniconda3-latest-Linux-x86.sh -b -p /opt/miniconda3
+RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
+    python get-pip.py && \
+    rm get-pip.py
+
+# Install TensorFlow, Keras, PyTorch and MXNet
+RUN pip install future typing packaging
+RUN pip install tensorflow==${TENSORFLOW_VERSION} \
+                keras \
+                h5py
+
+RUN PYTAGS=$(python -c "from packaging import tags; tag = list(tags.sys_tags())[0]; print(f'{tag.interpreter}-{tag.abi}')") && \
+    pip install https://download.pytorch.org/whl/cu101/torch-${PYTORCH_VERSION}%2Bcu101-${PYTAGS}-linux_x86_64.whl \
+        https://download.pytorch.org/whl/cu101/torchvision-${TORCHVISION_VERSION}%2Bcu101-${PYTAGS}-linux_x86_64.whl
+RUN pip install pytorch_lightning==${PYTORCH_LIGHTNING_VERSION}
+RUN pip install mxnet-cu101==${MXNET_VERSION}
+
+# Install Spark stand-alone cluster.
+RUN wget --progress=dot:giga "https://www.apache.org/dyn/closer.lua/spark/${SPARK_PACKAGE}?action=download" -O - | tar -xzC /tmp; \
+    archive=$(basename "${SPARK_PACKAGE}") bash -c "mv -v /tmp/\${archive/%.tgz/} /spark"
+
+# Install PySpark.
+RUN apt-get update -qq && apt install -y openjdk-8-jdk-headless
+RUN pip install ${PYSPARK_PACKAGE}
 
 # Install python libraries
 # ------------------------
-# https://rapids.ai/start.html#get-rapids
-#RUN conda install -c rapidsai -c nvidia -c conda-forge \
-#    -c defaults rapids=0.13 python=3.7 cudatoolkit=10.2
-#RUN conda install -c rapidsai-nightly -c nvidia -c conda-forge \
-#    -c defaults rapids=0.14 python=3.7 cudatoolkit=10.2
-
-# https://pytorch.org/get-started/locally/
-# RUN pip install torch torchvision
-RUN conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
-
 RUN pip install py4j
 RUN pip install wget validators
 
-# https://www.tensorflow.org/install/gpu
-RUN pip install tensorflow-gpu keras
-RUN pip install tensorboardX
-RUN pip install xgboost catboost
-#RUN pip install cntk
-#RUN pip install mxnet
-#RUN pip install pyspark
-
-RUN pip install tpot
-RUN pip install auto-sklearn
-RUN pip install git+https://github.com/ow2-proactive/chocolate@master
-RUN pip install ghalton
-RUN pip install hyperopt
-
-RUN pip install eli5
-#RUN pip uninstall matplotlib
-#RUN pip install matplotlib==2.2.2
-RUN pip install mpld3
-#RUN pip install shap==0.30.0
-RUN pip install shap
-RUN pip install pdpbox
-
-#RUN pip install pymc3
-RUN pip install networkx nltk statsmodels luminol tsfresh
-RUN pip install torchtext gensim implicit
-#RUN pip install dask distributed
-
-RUN pip install scikit-image graphviz opencv-contrib-python-headless
-#RUN pip install dlib
-#RUN pip install Pillow==6.1
-
-RUN pip install bokeh
-RUN pip install boto boto3 bz2file s3fs
-
-#RUN pip install cassandra-driver cx-Oracle elasticsearch mysql-connector-python pymongo pymssql PyMySQL pyodbc pyOpenSSL sqlalchemy SecretStorage
-
-RUN pip install tabulate colorama future
-#RUN pip install -f http://h2o-release.s3.amazonaws.com/h2o/latest_stable_Py.html h2o
-
-RUN pip install beautifulsoup4 tqdm dill
-#RUN pip install psycopg2 psycopg2-binary
-
-# azure-cognitiveservices-vision-face
-#RUN pip install azure-cognitiveservices-vision-computervision azure-cognitiveservices-vision-contentmoderator azure-cognitiveservices-vision-customvision azure-cognitiveservices-search-websearch azure-cognitiveservices-search-imagesearch azure-cognitiveservices-search-entitysearch azure-cognitiveservices-search-customsearch azure-cognitiveservices-search-visualsearch azure-cognitiveservices-search-videosearch azure-cognitiveservices-search-newssearch  azure-cognitiveservices-language-textanalytics azure-cognitiveservices-language-spellcheck azure-mgmt-cognitiveservices
-#RUN pip install azure-mgmt-machinelearningcompute azure-mgmt-batchai
-
-# https://github.com/Microsoft/CNTK/issues/3499
-#RUN pip install cntk-gpu
-#RUN ln -s /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.20 /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.1
-#RUN ln -s /usr/lib/x86_64-linux-gnu/libmpi.so.20.10.1 /usr/lib/x86_64-linux-gnu/libmpi.so.12
-#RUN pip install https://cntk.ai/PythonWheel/GPU/cntk_gpu-2.6-cp36-cp36m-linux_x86_64.whl
-
-#RUN pip install flask flask-cors
-#RUN pip install Werkzeug==0.16.1
-#RUN pip install connexion[swagger-ui]==2.6.0
-
-#RUN pip uninstall numpy -y
-#RUN rm -rf /usr/local/lib/python3.6/site-packages/numpy
-#RUN pip install numpy==1.16.4
-
-#RUN pip install -U jupyter jupyterlab
-RUN pip install proactive
-
 # Install Visdom (Facebook Research) from source
 # ----------------------------------------------
-RUN git clone https://github.com/facebookresearch/visdom.git
-RUN cd visdom && pip install -e . && easy_install .
+# RUN git clone https://github.com/facebookresearch/visdom.git
+# RUN cd visdom && pip install -e . && easy_install .
 #WARNING: The easy_install command is deprecated and will be removed in a future version.
 
 # Install Open MPI
@@ -168,8 +103,8 @@ RUN mkdir /tmp/openmpi && \
 
 # Install Horovod, temporarily using CUDA stubs
 RUN ldconfig /usr/local/cuda/targets/x86_64-linux/lib/stubs && \
-    HOROVOD_GPU_OPERATIONS=NCCL HOROVOD_WITH_TENSORFLOW=1 HOROVOD_WITH_PYTORCH=1 \
-         pip install --no-cache-dir horovod && \
+    HOROVOD_GPU_OPERATIONS=NCCL HOROVOD_WITH_TENSORFLOW=1 HOROVOD_WITH_PYTORCH=1 HOROVOD_WITH_MXNET=1 \
+         pip install --no-cache-dir horovod[all-frameworks] && \
     ldconfig
 
 # Install OpenSSH for MPI to communicate between containers
@@ -187,8 +122,6 @@ RUN apt-get install -y --no-install-recommends subversion && \
     rm -rf /examples/.svn
 
 WORKDIR "/examples"
-
-RUN conda clean --all -y
 
 RUN rm -rf ~/.cache/pip
 
