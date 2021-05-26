@@ -2,8 +2,8 @@ import dlaas_pb2
 import sys
 import time
 import os
-from keras.preprocessing.image import load_img
-from keras.preprocessing.image import img_to_array
+#from keras.preprocessing.image import load_img
+#from keras.preprocessing.image import img_to_array
 
 INSTANCE_PATH = os.getenv('INSTANCE_PATH') if os.getenv('INSTANCE_PATH') is not None else "/model_as_service"
 CONFIG_FILE_BIN = os.path.join(INSTANCE_PATH,"config_file.bin")
@@ -205,16 +205,16 @@ def get_newest_deployed_version(model_name) -> int:
 	return max	
 
 # load and prepare the image
-def load_image(filename):
+#def load_image(filename):
 	# load the image
-	img = load_img(filename, color_mode="grayscale", target_size=(28, 28))
+#	img = load_img(filename, color_mode="grayscale", target_size=(28, 28))
 	# convert to array
-	img = img_to_array(img)
-	print("img")
+#	img = img_to_array(img)
+#	print("img")
 	# reshape into a single sample with 1 channel
-	img = img.reshape(1, 28, 28, 1)
+#	img = img.reshape(1, 28, 28, 1)
 	# prepare pixel data
-	img = img.astype('float32')
-	img = img / 255.0
+#	img = img.astype('float32')
+#	img = img / 255.0
 	#print ("img :", img)
-	return img					
+#	return img					
