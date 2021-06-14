@@ -55,13 +55,13 @@ RUN pip install tqdm
 
 # Install prophet
 # ------------------------
-#RUN pip install pystan==2.19.1.1
-#RUN pip install fbprophet
+RUN pip install pystan==2.19.1.1
+RUN pip install fbprophet
 
 #Install gluonts
 #-------------------------
-RUN pip install mxnet
-RUN pip install gluonts
+#RUN pip install mxnet
+#RUN pip install gluonts
 
 #Install ActiveMQ integration libraries
 #-------------------------
