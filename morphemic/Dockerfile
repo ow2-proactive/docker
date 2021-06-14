@@ -1,8 +1,8 @@
-FROM python:3.7
+FROM python:3.8.10
 
 WORKDIR /tmp/Notebooks
 
-ENV DEBIAN_FRONTEND noninteractive
+#ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get clean && apt-get update -y -qq
 RUN apt-get install -y --no-install-recommends apt-utils
@@ -68,6 +68,7 @@ RUN pip install fbprophet
 RUN pip install stomp.py
 RUN pip install PyYAML
 RUN pip install Timeloop
+RUN pip install python-slugify
 
 # Install JupyterLab 3
 # ------------------------
