@@ -55,7 +55,7 @@ RUN pip install tqdm
 
 # Install prophet
 # ------------------------
-#RUN pip install pystan
+#RUN pip install pystan==2.19.1.1
 #RUN pip install fbprophet
 
 #Install gluonts
