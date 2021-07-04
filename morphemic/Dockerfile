@@ -70,6 +70,11 @@ RUN pip install PyYAML
 RUN pip install Timeloop
 RUN pip install python-slugify
 
+#Install DatasetMaker integration libraries
+#-------------------------
+RUN pip install filelock
+RUN pip install influxDB
+
 # Install JupyterLab 3
 # ------------------------
 RUN python -m pip install jupyterlab==3
