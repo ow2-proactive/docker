@@ -83,6 +83,6 @@ RUN rm -rf ~/.cache/pip
 
 #Clone the prophet forecaster code
 #-------------------------
-RUN git clone -b prophet-imen https://github.com/dianajlailaty/morphemic_integration.git
+RUN chmod +x /morphemic_project/morphemic_integration/forecasting_prophet/main.py
 
-CMD ["python /morphemic_project/morphemic_integration/forecasting_prophet/main.py"]
+ENTRYPOINT python /morphemic_project/morphemic_integration/forecasting_prophet/main.py
