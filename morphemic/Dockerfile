@@ -1,6 +1,6 @@
 FROM python:3.8.10
 
-WORKDIR /tmp/Notebooks
+WORKDIR /morphemic_project
 
 #ENV DEBIAN_FRONTEND noninteractive
 
@@ -75,21 +75,14 @@ RUN pip install python-slugify
 RUN pip install filelock
 RUN pip install influxDB
 
-# Install JupyterLab 3
-# ------------------------
-RUN python -m pip install jupyterlab==3
-RUN pip list
-
 # Force the installation of the version 0.10.8.1 of py4j
 # This is due to the double connection from docker issue with the version 0.10.9
 # ------------------------
 RUN python -m pip install py4j==0.10.8.1
 RUN rm -rf ~/.cache/pip
 
-EXPOSE 8888
+#Clone the prophet forecaster code
+#-------------------------
+RUN git clone -b prophet-imen https://github.com/dianajlailaty/morphemic_integration.git
 
-ENV JUPYTERLAB_PASSWORD=''
-
-ENV ADDITIONAL_OPTIONS=''
-
-ENTRYPOINT jupyter lab --port=8888 --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.password=$(python -c "from IPython.lib.security import passwd; print(passwd(passphrase='$JUPYTERLAB_PASSWORD', algorithm='sha1'))") $ADDITIONAL_OPTIONS
+ENTRYPOINT python /morphmic_project/forecasting_prophet/main.py
