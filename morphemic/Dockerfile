@@ -1,7 +1,7 @@
 FROM python:3.8.10
 
 WORKDIR /morphemic_project
-
+USER root
 #ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get clean && apt-get update -y -qq
