@@ -1,0 +1,42 @@
+2021-09-02 18:14:09,077 [MainThread  ] [INFO ]  GROMACS Solvate 2020220200430578835 version detected
+2021-09-02 18:14:09,082 [MainThread  ] [INFO ]  Extracting: /opt/notebooks/biobb_wf_md_setup/biobb_wf_md_setup/notebooks/1AKI_pdb2gmx_top.zip
+2021-09-02 18:14:09,082 [MainThread  ] [INFO ]  to:
+2021-09-02 18:14:09,083 [MainThread  ] [INFO ]  ['ab112505-9782-41d2-8a12-dbc7d5846a13/p2g.top', 'ab112505-9782-41d2-8a12-dbc7d5846a13/posre.itp']
+2021-09-02 18:14:09,083 [MainThread  ] [INFO ]  Unzipping: 
+2021-09-02 18:14:09,084 [MainThread  ] [INFO ]  1AKI_pdb2gmx_top.zip
+2021-09-02 18:14:09,084 [MainThread  ] [INFO ]  To: 
+2021-09-02 18:14:09,084 [MainThread  ] [INFO ]  ab112505-9782-41d2-8a12-dbc7d5846a13/p2g.top
+2021-09-02 18:14:09,085 [MainThread  ] [INFO ]  ab112505-9782-41d2-8a12-dbc7d5846a13/posre.itp
+2021-09-02 18:14:09,085 [MainThread  ] [INFO ]  Not using any container
+2021-09-02 18:14:09,363 [MainThread  ] [INFO ]  gmx -nobackup -nocopyright solvate -cp 1AKI_editconf.gro -cs spc216.gro -o 1AKI_solvate.gro -p ab112505-9782-41d2-8a12-dbc7d5846a13/p2g.top
+
+2021-09-02 18:14:09,364 [MainThread  ] [INFO ]  Exit code 0
+
+2021-09-02 18:14:09,365 [MainThread  ] [INFO ]  
+WARNING: Masses and atomic (Van der Waals) radii will be guessed
+         based on residue and atom names, since they could not be
+         definitively assigned from the information in your input
+         files. These guessed numbers might deviate from the mass
+         and radius of the atom type. Please check the output
+         files if necessary.
+
+NOTE: From version 5.0 gmx solvate uses the Van der Waals radii
+from the source below. This means the results may be different
+compared to previous GROMACS versions.
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+A. Bondi
+van der Waals Volumes and Radii
+J. Phys. Chem. 68 (1964) pp. 441-451
+-------- -------- --- Thank You --- -------- --------
+
+Adding line for 10644 solvent molecules with resname (SOL) to topology file (ab112505-9782-41d2-8a12-dbc7d5846a13/p2g.top)
+
+2021-09-02 18:14:09,366 [MainThread  ] [INFO ]  Compressing topology to: 1AKI_solvate_top.zip
+2021-09-02 18:14:09,367 [MainThread  ] [INFO ]  Ignored file ab112505-9782-41d2-8a12-dbc7d5846a13/amber99sb-ildn.ff/forcefield.itp
+2021-09-02 18:14:09,377 [MainThread  ] [INFO ]  Ignored file ab112505-9782-41d2-8a12-dbc7d5846a13/amber99sb-ildn.ff/spce.itp
+2021-09-02 18:14:09,377 [MainThread  ] [INFO ]  Ignored file ab112505-9782-41d2-8a12-dbc7d5846a13/amber99sb-ildn.ff/ions.itp
+2021-09-02 18:14:09,380 [MainThread  ] [INFO ]  Adding:
+2021-09-02 18:14:09,380 [MainThread  ] [INFO ]  ['ab112505-9782-41d2-8a12-dbc7d5846a13/p2g.top', 'ab112505-9782-41d2-8a12-dbc7d5846a13/posre.itp']
+2021-09-02 18:14:09,381 [MainThread  ] [INFO ]  to: /opt/notebooks/biobb_wf_md_setup/biobb_wf_md_setup/notebooks/1AKI_solvate_top.zip
+2021-09-02 18:14:09,382 [MainThread  ] [INFO ]  Removed: ['ab112505-9782-41d2-8a12-dbc7d5846a13']

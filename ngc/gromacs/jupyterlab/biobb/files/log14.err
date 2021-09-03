@@ -1,0 +1,45 @@
+2021-09-02 18:24:11,214 [MainThread  ] [INFO ]          :-) GROMACS - gmx mdrun, 2020.2-dev-20200430-5e78835-unknown (-:
+
+Executable:   /usr/local/gromacs//sm70/bin/gmx
+Data prefix:  /usr/local/gromacs//sm70
+Working dir:  /opt/notebooks/biobb_wf_md_setup/biobb_wf_md_setup/notebooks
+Command line:
+  gmx -nobackup -nocopyright mdrun -s 1AKI_gppnpt.tpr -o 1AKI_npt.trr -c 1AKI_npt.gro -e 1AKI_npt.edr -g 1AKI_npt.log -cpo 1AKI_npt.cpt
+
+Reading file 1AKI_gppnpt.tpr, VERSION 2020.2-dev-20200430-5e78835-unknown (single precision)
+Changing nstlist from 10 to 100, rlist from 1 to 1.165
+
+On host 8afc530b9665 2 GPUs selected for this run.
+Mapping of GPU IDs to the 4 GPU tasks in the 4 ranks on this node:
+  PP:0,PP:0,PP:1,PP:1
+PP tasks will do (non-perturbed) short-ranged and most bonded interactions on the GPU
+PP task will update and constrain coordinates on the CPU
+Using 4 MPI threads
+Using 4 OpenMP threads per tMPI thread
+
+
+NOTE: DLB will not turn on during the first phase of PME tuning
+starting mdrun 'Protein in water'
+5000 steps,     10.0 ps.
+
+NOTE: DLB can now turn on, when beneficial
+
+Writing final coordinates.
+
+
+Dynamic load balancing report:
+ DLB was turned on during the run due to measured imbalance.
+ Average load imbalance: 3.2%.
+ The balanceable part of the MD step is 57%, load imbalance is computed from this.
+ Part of the total run time spent waiting due to load imbalance: 1.9%.
+ Steps where the load balancing was limited by -rdd, -rcon and/or -dds: X 0 %
+
+
+               Core t (s)   Wall t (s)        (%)
+       Time:     2113.209      132.076     1600.0
+                 (ns/day)    (hour/ns)
+Performance:        6.543        3.668
+
+GROMACS reminds you: "... yet the [economic] profession continued to churn out purely theoretical results without even knowing what facts needed to be explained." (Thomas Piketty)
+
+

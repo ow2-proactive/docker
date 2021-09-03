@@ -1,0 +1,46 @@
+2021-09-02 18:21:53,179 [MainThread  ] [INFO ]         :-) GROMACS - gmx grompp, 2020.2-dev-20200430-5e78835-unknown (-:
+
+Executable:   /usr/local/gromacs//sm70/bin/gmx
+Data prefix:  /usr/local/gromacs//sm70
+Working dir:  /opt/notebooks/biobb_wf_md_setup/biobb_wf_md_setup/notebooks
+Command line:
+  gmx -nobackup -nocopyright grompp -f 5758a365-8fec-462f-b98a-9af6f55de816/grompp.mdp -c 1AKI_nvt.gro -r 1AKI_nvt.gro -p 1e76a7d2-52ad-4478-a896-e221d8b4dfab/p2g.top -o 1AKI_gppnpt.tpr -po mdout.mdp -maxwarn 0 -t 1AKI_nvt.cpt
+
+Ignoring obsolete mdp entry 'ns-type'
+Setting the LD random seed to 1029325157
+Generated 2145 of the 2145 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 2145 of the 2145 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'Protein_chain_A'
+Excluding 2 bonded neighbours molecule type 'SOL'
+Excluding 1 bonded neighbours molecule type 'NA'
+Excluding 1 bonded neighbours molecule type 'CL'
+
+NOTE 1 [file p2g.top, line 18678]:
+  You are combining position restraints with Parrinello-Rahman pressure
+  coupling, which can lead to instabilities. If you really want to combine
+  position restraints with pressure coupling, we suggest to use Berendsen
+  pressure coupling instead.
+
+The center of mass of the position restraint coord's is  3.486  3.521  3.504
+The center of mass of the position restraint coord's is  3.486  3.521  3.504
+Number of degrees of freedom in T-Coupling group Protein is 4920.79
+Number of degrees of freedom in T-Coupling group non-Protein is 63777.21
+
+NOTE 2 [file 5758a365-8fec-462f-b98a-9af6f55de816/grompp.mdp]:
+  Removing center of mass motion in the presence of position restraints
+  might cause artifacts. When you are using position restraints to
+  equilibrate a macro-molecule, the artifacts are usually negligible.
+
+Reading Coordinates, Velocities and Box size from old trajectory
+Will read whole trajectory
+Last frame         -1 time   10.000   
+Using frame at t = 10 ps
+Starting time for run is 0 ps
+Estimate for the relative computational load of the PME mesh part: 0.26
+
+There were 2 notes
+
+GROMACS reminds you: "In mathematics you don't understand things, you just get used to them" (John von Neumann)
+
+

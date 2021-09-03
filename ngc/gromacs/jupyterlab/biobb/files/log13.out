@@ -1,0 +1,33 @@
+2021-09-02 18:21:52,710 [MainThread  ] [INFO ]  GROMACS Grompp 2020220200430578835 version detected
+2021-09-02 18:21:52,714 [MainThread  ] [INFO ]  Extracting: /opt/notebooks/biobb_wf_md_setup/biobb_wf_md_setup/notebooks/1AKI_genion_top.zip
+2021-09-02 18:21:52,715 [MainThread  ] [INFO ]  to:
+2021-09-02 18:21:52,716 [MainThread  ] [INFO ]  ['1e76a7d2-52ad-4478-a896-e221d8b4dfab/p2g.top', '1e76a7d2-52ad-4478-a896-e221d8b4dfab/posre.itp']
+2021-09-02 18:21:52,716 [MainThread  ] [INFO ]  Unzipping: 
+2021-09-02 18:21:52,717 [MainThread  ] [INFO ]  1AKI_genion_top.zip
+2021-09-02 18:21:52,717 [MainThread  ] [INFO ]  To: 
+2021-09-02 18:21:52,718 [MainThread  ] [INFO ]  1e76a7d2-52ad-4478-a896-e221d8b4dfab/p2g.top
+2021-09-02 18:21:52,718 [MainThread  ] [INFO ]  1e76a7d2-52ad-4478-a896-e221d8b4dfab/posre.itp
+2021-09-02 18:21:52,720 [MainThread  ] [INFO ]  Not using any container
+2021-09-02 18:21:53,177 [MainThread  ] [INFO ]  gmx -nobackup -nocopyright grompp -f 5758a365-8fec-462f-b98a-9af6f55de816/grompp.mdp -c 1AKI_nvt.gro -r 1AKI_nvt.gro -p 1e76a7d2-52ad-4478-a896-e221d8b4dfab/p2g.top -o 1AKI_gppnpt.tpr -po mdout.mdp -maxwarn 0 -t 1AKI_nvt.cpt
+
+2021-09-02 18:21:53,178 [MainThread  ] [INFO ]  Exit code 0
+
+2021-09-02 18:21:53,178 [MainThread  ] [INFO ]  turning H bonds into constraints...
+turning H bonds into constraints...
+turning H bonds into constraints...
+turning H bonds into constraints...
+Analysing residue names:
+There are:   129    Protein residues
+There are: 10616      Water residues
+There are:    28        Ion residues
+Analysing Protein...
+Analysing residues not classified as Protein/DNA/RNA/Water and splitting into groups...
+Determining Verlet buffer for a tolerance of 0.005 kJ/mol/ps at 300 K
+Calculated rlist for 1x1 atom pair-list as 1.035 nm, buffer size 0.035 nm
+Set rlist, assuming 4x4 atom pair-list, to 1.000 nm, buffer size 0.000 nm
+Note that mdrun will redetermine rlist based on the actual pair-list setup
+Calculating fourier grid dimensions for X Y Z
+Using a fourier grid of 60x60x60, spacing 0.117 0.117 0.117
+This run will generate roughly 12 Mb of data
+
+2021-09-02 18:21:53,181 [MainThread  ] [INFO ]  Removed: ['mdout.mdp', '1e76a7d2-52ad-4478-a896-e221d8b4dfab', '5758a365-8fec-462f-b98a-9af6f55de816']

@@ -1,0 +1,12 @@
+2021-09-02 18:14:05,390 [MainThread  ] [INFO ]        :-) GROMACS - gmx editconf, 2020.2-dev-20200430-5e78835-unknown (-:
+
+Executable:   /usr/local/gromacs//sm70/bin/gmx
+Data prefix:  /usr/local/gromacs//sm70
+Working dir:  /opt/notebooks/biobb_wf_md_setup/biobb_wf_md_setup/notebooks
+Command line:
+  gmx -nobackup -nocopyright editconf -f 1AKI_pdb2gmx.gro -o 1AKI_editconf.gro -d 1.0 -bt cubic -c
+
+
+GROMACS reminds you: "You Crashed Into the Swamps" (Silicon Graphics)
+
+

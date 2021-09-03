@@ -1,0 +1,62 @@
+2021-09-02 18:26:05,291 [MainThread  ] [INFO ]         :-) GROMACS - gmx gyrate, 2020.2-dev-20200430-5e78835-unknown (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov      Paul Bauer     Herman J.C. Berendsen
+    Par Bjelkmar      Christian Blau   Viacheslav Bolnykh     Kevin Boyd    
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra       Alan Gray     
+  Gerrit Groenhof     Anca Hamuraru    Vincent Hindriksen  M. Eric Irrgang  
+  Aleksei Iupinov   Christoph Junghans     Joe Jordan     Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul    Viveca Lindahl    Magnus Lundborg     Erik Marklund   
+    Pascal Merz     Pieter Meulenhoff    Teemu Murtola       Szilard Pall   
+    Sander Pronk      Roland Schulz      Michael Shirts    Alexey Shvetsov  
+   Alfons Sijbers     Peter Tieleman      Jon Vincent      Teemu Virolainen 
+ Christian Wennberg    Maarten Wolf      Artem Zhmurov   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2019, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx gyrate, version 2020.2-dev-20200430-5e78835-unknown
+Executable:   /usr/local/gromacs//sm70/bin/gmx
+Data prefix:  /usr/local/gromacs//sm70
+Working dir:  /opt/notebooks/biobb_wf_md_setup/biobb_wf_md_setup/notebooks
+Command line:
+  gmx gyrate -s /opt/notebooks/biobb_wf_md_setup/biobb_wf_md_setup/notebooks/1AKI_gppmin.tpr -f /opt/notebooks/biobb_wf_md_setup/biobb_wf_md_setup/notebooks/1AKI_md.trr -o 1AKI_rgyr.xvg -xvg none
+
+Reading file /opt/notebooks/biobb_wf_md_setup/biobb_wf_md_setup/notebooks/1AKI_gppmin.tpr, VERSION 2020.2-dev-20200430-5e78835-unknown (single precision)
+Reading file /opt/notebooks/biobb_wf_md_setup/biobb_wf_md_setup/notebooks/1AKI_gppmin.tpr, VERSION 2020.2-dev-20200430-5e78835-unknown (single precision)
+Group     0 (         System) has 33836 elements
+Group     1 (        Protein) has  1960 elements
+Group     2 (      Protein-H) has  1001 elements
+Group     3 (        C-alpha) has   129 elements
+Group     4 (       Backbone) has   387 elements
+Group     5 (      MainChain) has   517 elements
+Group     6 (   MainChain+Cb) has   634 elements
+Group     7 (    MainChain+H) has   646 elements
+Group     8 (      SideChain) has  1314 elements
+Group     9 (    SideChain-H) has   484 elements
+Group    10 (    Prot-Masses) has  1960 elements
+Group    11 (    non-Protein) has 31876 elements
+Group    12 (          Water) has 31848 elements
+Group    13 (            SOL) has 31848 elements
+Group    14 (      non-Water) has  1988 elements
+Group    15 (            Ion) has    28 elements
+Group    16 (             NA) has    10 elements
+Group    17 (             CL) has    18 elements
+Group    18 ( Water_and_ions) has 31876 elements
+Select a group: trr version: GMX_trn_file (single precision)
+Reading frame       0 time    0.000   Reading frame       1 time   10.000   Reading frame       2 time   20.000   Reading frame       3 time   30.000   Reading frame       4 time   40.000   Reading frame       5 time   50.000   Reading frame       6 time   60.000   Reading frame       7 time   70.000   Reading frame       8 time   80.000   Reading frame       9 time   90.000   Reading frame      10 time  100.000   Last frame         10 time  100.000   
+
+GROMACS reminds you: "If it's all right with Dirac, it's all right with me." (Enrico Fermi, on being told that there was experimental evidence He-3 nuclei obey Fermi-Dirac statistics.)
+
+

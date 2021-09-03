@@ -1,0 +1,34 @@
+2021-09-02 18:18:12,387 [MainThread  ] [INFO ]         :-) GROMACS - gmx grompp, 2020.2-dev-20200430-5e78835-unknown (-:
+
+Executable:   /usr/local/gromacs//sm70/bin/gmx
+Data prefix:  /usr/local/gromacs//sm70
+Working dir:  /opt/notebooks/biobb_wf_md_setup/biobb_wf_md_setup/notebooks
+Command line:
+  gmx -nobackup -nocopyright grompp -f 7a4f1905-00b3-4b3c-b30f-7804d9f39b9f/grompp.mdp -c 1AKI_min.gro -r 1AKI_min.gro -p e7998dd2-fba5-41bb-9ba7-178075266583/p2g.top -o 1AKI_gppnvt.tpr -po mdout.mdp -maxwarn 0
+
+Ignoring obsolete mdp entry 'ns-type'
+Setting the LD random seed to -1783004678
+Generated 2145 of the 2145 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 2145 of the 2145 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'Protein_chain_A'
+Excluding 2 bonded neighbours molecule type 'SOL'
+Excluding 1 bonded neighbours molecule type 'NA'
+Excluding 1 bonded neighbours molecule type 'CL'
+Setting gen_seed to 1580773123
+Velocities were taken from a Maxwell distribution at 300 K
+Number of degrees of freedom in T-Coupling group Protein is 4920.79
+Number of degrees of freedom in T-Coupling group non-Protein is 63777.21
+
+NOTE 1 [file 7a4f1905-00b3-4b3c-b30f-7804d9f39b9f/grompp.mdp]:
+  Removing center of mass motion in the presence of position restraints
+  might cause artifacts. When you are using position restraints to
+  equilibrate a macro-molecule, the artifacts are usually negligible.
+
+Estimate for the relative computational load of the PME mesh part: 0.26
+
+There was 1 note
+
+GROMACS reminds you: "Strength is just an accident arising from the weakness of others" (Joseph Conrad)
+
+

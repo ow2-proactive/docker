@@ -1,0 +1,3 @@
+2021-09-02 18:13:14,146 [MainThread  ] [INFO ]  Downloading: 1aki from: https://www.ebi.ac.uk/pdbe/entry-files/download/pdb1aki.ent
+2021-09-02 18:13:14,294 [MainThread  ] [INFO ]  Writting pdb to: 1AKI.pdb
+2021-09-02 18:13:14,295 [MainThread  ] [INFO ]  Filtering lines NOT starting with one of these words: ['ATOM', 'MODEL', 'ENDMDL']

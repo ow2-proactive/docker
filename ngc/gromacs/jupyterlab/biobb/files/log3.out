@@ -1,0 +1,26 @@
+2021-09-02 18:14:05,366 [MainThread  ] [INFO ]  GROMACS Editconf 2020220200430578835 version detected
+2021-09-02 18:14:05,367 [MainThread  ] [INFO ]  Centering molecule in the box.
+2021-09-02 18:14:05,368 [MainThread  ] [INFO ]  Distance of the box to molecule:   1.00
+2021-09-02 18:14:05,369 [MainThread  ] [INFO ]  Box type: cubic
+2021-09-02 18:14:05,369 [MainThread  ] [INFO ]  Not using any container
+2021-09-02 18:14:05,388 [MainThread  ] [INFO ]  gmx -nobackup -nocopyright editconf -f 1AKI_pdb2gmx.gro -o 1AKI_editconf.gro -d 1.0 -bt cubic -c
+
+2021-09-02 18:14:05,389 [MainThread  ] [INFO ]  Exit code 0
+
+2021-09-02 18:14:05,390 [MainThread  ] [INFO ]  Note that major changes are planned in future for editconf, to improve usability and utility.
+Read 1960 atoms
+Volume: 55.8378 nm^3, corresponds to roughly 25100 electrons
+No velocities found
+    system size :  3.817  4.234  3.454 (nm)
+    diameter    :  5.010               (nm)
+    center      :  2.781  2.488  0.017 (nm)
+    box vectors :  3.817  4.235  3.455 (nm)
+    box angles  :  90.00  90.00  90.00 (degrees)
+    box volume  :  55.84               (nm^3)
+    shift       :  0.724  1.017  3.488 (nm)
+new center      :  3.505  3.505  3.505 (nm)
+new box vectors :  7.010  7.010  7.010 (nm)
+new box angles  :  90.00  90.00  90.00 (degrees)
+new box volume  : 344.48               (nm^3)
+
+2021-09-02 18:14:05,391 [MainThread  ] [INFO ]  Removed: []

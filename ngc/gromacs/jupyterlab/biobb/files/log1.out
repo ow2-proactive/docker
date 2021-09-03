@@ -1,0 +1,38 @@
+2021-09-02 18:13:20,343 [MainThread  ] [INFO ]  check_structure -i 1AKI.pdb -o 1AKI_fixed.pdb --force_save fixside --fix ALL
+
+2021-09-02 18:13:20,344 [MainThread  ] [INFO ]  Exit code 0
+
+2021-09-02 18:13:20,345 [MainThread  ] [INFO ]  ===============================================================================
+=                   BioBB structure checking utility v3.8.1                   =
+=                 A. Hospital, P. Andrio, J.L. Gelpi 2018-21                  =
+===============================================================================
+
+Warning: sequence features only available in mmCIF format or with external fasta input
+Structure 1AKI.pdb loaded
+ Title: 
+ Experimental method: unknown
+ Resolution (A): N.A.
+
+ Num. models: 1
+ Num. chains: 1 (A: Protein)
+ Num. residues:  129
+ Num. residues with ins. codes:  0
+ Num. HETATM residues:  0
+ Num. ligands or modified residues:  0
+ Num. water mol.:  0
+ Num. atoms:  1001
+
+Running fixside. Options: --fix ALL
+No residues with missing or unknown side chain atoms found
+Structure not modified, saving due to --force_save option
+Final Num. models: 1
+Final Num. chains: 1 (A: Protein)
+Final Num. residues:  129
+Final Num. residues with ins. codes:  0
+Final Num. HETATM residues:  0
+Final Num. ligands or modified residues:  0
+Final Num. water mol.:  0
+Final Num. atoms:  1001
+Structure saved on 1AKI_fixed.pdb
+
+2021-09-02 18:13:20,345 [MainThread  ] [INFO ]  Removed: []

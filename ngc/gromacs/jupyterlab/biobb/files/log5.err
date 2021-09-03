@@ -1,0 +1,48 @@
+2021-09-02 18:14:18,607 [MainThread  ] [INFO ]         :-) GROMACS - gmx grompp, 2020.2-dev-20200430-5e78835-unknown (-:
+
+Executable:   /usr/local/gromacs//sm70/bin/gmx
+Data prefix:  /usr/local/gromacs//sm70
+Working dir:  /opt/notebooks/biobb_wf_md_setup/biobb_wf_md_setup/notebooks
+Command line:
+  gmx -nobackup -nocopyright grompp -f 85a4e95c-16f8-4d6f-b6ea-e4b1857be011/grompp.mdp -c 1AKI_solvate.gro -r 1AKI_solvate.gro -p 1cb04395-3d01-4d4b-b151-5e2a417fc395/p2g.top -o 1AKI_gppion.tpr -po mdout.mdp -maxwarn 1
+
+Ignoring obsolete mdp entry 'ns-type'
+Setting the LD random seed to -813177290
+Generated 2145 of the 2145 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 2145 of the 2145 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'Protein_chain_A'
+Excluding 2 bonded neighbours molecule type 'SOL'
+
+NOTE 1 [file p2g.top, line 18676]:
+  System has non-zero total charge: 8.000000
+  Total charge should normally be an integer. See
+  http://www.gromacs.org/Documentation/Floating_Point_Arithmetic
+  for discussion on how close it should be to an integer.
+  
+
+
+
+WARNING 1 [file p2g.top, line 18676]:
+  You are using Ewald electrostatics in a system with net charge. This can
+  lead to severe artifacts, such as ions moving into regions with low
+  dielectric, due to the uniform background charge. We suggest to
+  neutralize your system with counter ions, possibly in combination with a
+  physiological salt concentration.
+
+Number of degrees of freedom in T-Coupling group rest is 69741.00
+
+NOTE 2 [file 85a4e95c-16f8-4d6f-b6ea-e4b1857be011/grompp.mdp]:
+  Removing center of mass motion in the presence of position restraints
+  might cause artifacts. When you are using position restraints to
+  equilibrate a macro-molecule, the artifacts are usually negligible.
+
+Estimate for the relative computational load of the PME mesh part: 0.24
+
+There were 2 notes
+
+There was 1 warning
+
+GROMACS reminds you: "Torture numbers, and they'll confess to anything." (Greg Easterbrook)
+
+

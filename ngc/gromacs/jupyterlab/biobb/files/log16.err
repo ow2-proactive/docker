@@ -1,0 +1,29 @@
+2021-09-02 18:24:39,646 [MainThread  ] [INFO ]         :-) GROMACS - gmx grompp, 2020.2-dev-20200430-5e78835-unknown (-:
+
+Executable:   /usr/local/gromacs//sm70/bin/gmx
+Data prefix:  /usr/local/gromacs//sm70
+Working dir:  /opt/notebooks/biobb_wf_md_setup/biobb_wf_md_setup/notebooks
+Command line:
+  gmx -nobackup -nocopyright grompp -f bc9e60bb-b01d-4c23-88d5-67c7f6d51a88/grompp.mdp -c 1AKI_npt.gro -r 1AKI_npt.gro -p c83f2c86-f0cb-4c7e-a07b-f0f55bd733c9/p2g.top -o 1AKI_gppmd.tpr -po mdout.mdp -maxwarn 0 -t 1AKI_npt.cpt
+
+Ignoring obsolete mdp entry 'ns-type'
+Setting the LD random seed to 306843716
+Generated 2145 of the 2145 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 2145 of the 2145 1-4 parameter combinations
+Excluding 3 bonded neighbours molecule type 'Protein_chain_A'
+Excluding 2 bonded neighbours molecule type 'SOL'
+Excluding 1 bonded neighbours molecule type 'NA'
+Excluding 1 bonded neighbours molecule type 'CL'
+Number of degrees of freedom in T-Coupling group Protein is 4920.79
+Number of degrees of freedom in T-Coupling group non-Protein is 63777.21
+Reading Coordinates, Velocities and Box size from old trajectory
+Will read whole trajectory
+Last frame         -1 time   10.000   
+Using frame at t = 10 ps
+Starting time for run is 0 ps
+Estimate for the relative computational load of the PME mesh part: 0.26
+
+GROMACS reminds you: "An intellectual is someone who has found something more interesting than sex." (Edgar Wallace)
+
+
