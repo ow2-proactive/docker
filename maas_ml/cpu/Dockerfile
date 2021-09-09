@@ -9,6 +9,7 @@ WORKDIR /model_as_service
 
 RUN apt-get clean && apt-get -y update
 RUN apt-get -y install nginx
+RUN apt-get install tree
 
 RUN pip install -r requirements.txt
 
