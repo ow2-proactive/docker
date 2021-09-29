@@ -8,7 +8,7 @@ Jinja2==2.11.3
 MarkupSafe==1.1.1
 uWSGI==2.0.18
 scikit-multiflow==0.5.3
-dash==1.20.0
+dash==2.0.0
 dash-core-components==2.0.0
 dash-renderer==1.9.1
 dash-table==5.0.0
