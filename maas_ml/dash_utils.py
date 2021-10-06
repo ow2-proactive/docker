@@ -15,9 +15,10 @@ from dash.dependencies import Output
 import plotly.graph_objs as go
 import plotly.express as px
 
-
-
-
+def alphanum_sort(l):
+    convert = lambda text: int(text) if text.isdigit() else text
+    alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
+    return sorted(l, key=alphanum_key)
 
 # Dash app functions
 def serve_layout():
