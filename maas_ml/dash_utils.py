@@ -21,12 +21,15 @@ from dash.dependencies import Output
 import plotly.graph_objs as go
 import plotly.express as px
 
+# Helper function
 def alphanum_sort(l):
     convert = lambda text: int(text) if text.isdigit() else text
     alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
     return sorted(l, key=alphanum_key)
 
 # Dash app functions
+
+# Main Dash/plotly layout page
 def serve_layout():
     tab_style = {
         "background": "#E6E6FA",
@@ -53,7 +56,8 @@ def serve_layout():
         # 'border-radius': '20px',
         'padding': '20px'
     }
-
+    
+    # Tabs of the Dash app page
     return html.Div([
         dcc.Tabs(id='tabs-example', value='tab-1', children=[
             dcc.Tab(label='Dataset Analytics', value='tab-1', style=tab_style,
@@ -71,6 +75,7 @@ def serve_layout():
     ])
 
 
+# Function called by the main flask app to render the dash layout
 def init_dashboard(server):
     """Create a Plotly Dash dashboard."""
 
@@ -85,6 +90,8 @@ def init_dashboard(server):
 
     app.layout = serve_layout
 
+    
+    # All callback functions that are executed once any event takes place in the dash app components
     @app.callback(Output('tabs-example-content', 'children'), Input('tabs-example', 'value'))
     def render_content(tab):
         directory_contents = os.listdir(os.environ['MODELS_PATH'])
