@@ -286,6 +286,7 @@ def init_dashboard(server):
         cols = list()
         path = os.environ['MODELS_PATH'] + "/" + name + "/" + version + "/" + "predictions_data_" + version + ".csv"
         predictions_dataframe = pd.read_csv(path, header=None)
+        predictions_dataframe = predictions_dataframe.iloc[:, :-1]
         data = predictions_dataframe.to_dict('rows')
         for i in range(0, (len(predictions_dataframe.columns))):
             cols.append(str(i))
