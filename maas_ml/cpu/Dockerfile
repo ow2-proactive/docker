@@ -7,9 +7,9 @@ COPY start.sh /model_as_service/start.sh
 COPY uwsgi.ini /model_as_service/uwsgi.ini
 COPY templates/ /model_as_service/templates/
 COPY static/ /model_as_service/static/
-COPY models/ /model_as_service/models/
 COPY dash_utils.py /model_as_service/dash_utils.py
 COPY requirements.txt /model_as_service/requirements.txt
+RUN mkdir -p /model_as_service/models/
 WORKDIR /model_as_service
 
 RUN apt-get clean && apt-get -y update
