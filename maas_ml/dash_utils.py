@@ -110,7 +110,7 @@ def init_dashboard(server):
             return html.Div([
                 dcc.Interval(
                     id='interval-component',
-                    interval=5 * 1000,  # in milliseconds
+                    # interval=5 * 1000,  # in milliseconds
                     n_intervals=0
                 ),
                 html.Br(),
@@ -132,7 +132,7 @@ def init_dashboard(server):
             return html.Div([
                 dcc.Interval(
                     id='interval-component',
-                    interval=60 * 1000,  # in milliseconds
+                    # interval=60 * 1000,  # in milliseconds
                     n_intervals=0
                 ),
                 html.Div([
@@ -227,7 +227,7 @@ def init_dashboard(server):
             return html.Div([
                 dcc.Interval(
                     id='interval-component',
-                    interval=10 * 1000,  # in milliseconds
+                    # interval=10 * 1000,  # in milliseconds
                     n_intervals=0
                 ),
                 html.Div([
