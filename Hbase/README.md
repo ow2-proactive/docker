@@ -6,3 +6,4 @@ docker build -t activeeon/hbase:<TAG> .
 ```
 https://hub.docker.com/r/activeeon/hbase
 ```
+
