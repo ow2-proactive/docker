@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <configuration>
+        <property>
+                <name>hbase.rootdir</name>
+                <value>hdfs://HDFS-replacement/hbase</value>
+                <final>true</final>
+        </property>
+
+        <property>
+                <name>hbase.replication</name>
+                <value>true</value>
+        </property>
+
+        <property>
+                <name>hbase.zookeeper.quorum</name>
+                <value>ZOOKEEPER-replacement</value>
+                <final>true</final> 
+        </property>
+
+        <property>
+                <name>hbase.cluster.distributed</name>
+                <value>true</value>
+                <final>true</final> 
+        </property>
+
+        <property>
+                <name>hbase.master.info.port</name>
+                <value>16010</value>
+                <final>true</final>
+        </property>
+
+        <property>
+                <name>hbase.regionserver.info.port</name>
+                <value>16030</value>
+                <final>true</final>
+        </property>
+
+        <property>
+                <name>hbase.regionserver.dns.nameserver</name>
+                <value>DNS-replacement-name</value>
+                <final>false</final> 
+        </property>
+
+        <property>
+                <name>hbase.regionserver.thrift.framed</name>
+                <value>true</value>
+                <final>true</final>
+        </property>
+
+        <property>
+                <name>hbase.regionserver.thrift.compact</name>
+                <value>true</value>
+                <final>true</final>
+        </property>
+
+        <property>
+                <name>hbase.thrift.info.port</name>
+                <value>9095</value>
+                <final>true</final>
+        </property>
+        
+    </configuration>
