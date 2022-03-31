@@ -1,8 +1,8 @@
 ```
-docker build -t activeeon/Hbase:<TAG> .
+docker build -t activeeon/hbase:<TAG> .
 ```
 
 ### Docker image
 ```
-https://hub.docker.com/r/activeeon/Hbase
+https://hub.docker.com/r/activeeon/hbase
 ```
