@@ -1,7 +1,7 @@
 # docker build -t activeeon/pytorch:cpu_latest .
 # docker build -t activeeon/pytorch:cpu_1.11.0 .
-# docker run -it --rm activeeon/pytorch bash
-# docker run -it --rm -v $PWD:/home -w /home --network=host --shm-size=256M activeeon/pytorch /bin/bash
+# docker run -it --rm activeeon/pytorch:cpu_latest bash
+# docker run -it --rm -v $PWD:/home -w /home --network=host --shm-size=256M activeeon/pytorch:cpu_latest /bin/bash
 FROM activeeon/python:3.8
 
 WORKDIR /tmp
