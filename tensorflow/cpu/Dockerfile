@@ -11,6 +11,7 @@ RUN apt-get clean
 
 # Install python libraries
 # ------------------------
+RUN pip install --upgrade pip
 RUN pip install py4j
 RUN pip install keras
 RUN pip install pyyaml
