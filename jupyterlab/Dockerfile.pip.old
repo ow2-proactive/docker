@@ -1,0 +1,81 @@
+FROM activeeon/dlm3
+
+WORKDIR /tmp/Notebooks
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends apt-utils
+RUN python -m pip install --upgrade pip
+
+# Install JupyterLab 2.1.0
+# ------------------------
+RUN python -m pip install jupyterlab==2.1.0
+RUN pip list
+
+# Install JupyterLab Git extension
+# ------------------------
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get install -y nodejs
+RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN apt-get update
+RUN apt-get install -y yarn
+RUN python -m pip install --upgrade jupyterlab-git
+RUN jupyter lab build
+
+# Install tensorflow and jupyter-tenso
+# ------------------------
+RUN pip install tensorflow==1.15.4
+RUN pip install jupyter-tensorboard
+RUN jupyter labextension install jupyterlab_tensorboard
+
+# Force the installation of the version 0.10.8.1 of py4j
+# This is due to the double connection from docker issue with the version 0.10.9
+# ------------------------
+RUN python -m pip install py4j==0.10.8.1
+
+# Install Bash Kernel
+# ------------------------
+RUN python -m pip install bash_kernel
+RUN python -m bash_kernel.install
+
+# Install BeakerX Kernels
+# ------------------------
+RUN python -m pip install beakerx
+RUN beakerx install
+
+RUN apt-get install -y build-essential
+RUN apt-get install -y manpages-dev
+
+# Install Graphviz
+# ------------------------
+RUN apt-get clean all
+RUN apt-get update
+RUN apt-get dist-upgrade -y
+RUN apt-get install -y --fix-missing graphviz-dev
+RUN python -m pip install graphviz
+
+# Install ProActive Jupyter Kernel
+# ------------------------
+RUN pip install proactive proactive-jupyter-kernel --upgrade
+RUN python -m proactive-jupyter-kernel.install
+
+# Install more libraries
+# ------------------------
+RUN python -m pip install keras==2.3.1
+RUN python -m pip install tensorboardX
+
+RUN rm -rf ~/.cache/pip
+
+# Copying resources
+# ------------------------
+# http://jupyter-notebook.readthedocs.io/en/stable/security.html
+RUN git clone https://github.com/ow2-proactive/proactive-jupyter-notebooks.git
+
+EXPOSE 8888
+
+ENV JUPYTERLAB_PASSWORD=''
+
+ENV ADDITIONAL_OPTIONS=''
+
+ENTRYPOINT jupyter lab --port=8888 --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.password=$(python -c "from IPython.lib.security import passwd; print(passwd(passphrase='$JUPYTERLAB_PASSWORD', algorithm='sha1'))") $ADDITIONAL_OPTIONS
