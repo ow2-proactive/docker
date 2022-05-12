@@ -1,7 +1,6 @@
 FROM ubuntu:16.04
 
 
-WORKDIR /root
 
 # install openssh-server, openjdk and wget
 RUN apt-get update && apt-get install -y openssh-server openjdk-8-jdk wget vim
@@ -54,5 +53,6 @@ ADD config/purchases.txt /root/
 COPY config/ssh_config /tmp/
 RUN mv /tmp/ssh_config ~/.ssh/config
 
+WORKDIR $HBASE_HOME
 
 CMD ["/bin/bash"]
