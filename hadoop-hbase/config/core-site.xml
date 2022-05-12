@@ -3,7 +3,7 @@
 <configuration>
   <property>
     <name>fs.defaultFS</name>
-    <value>HDFS-replacement</value>
+    <value>hdfs://HDFS-replacement</value>
   </property>
 
 </configuration>

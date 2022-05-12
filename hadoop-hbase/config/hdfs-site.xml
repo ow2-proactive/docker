@@ -3,6 +3,6 @@
   <configuration>
     <property>
         <name>dfs.namenode.http-address</name>
-        <value>HDFS-replacement</value>
+        <value>hdfs://HDFS-replacement</value>
     </property>
 </configuration>

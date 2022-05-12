@@ -19,6 +19,16 @@
         </property>
 
         <property>
+                <name>hbase.regionserver.thrift.http</name>
+                <value>true</value>
+              </property>
+
+        <property>
+                <name>hbase.thrift.support.proxyuser</name>
+                <value>true</value>
+        </property>
+
+        <property>
                 <name>hbase.cluster.distributed</name>
                 <value>true</value>
                 <final>true</final> 
