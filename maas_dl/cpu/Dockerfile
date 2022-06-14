@@ -4,6 +4,9 @@ FROM activeeon/dlm3
 COPY dlaas_pb2.py /model_as_service/dlaas_pb2.py
 COPY dlaas.proto /model_as_service/dlaas.proto
 COPY utils.py /model_as_service/utils.py
+COPY templates/ /model_as_service/templates/
+COPY static/ /model_as_service/static/
+COPY dash_utils.py /model_as_service/dash_utils.py
 COPY requirements.txt /model_as_service/requirements.txt
 WORKDIR /model_as_service
 
