@@ -5,6 +5,7 @@ import re
 import statistics
 import numpy as np
 import flask
+import base64
 
 from datetime import datetime as dt
 from os.path import join, exists, isfile
@@ -32,6 +33,13 @@ def alphanum_sort(l):
 INSTANCE_PATH = os.getenv('INSTANCE_PATH') if os.getenv('INSTANCE_PATH') is not None else None
 # Dash app functions
 
+image_filename = 'activeeon-logo-orange-blue-trasparent.png'
+
+def b64_image(image_filename):
+    with open(image_filename, 'rb') as f:
+        image = f.read()
+    return 'data:image/png;base64,' + base64.b64encode(image).decode('utf-8')
+
 # Main Dash/plotly layout page
 def serve_layout():
     tab_style = {
@@ -44,11 +52,11 @@ def serve_layout():
         'align-items': 'center',
         'justify-content': 'center',
         # 'border-radius': '20px',
-        'padding': '20px'
+        #'padding': '20px'
     }
 
     tab_selected_style = {
-        "background": "#4d4dff",
+        "background": "#1C84C6",
         'text-transform': 'uppercase',
         'color': 'white',
         'border': 'black',
@@ -57,18 +65,52 @@ def serve_layout():
         'align-items': 'center',
         'justify-content': 'center',
         # 'border-radius': '20px',
-        'padding': '20px'
+        #'padding': '20px'
     }
-
+    header_style = {
+        'background-color': "#F3F3F4",
+        'height': '80px',
+        'border-bottom-width': '100%',
+        #'border-bottom': '3px #f47930',
+        'border-bottom-width': '100%',
+        #'padding-top': '40px',
+    }
+    header_text_style = {
+        'position': 'absolute',
+        'left': '50%',
+        'transform': 'translate(-50%, -50%)',
+        'text-align': 'center',
+        'top': '40px',
+        #'font-size': '15px',
+    }
+    image_container_style = {
+        'display': 'inline-block',
+        'position': 'absolute',
+        'left': '20px',
+        'top': '20px'
+    } 
+    line_separator_style = {
+        'height': '3px',
+        'background': '#f47930',
+        'width':'100%', 
+        'display': 'table'
+    } 
     # Tabs of the Dash app page
+    #url = "https://news.microsoft.com/wptabs-example-content-content/uploads/prod/sites/113/2019/02/activeeon-logo-orange-blue-trasparent.png"
     return html.Div([
-        dcc.Tabs(id='tabs-example', value='tab-0', children=[
-            dcc.Tab(label='Audit and Traceability', value='tab-0', style=tab_style,
-                    selected_style=tab_selected_style),
-        ]),
+        html.Div(children=[
+            html.Div(children=[html.Img(src=b64_image(image_filename),style={'height': "40px"})], style=image_container_style),
+            html.Div(children=[
+                html.H1(children='Machine Learning Model as a Service', style={'font-weight': "400",'font-size': '30px'})], style=header_text_style)], style=header_style),
+        html.Div(style=line_separator_style),
+        html.Div(children=[
+            dcc.Tabs(id='tabs-example', value='tab-0', children=[
+                dcc.Tab(label='Audit and Traceability', value='tab-0', style=tab_style,
+                        selected_style=tab_selected_style),
+            ]),
         html.Div(id='tabs-example-content')
+        ])
     ])
-
 
 # Function called by the main flask app to render the dash layout
 def init_dashboard(server):
@@ -109,6 +151,7 @@ def init_dashboard(server):
                 html.Label(["Traceability Details"], style={'font-weight': 'bold', "text-align": "center", "font-size": '3rem'}),
                 html.Br(),
                 html.Div(id='trace-table')
+                #]))
             ])
         elif tab == 'tab-1':
             return html.Div([
@@ -145,7 +188,7 @@ def init_dashboard(server):
         return dash_table.DataTable(data=d, columns=columnss,
                                     style_cell={'padding': '20px', 'border': '1px solid #E6E6FA', 'textAlign': 'center'},
                                     style_header={
-                                        'backgroundColor': '#E6E6FA',
+                                        'backgroundColor': '#D6D6D6',
                                         'fontWeight': 'bold'
                                     })
 
@@ -172,6 +215,6 @@ def init_dashboard(server):
         return dash_table.DataTable(data=l, columns=columnss,
                                     style_cell={'padding': '20px', 'border': '1px solid #E6E6FA', 'textAlign': 'center'},
                                     style_header={
-                                        'backgroundColor': '#E6E6FA',
+                                        'backgroundColor': '#D6D6D6',
                                         'fontWeight': 'bold'
                                     })
