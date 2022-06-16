@@ -22,6 +22,7 @@ from dash.dependencies import Input
 from dash.dependencies import Output
 import plotly.graph_objs as go
 import plotly.express as px
+import dash_bootstrap_components as dbc
 
 
 # Helper function
@@ -33,7 +34,7 @@ def alphanum_sort(l):
 INSTANCE_PATH = os.getenv('INSTANCE_PATH') if os.getenv('INSTANCE_PATH') is not None else None
 # Dash app functions
 
-image_filename = 'activeeon-logo-orange-blue-trasparent.png'
+image_filename = '/model_as_service/activeeon-logo-orange-blue-trasparent.png'
 
 def b64_image(image_filename):
     with open(image_filename, 'rb') as f:
@@ -80,7 +81,7 @@ def serve_layout():
         'left': '50%',
         'transform': 'translate(-50%, -50%)',
         'text-align': 'center',
-        'top': '40px',
+        'top': '50px',
         #'font-size': '15px',
     }
     image_container_style = {
@@ -119,12 +120,12 @@ def init_dashboard(server):
     app = dash.Dash(
         server=server,
         routes_pathname_prefix="/dashapp/",
-        external_stylesheets=[
-            'https://codepen.io/chriddyp/pen/bWLwgP.css'
-        ],
-        # assets_external_path='/assets/style.css'
+        #external_stylesheets=[#dbc.themes.UNITED
+         #   'https://codepen.io/chriddyp/pen/bWLwgP.css'
+        #],
+        #assets_external_path='/assets'
     )
-
+    app.scripts.config.serve_locally = False
     app.layout = serve_layout
 
     # All callback functions that are executed once any event takes place in the dash app components
@@ -139,18 +140,20 @@ def init_dashboard(server):
                 ),
                 html.Br(),
                 html.Br(),
-                html.A(html.Button("Go to Swagger UI", className='three columns'),
-                       href='/api/ui/#/default', target="_blank"),
+                html.Div(children=[
+                    html.A(html.Button("Go to Swagger UI", className='three columns'),
+                       href='/api/ui/#/default', target="_blank")], style={'padding-left': "10px"}
+                ),
                 html.Br(),
                 html.Br(),
                 html.Label(["Configuration Details"], style={'font-weight': 'bold', "text-align": "center", "font-size": '3rem'}),
                 html.Br(),
-                html.Div(id='config-table'),
+                html.Div(id='config-table',style={'padding-left': "10px",'padding-right': "10px"}),
                 html.Br(),
                 html.Br(),
                 html.Label(["Traceability Details"], style={'font-weight': 'bold', "text-align": "center", "font-size": '3rem'}),
                 html.Br(),
-                html.Div(id='trace-table')
+                html.Div(id='trace-table',style={'padding-left': "10px",'padding-right': "10px"})
                 #]))
             ])
         elif tab == 'tab-1':
