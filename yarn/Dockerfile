@@ -1,50 +1,33 @@
-FROM openjdk:8
-
-########  COMMON SSH CONFIG ########
-
-## Passwordless SSH
-
-#RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key
-#RUN ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key
-#RUN ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa
-#RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
-
-ADD ssh_config /root/.ssh/config
-RUN chmod 600 /root/.ssh/config
-RUN chown root:root /root/.ssh/config
-
-RUN echo "Port 2122" >> /etc/ssh/sshd_config
-
-RUN passwd -u root
+FROM ubuntu:16.04
 
 
 
 
+# install openssh-server, openjdk and wget
+RUN apt-get update && apt-get install -y openssh-server openjdk-8-jdk wget vim
 
-########  HADOOP ########
+# install hadoop 2.7.2
+RUN wget https://github.com/kiwenlau/compile-hadoop/releases/download/2.7.2/hadoop-2.7.2.tar.gz && \
+    tar -xzvf hadoop-2.7.2.tar.gz && \
+    mv hadoop-2.7.2 /usr/local/hadoop && \
+    rm hadoop-2.7.2.tar.gz
 
+# set environment variables
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 
+ENV HADOOP_HOME=/usr/local/hadoop 
+ENV HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop
+ENV LD_LIBRARY_PATH=/usr/local/hadoop/lib/native:$LD_LIBRARY_PATH
+ENV CLASSPATH=$CLASSPATH:/usr/local/hbase/lib/*
+ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin:/usr/local/hbase/bin 
 
+# ssh without key
+RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
+    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
-# HADOOP
-ARG HADOOP_BINARY_ARCHIVE_NAME=hadoop-2.7.0
-ARG HADOOP_BINARY_DOWNLOAD_URL=https://archive.apache.org/dist/hadoop/core/hadoop-2.7.0/${HADOOP_BINARY_ARCHIVE_NAME}.tar.gz
-
-# ENV VARIABLES
-ENV HADOOP_HOME /usr/local/hadoop
-ENV JAVA_HOME /usr/local/openjdk-8
-ENV PATH $JAVA_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin:$HADOOP_HOME/bin:$PATH
-
-# Download, uncompress and move all the required packages and libraries to their corresponding directories in /usr/local/ folder. 
 RUN apt-get -yqq update && \
 apt-get install -yqq nano && \
 apt-get install -yqq netcat &&\
-apt-get clean && \
-rm -rf /var/lib/apt/lists/* && \
-rm -rf /tmp/* && \
-wget -qO - ${HADOOP_BINARY_DOWNLOAD_URL} | tar -xz -C /usr/local/ && \
-cd /usr/local/ && \
-ln -s ${HADOOP_BINARY_ARCHIVE_NAME} hadoop 
-
+apt-get clean 
 
 # HADOOP CONFIG 
 RUN chmod +x $HADOOP_HOME/etc/hadoop/hadoop-env.sh
@@ -55,9 +38,6 @@ ADD core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
 # for yarn
 ADD yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml
 ADD mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml
-
-
-
 
 ######## APPLICATION ########
 WORKDIR $HADOOP_HOME
