@@ -106,7 +106,7 @@ def serve_layout():
             html.Div(children=[
                 html.H1(children='Machine Learning as a Service', style={'font-weight': "400",'font-size': '30px'})], style=header_text_style)], style=header_style),
         html.Div(style=line_separator_style),
-        dbc.Tabs(id='tabs-example', value='tab-0', children=[
+        dcc.Tabs(id='tabs-example', value='tab-0', children=[
             dcc.Tab(label='Audit and Traceability', value='tab-0', style=tab_style,
                     selected_style=tab_selected_style),
             dcc.Tab(label='Dataset Analytics', value='tab-1', style=tab_style,
