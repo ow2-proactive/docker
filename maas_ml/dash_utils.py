@@ -5,6 +5,7 @@ import re
 import statistics
 import numpy as np
 import flask
+import base64
 
 from datetime import datetime as dt
 from os.path import join, exists, isfile
@@ -32,12 +33,21 @@ def alphanum_sort(l):
 INSTANCE_PATH = os.getenv('INSTANCE_PATH') if os.getenv('INSTANCE_PATH') is not None else None
 # Dash app functions
 
+image_filename = '/model_as_service/static/img/activeeon-logo-orange-blue-trasparent.png'
+# reading Activeeon Logo
+def b64_image(image_filename):
+    with open(image_filename, 'rb') as f:
+        image = f.read()
+    return 'data:image/png;base64,' + base64.b64encode(image).decode('utf-8')
+
 # Main Dash/plotly layout page
 def serve_layout():
     tab_style = {
-        "background": "#E6E6FA",
+        "background": "#d6d6d6",
         'text-transform': 'uppercase',
         'color': 'black',
+        'border-color-right': 'white',
+        'border-color-left': 'white',
         'border': 'black',
         'font-size': '13px',
         'font-weight': 800,
@@ -48,7 +58,8 @@ def serve_layout():
     }
 
     tab_selected_style = {
-        "background": "#4d4dff",
+        #"background": "#002d66",
+        "background": "rgb(28, 132, 198)",
         'text-transform': 'uppercase',
         'color': 'white',
         'border': 'black',
@@ -59,18 +70,51 @@ def serve_layout():
         # 'border-radius': '20px',
         'padding': '20px'
     }
+    header_style = {
+        'background-color': "#F3F3F4",
+        'height': '80px',
+        'border-bottom-width': '100%',
+        #'border-bottom': '3px #f47930',
+        'border-bottom-width': '100%',
+        #'padding-top': '40px',
+    }
+    header_text_style = {
+        'position': 'absolute',
+        'left': '50%',
+        'transform': 'translate(-50%, -50%)',
+        'text-align': 'center',
+        'top': '50px',
+        #'font-size': '15px',
+    }
+    image_container_style = {
+        'display': 'inline-block',
+        'position': 'absolute',
+        'left': '20px',
+        'top': '20px'
+    } 
+    line_separator_style = {
+        'height': '3px',
+        'background': '#f47930',
+        'width':'100%', 
+        'display': 'table'
+    } 
 
     # Tabs of the Dash app page
     return html.Div([
+        html.Div(children=[
+            html.Div(children=[html.Img(src=b64_image(image_filename),style={'height': "40px"})], style=image_container_style),
+            html.Div(children=[
+                html.H1(children='Machine Learning as a Service', style={'font-weight': "400",'font-size': '30px'})], style=header_text_style)], style=header_style),
+        html.Div(style=line_separator_style),
         dcc.Tabs(id='tabs-example', value='tab-0', children=[
             dcc.Tab(label='Audit and Traceability', value='tab-0', style=tab_style,
                     selected_style=tab_selected_style),
             dcc.Tab(label='Dataset Analytics', value='tab-1', style=tab_style,
                     selected_style=tab_selected_style),
-            dcc.Tab(label='Data Drift Analytics', value='tab-2', style=tab_style,
-                    selected_style=tab_selected_style, disabled=True),
             dcc.Tab(label='Predictions Preview', value='tab-3', style=tab_style,
                     selected_style=tab_selected_style),
+            dcc.Tab(label='Data Drift Analytics', value='tab-2', style=tab_style,
+                    selected_style=tab_selected_style, disabled=True),
         ]),
         html.Div(id='tabs-example-content'),
         dcc.Store(id='feature-value'),
@@ -87,12 +131,12 @@ def init_dashboard(server):
     app = dash.Dash(
         server=server,
         routes_pathname_prefix="/dashapp/",
-        external_stylesheets=[
-            'https://codepen.io/chriddyp/pen/bWLwgP.css'
-        ],
+        #external_stylesheets=[
+        #    'https://codepen.io/chriddyp/pen/bWLwgP.css'
+        #],
         # assets_external_path='/assets/style.css'
     )
-
+    app.scripts.config.serve_locally = False
     app.layout = serve_layout
 
     # All callback functions that are executed once any event takes place in the dash app components
@@ -115,18 +159,20 @@ def init_dashboard(server):
                 ),
                 html.Br(),
                 html.Br(),
-                html.A(html.Button("Go to Swagger UI", className='three columns'),
-                       href='/api/ui/#/default', target="_blank"),
+                html.Div(children=[
+                    html.A(html.Button("Go to Swagger UI", className='two columns', style={'background-color': '#1AB394', 'color': '#FFF', 'float': 'right', 'margin-right':'20px'}),
+                       href='/api/ui/#/default', target="_blank")]#, style={'float': 'right', 'margin-right':'10px'}
+                ),
                 html.Br(),
                 html.Br(),
                 html.Label(["Configuration Details"], style={'font-weight': 'bold', "text-align": "center", "font-size": '3rem'}),
                 html.Br(),
-                html.Div(id='config-table'),
+                html.Div(id='config-table', style={'padding-left': "10px",'padding-right': "10px"}),
                 html.Br(),
                 html.Br(),
                 html.Label(["Traceability Details"], style={'font-weight': 'bold', "text-align": "center", "font-size": '3rem'}),
                 html.Br(),
-                html.Div(id='trace-table')
+                html.Div(id='trace-table', style={'padding-left': "10px",'padding-right': "10px"})
             ])
         elif tab == 'tab-1':
             return html.Div([
@@ -333,7 +379,7 @@ def init_dashboard(server):
         return dash_table.DataTable(data=d, columns=columnss,
                                     style_cell={'padding': '20px', 'border': '1px solid #E6E6FA', 'textAlign': 'center'},
                                     style_header={
-                                        'backgroundColor': '#E6E6FA',
+                                        'backgroundColor': '#f5f5f5',
                                         'fontWeight': 'bold'
                                     })
 
@@ -360,7 +406,7 @@ def init_dashboard(server):
         return dash_table.DataTable(data=l, columns=columnss,
                                     style_cell={'padding': '20px', 'border': '1px solid #E6E6FA', 'textAlign': 'center'},
                                     style_header={
-                                        'backgroundColor': '#E6E6FA',
+                                        'backgroundColor': '#f5f5f5',
                                         'fontWeight': 'bold'
                                     })
 
@@ -383,7 +429,7 @@ def init_dashboard(server):
         return dash_table.DataTable(data=data, columns=columns, style_as_list_view=True,
                                     style_cell={'padding': '20px', 'border': '1px solid #E6E6FA', 'textAlign': 'center'},
                                     style_header={
-                                        'backgroundColor': '#E6E6FA',
+                                        'backgroundColor': '#f5f5f5',
                                         'fontWeight': 'bold'
                                     },
                                     style_data_conditional=[
@@ -391,7 +437,7 @@ def init_dashboard(server):
                                             'if': {
                                                 'column_id': cols[len(cols) - 1],
                                             },
-                                            'backgroundColor': '#E6E6FA',
+                                            'backgroundColor': '#f5f5f5',
                                             'fontWeight': 'bold'
                                         }
                                     ]
