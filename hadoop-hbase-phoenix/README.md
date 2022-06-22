@@ -1,8 +1,8 @@
 ```
-docker build -t activeeon/hadoop-hbase:<TAG> .
+docker build -t activeeon/hadoop-hbase-phoenix:<TAG> .
 ```
 
 ### Docker image
 ```
-https://hub.docker.com/r/activeeon/hadoop-hbase
+https://hub.docker.com/r/activeeon/hadoop-hbase-phoenix
 ```
