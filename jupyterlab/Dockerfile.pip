@@ -69,17 +69,13 @@ RUN python3 -m pip install notebook==6.1.4
 RUN python3 -m pip install scikit-learn==0.24.2
 RUN python3 -m pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu
 
-# Install Proactive Jupyter Kernel
-# --------------------------------
+# Install lastest version of the Proactive Python SDK and Jupyter Kernel
+# ----------------------------------------------------------------------
 RUN apt-get install -y python3-dev graphviz libgraphviz-dev pkg-config
-#RUN pip install pygraphviz
-RUN git clone https://github.com/ow2-proactive/proactive-jupyter-kernel.git
-#RUN python3 -m pip install proactive proactive-jupyter-kernel --upgrade
-#RUN python3 -m proactive-jupyter-kernel.install
-RUN python3 -m pip install proactive-jupyter-kernel/
+# RUN pip install pygraphviz
+RUN python3 -m pip install "git+https://github.com/ow2-proactive/proactive-python-client"
+RUN python3 -m pip install "git+https://github.com/ow2-proactive/proactive-jupyter-kernel.git"
 RUN python3 -m proactive-jupyter-kernel.install
-# RUN python3 -m pip uninstall proactive-jupyter-kernel
-# RUN python3 -m pip uninstall proactive-jupyter-kernel && python3 -m pip install proactive-jupyter-kernel/ && python3 -m proactive-jupyter-kernel.install
 
 # Install Python pkgs
 # -------------------
