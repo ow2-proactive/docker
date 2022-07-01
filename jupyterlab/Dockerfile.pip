@@ -73,7 +73,79 @@ RUN python3 -m pip install torch torchvision torchaudio --extra-index-url https:
 # ----------------------------------------------------------------------
 RUN apt-get install -y python3-dev graphviz libgraphviz-dev pkg-config
 # RUN pip install pygraphviz
-RUN python3 -m pip install "git+https://github.com/ow2-proactive/proactive-python-client"
+#
+# Downgrade Java version to 1.8
+# https://unix.stackexchange.com/questions/699507/how-can-i-install-java-8-on-debian-11-bullseye
+RUN apt-get install -y libpulse0
+RUN wget https://snapshot.debian.org/archive/debian-security/20220210T090326Z/pool/updates/main/o/openjdk-8/openjdk-8-jdk_8u322-b06-1~deb9u1_amd64.deb
+RUN wget https://snapshot.debian.org/archive/debian-security/20220210T090326Z/pool/updates/main/o/openjdk-8/openjdk-8-jre_8u322-b06-1~deb9u1_amd64.deb
+RUN wget https://snapshot.debian.org/archive/debian-security/20220210T090326Z/pool/updates/main/o/openjdk-8/openjdk-8-jdk-headless_8u322-b06-1~deb9u1_amd64.deb
+RUN wget https://snapshot.debian.org/archive/debian-security/20220210T090326Z/pool/updates/main/o/openjdk-8/openjdk-8-jre-headless_8u322-b06-1~deb9u1_amd64.deb
+RUN dpkg -i *.deb
+RUN update-java-alternatives -s java-1.8.0-openjdk-amd64
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+RUN export JAVA_HOME
+#
+RUN python3 -m pip install --upgrade pip
+RUN git clone https://github.com/ow2-proactive/proactive-python-client proactive-python-client
+RUN cd proactive-python-client && ./gradlew clean && ./gradlew -q buildlocal
+# RUN ls -la proactive-python-client/dist
+RUN python3 -m pip install proactive-python-client/dist/*.zip
+RUN python3 -m pip list && python3 -m pip -V && python3 -m pip show proactive
+ARG PROACTIVE_URL=
+ARG PROACTIVE_USER=
+ARG PROACTIVE_PASS=
+RUN echo ' \n\
+import os \n\
+import sys \n\
+import proactive \n\
+\n\
+proactive_url  = "'${PROACTIVE_URL}'" \n\
+proactive_user = "'${PROACTIVE_USER}'" \n\
+proactive_pass = "'${PROACTIVE_PASS}'" \n\
+\n\
+if not proactive_url or not proactive_user or not proactive_pass: \n\
+    print("No test will run!") \n\
+    sys.exit(0) \n\
+\n\
+print("Connecting on " + proactive_url + " using " + proactive_user + ":" + proactive_pass) \n\
+gateway = proactive.ProActiveGateway(base_url=proactive_url, debug=False, javaopts=[], log4j_props_file=None, log4py_props_file=None) \n\
+\n\
+gateway.connect(username=proactive_user, password=proactive_pass) \n\
+assert gateway.isConnected() is True \n\
+print("Connected") \n\
+\n\
+try: \n\
+    print("Creating a proactive task...") \n\
+    proactive_task = gateway.createTask(gateway.getProactiveScriptLanguage().linux_bash()) \n\
+    proactive_task.setTaskName("SimpleBashTask") \n\
+    proactive_task.setTaskImplementation("""pwd && ls -la""") \n\
+\n\
+    print("Creating a proactive job...") \n\
+    proactive_job = gateway.createJob() \n\
+    proactive_job.setJobName("SimpleBashJob") \n\
+    proactive_job.addTask(proactive_task) \n\
+\n\
+    print("Submitting the job to the proactive scheduler...") \n\
+    job_id = gateway.submitJob(proactive_job, debug=False) \n\
+    print("job_id: " + str(job_id)) \n\
+\n\
+    print("Getting job output...") \n\
+    job_result = gateway.getJobResult(job_id) \n\
+    print(job_result) \n\
+\n\
+finally: \n\
+    print("Disconnecting") \n\
+    gateway.disconnect() \n\
+    print("Disconnected") \n\
+    gateway.terminate() \n\
+    print("Finished") \n\
+\n\
+' > test.py
+RUN ls -la
+# RUN cat test.py
+RUN python3 test.py
+# RUN ls -la /usr/local/lib/python3.8/site-packages/proactive/java/lib
 RUN python3 -m pip install "git+https://github.com/ow2-proactive/proactive-jupyter-kernel.git"
 RUN python3 -m proactive-jupyter-kernel.install
 
