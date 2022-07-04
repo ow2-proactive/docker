@@ -10,8 +10,14 @@
         content="0; url = /dashapp/" />
 </head>
   
-<body>
-  
+<body onload="autoRerender()">
+
+<script>
+function autoRerender() {
+  window.open("/dashapp/", "_self");
+}
+</script>
+
   <p style="text-align:center;">
     If your browser supports Refresh,
     you'll be redirected to the Dash App
