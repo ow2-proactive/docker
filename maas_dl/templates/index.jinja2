@@ -5,13 +5,19 @@
 <html>
   
 <head>
-  <title>Opening Your MaaS_ML Analytics Dash App</title>
+  <title>Opening Your MaaS_DL Analytics Dash App</title>
   <meta http-equiv="refresh" 
         content="0; url = /dashapp/" />
 </head>
   
-<body>
-  
+<body onload="autoRerender()">
+
+<script>
+function autoRerender() {
+  window.open("/dashapp/", "_self");
+}
+</script>
+
   <p style="text-align:center;">
     If your browser supports Refresh,
     you'll be redirected to the Dash App
