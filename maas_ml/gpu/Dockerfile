@@ -12,6 +12,9 @@ COPY requirements.txt /model_as_service/requirements.txt
 RUN mkdir -p /model_as_service/models/
 WORKDIR /model_as_service
 
+RUN rm /etc/apt/sources.list.d/cuda.list
+RUN rm /etc/apt/sources.list.d/nvidia-ml.list
+
 RUN apt-get clean && apt-get -y update
 RUN apt-get -y install nginx
 RUN apt-get install tree
