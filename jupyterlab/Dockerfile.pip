@@ -162,6 +162,7 @@ RUN apt-get autoclean && apt-get clean \
 # Install Proactive Jupyter Notebooks
 # -----------------------------------
 RUN git clone https://github.com/ow2-proactive/proactive-jupyter-notebooks.git
+RUN find ./proactive-jupyter-notebooks -name "*.ipynb" | xargs -r jupyter trust
 
 # Expose JupyterLab
 # -----------------
