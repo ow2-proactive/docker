@@ -134,7 +134,7 @@ echo "RESTART_OPTION=${RESTART_OPTION}"
 echo "REMOVE_OPTION=${REMOVE_OPTION}"
 
 ###########################################################################
-## -- docker-compose or docker-stack use only --
+## -- docker-compose.yaml or docker-stack use only --
 ###########################################################################
 
 ## -- (this script will include ./.env only if "./docker-run.env" not found

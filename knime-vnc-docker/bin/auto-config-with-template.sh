@@ -5,7 +5,7 @@ set -e
 ################################ Usage #######################################
 
 #### ------------------------------- ####
-#### ---- Docker:docker-compose ---- ####
+#### ---- Docker:docker-compose.yaml ---- ####
 #### ---- App:Specification:    ---- ####
 #### ------------------------------- ####
 
@@ -161,9 +161,9 @@ for f in $files; do
     cat ${AUTO_GEN_FILE}
     #diff $f ${AUTO_GEN_FILE}
     echo "---- Auto-generated file: ${AUTO_GEN_FILE}"
-    # Template file name should be .env.template or docker-compose.yml.template:
+    # Template file name should be .env.template or docker-compose.yaml.yml.template:
     # So, the trailing ".template" will be removed to be used to generate the target file.
-    target_filename=${f%%.template} # docker-compose.yml
+    target_filename=${f%%.template} # docker-compose.yaml.yml
     if [ -s  ]; then
         if [ ! -d ${target_filename}.BACKUP ]; then
             mkdir -p ${target_filename}.BACKUP
