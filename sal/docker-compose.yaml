@@ -6,11 +6,11 @@ services:
     networks:
       - db-tier
     environment:
-      MYSQL_ROOT_PASSWORD: PASSWORD
+      MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: proactive
     container_name: myComposeMariaDB
     healthcheck:
-      test: [ "CMD", "mysqladmin" , "ping", "-h", "localhost", "--password=PASSWORD" ]
+      test: [ "CMD", "mysqladmin" , "ping", "-h", "localhost", "--password=admin" ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -28,11 +28,11 @@ services:
       - db-tier
     environment:
       PROPERTIES_FILENAME: sal
-      PWS_URL: http://localhost:8080/
-      PWS_USERNAME: admin
-      PWS_PASSWORD: admin
+      PWS_URL: https://trydev2.activeeon.com:8443/
+      PWS_USERNAME: labidi
+      PWS_PASSWORD: ProActive123
       DB_USERNAME: root
-      DB_PASSWORD: PASSWORD
+      DB_PASSWORD: admin
       DB_DRIVER_CLASSNAME: org.mariadb.jdbc.Driver
       DB_URL: jdbc:mariadb://myComposeMariaDB:3306/proactive
       DB_PLATFORM: org.hibernate.dialect.MySQL5Dialect
