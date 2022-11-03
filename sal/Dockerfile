@@ -1,13 +1,16 @@
 FROM tomcat:9.0.68-jdk8-corretto-al2
 
 RUN rm -rf ${CATALINA_HOME}/webapps/*
-RUN curl -o /usr/local/tomcat/webapps/sal.war http://repository.activeeon.com/content/groups/proactive/org/ow2/proactive/scheduling-abstraction-layer/13.1.0-SNAPSHOT/scheduling-abstraction-layer-13.1.0-20221027.125525-9.war
+# NOTE: Switch between local or public builded SAL
+#RUN curl -o /usr/local/tomcat/webapps/sal.war http://repository.activeeon.com/content/groups/proactive/org/ow2/proactive/scheduling-abstraction-layer/13.1.0-SNAPSHOT/scheduling-abstraction-layer-13.1.0-20221027.125525-9.war
+ADD scheduling-abstraction-layer-13.1.0-SNAPSHOT.war /usr/local/tomcat/webapps/sal.war
 
-#ENV spring_config_location="/usr/local/tomcat/conf/sal.properties"
 ENV EXTERNAL_CONFIG_DIR=${CATALINA_HOME}/conf
+ENV PROPERTIES_FILENAME='sal'
 
-ADD  ./scheduling-abstraction-layer.xml ${CATALINA_HOME}/conf/Catalina/localhost/sal.xml
-ADD  sal.application.properties ${CATALINA_HOME}/conf/sal.properties
+ADD  scheduling-abstraction-layer.xml ${EXTERNAL_CONFIG_DIR}/Catalina/localhost/sal.xml
+# NOTE: Please make sure if you set a different `PROPERTIES_FILENAME` to copy your properties file inside the container
+ADD  sal.application.properties ${EXTERNAL_CONFIG_DIR}/${PROPERTIES_FILENAME}.properties
 
 ENV PWS_URL='http://localhost:8080/'
 ENV PWS_USERNAME='admin'
@@ -20,4 +23,4 @@ ENV DB_DRIVER_CLASSNAME='org.mariadb.jdbc.Driver'
 ENV DB_URL='jdbc:mariadb://localhost:3306/proactive'
 ENV DB_PLATFORM='org.hibernate.dialect.MySQL5Dialect'
 
-CMD ["catalina.sh","run"]
+CMD ["catalina.sh", "jpda", "run"]
