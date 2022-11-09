@@ -8,6 +8,8 @@ ADD scheduling-abstraction-layer-13.1.0-SNAPSHOT.war /usr/local/tomcat/webapps/s
 ENV EXTERNAL_CONFIG_DIR=${CATALINA_HOME}/conf
 ENV PROPERTIES_FILENAME='sal'
 
+ENV PA_HOME=${CATALINA_HOME}
+
 ADD  scheduling-abstraction-layer.xml ${EXTERNAL_CONFIG_DIR}/Catalina/localhost/sal.xml
 # NOTE: Please make sure if you set a different `PROPERTIES_FILENAME` to copy your properties file inside the container
 ADD  sal.application.properties ${EXTERNAL_CONFIG_DIR}/${PROPERTIES_FILENAME}.properties
