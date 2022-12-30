@@ -23,6 +23,6 @@ ENV DB_PASSWORD=''
 
 ENV DB_DRIVER_CLASSNAME='org.mariadb.jdbc.Driver'
 ENV DB_URL='jdbc:mariadb://localhost:3306/proactive'
-ENV DB_PLATFORM='org.hibernate.dialect.MySQL5Dialect'
+ENV DB_PLATFORM='org.hibernate.dialect.MariaDB53Dialect'
 
 CMD ["catalina.sh", "jpda", "run"]

@@ -35,7 +35,7 @@ services:
       DB_PASSWORD: PASSWORD
       DB_DRIVER_CLASSNAME: org.mariadb.jdbc.Driver
       DB_URL: jdbc:mariadb://myComposeMariaDB:3306/proactive
-      DB_PLATFORM: org.hibernate.dialect.MySQL5Dialect
+      DB_PLATFORM: org.hibernate.dialect.MariaDB53Dialect
       JPDA_ADDRESS: 9001
       JPDA_TRANSPORT: dt_socket
     container_name: myComposeSAL
