@@ -3,7 +3,7 @@ FROM tomcat:9.0.68-jdk8-corretto-al2
 RUN rm -rf ${CATALINA_HOME}/webapps/*
 # NOTE: Switch between local or public builded SAL
 #RUN curl -o /usr/local/tomcat/webapps/sal.war http://repository.activeeon.com/content/groups/proactive/org/ow2/proactive/scheduling-abstraction-layer/13.1.0-SNAPSHOT/scheduling-abstraction-layer-13.1.0-20221027.125525-9.war
-ADD scheduling-abstraction-layer-13.1.0-SNAPSHOT.war /usr/local/tomcat/webapps/sal.war
+ADD */scheduling-abstraction-layer-13.1.0-SNAPSHOT.war /usr/local/tomcat/webapps/sal.war
 
 ENV EXTERNAL_CONFIG_DIR=${CATALINA_HOME}/conf
 ENV PROPERTIES_FILENAME='sal'
