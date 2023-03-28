@@ -1,4 +1,4 @@
-# docker build -t activeeon/python:3.8arm64 .
+# docker build -f Dockerfile.arm64 -t activeeon/python:3.8arm64 .
 # docker run -it --rm activeeon/python:3.8arm64 bash
 # docker run -it --rm -v $PWD:/home -w /home activeeon/python:3.8arm64 /bin/bash
 FROM python:3.8
