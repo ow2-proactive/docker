@@ -1,7 +1,7 @@
-# docker build -t activeeon/python:3.10 .
-# docker run -it --rm activeeon/python:3.10 bash
-# docker run -it --rm -v $PWD:/home -w /home activeeon/python:3.10 /bin/bash
-FROM python:3.10
+# docker build -t activeeon/python:3.12 .
+# docker run -it --rm activeeon/python:3.12 bash
+# docker run -it --rm -v $PWD:/home -w /home activeeon/python:3.12 /bin/bash
+FROM python:3.12
 
 WORKDIR /tmp
 
