@@ -1,5 +1,5 @@
 click==7.1.1
-Flask==1.1.1
+Flask==2.3.2
 Flask-Cors==3.0.9
 Werkzeug==1.0.0
 connexion[swagger-ui]==2.7.0
