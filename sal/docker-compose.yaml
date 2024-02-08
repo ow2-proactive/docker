@@ -10,7 +10,7 @@ services:
       MYSQL_DATABASE: proactive
     container_name: myComposeMariaDB
     healthcheck:
-      test: [ "CMD", "mysqladmin" , "ping", "-h", "localhost", "--password=PASSWORD" ]
+      test: [ "CMD", "mariadb-admin" , "ping", "-h", "localhost", "--password=PASSWORD" ]
       interval: 5s
       timeout: 5s
       retries: 5
