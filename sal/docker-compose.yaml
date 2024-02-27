@@ -31,8 +31,8 @@ services:
     environment:
       PROPERTIES_FILENAME: sal
       PWS_URL: https://trydev.activeeon.com:8443/
-      PWS_USERNAME: fahs
-      PWS_PASSWORD: ProActive123
+      PWS_USERNAME: admin
+      PWS_PASSWORD: admin
       DB_USERNAME: root
       DB_PASSWORD: PASSWORD
       DB_DRIVER_CLASSNAME: org.mariadb.jdbc.Driver
