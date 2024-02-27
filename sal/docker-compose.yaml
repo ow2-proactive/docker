@@ -26,11 +26,13 @@ services:
       - "database:myComposeMariaDB"
     networks:
       - db-tier
+    volumes:
+      - ./scripts:/usr/local/tomcat/scripts
     environment:
       PROPERTIES_FILENAME: sal
-      PWS_URL: http://localhost:8080/
-      PWS_USERNAME: admin
-      PWS_PASSWORD: admin
+      PWS_URL: https://trydev.activeeon.com:8443/
+      PWS_USERNAME: fahs
+      PWS_PASSWORD: ProActive123
       DB_USERNAME: root
       DB_PASSWORD: PASSWORD
       DB_DRIVER_CLASSNAME: org.mariadb.jdbc.Driver
