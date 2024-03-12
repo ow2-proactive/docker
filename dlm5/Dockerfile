@@ -14,6 +14,7 @@ COPY requirements.txt requirements.txt
 RUN python3 -m pip install numpy==1.26.1
 RUN python3 -m pip install -r requirements.txt
 
+RUN python3 -m pip cache purge
 RUN rm -rf ~/.cache/pip
 
 RUN apt-get autoclean && apt-get clean \

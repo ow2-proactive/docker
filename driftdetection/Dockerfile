@@ -16,6 +16,7 @@ RUN python3 -m pip install scikit-multiflow==0.5.3
 RUN python3 -m pip install prometheus-api-client==0.5.4
 RUN python3 -m pip install requests==2.31.0
 
+RUN python3 -m pip cache purge
 RUN rm -rf ~/.cache/pip
 
 RUN apt-get autoclean && apt-get clean \

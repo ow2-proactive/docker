@@ -44,6 +44,7 @@ RUN python3 -m pip install "tritonclient[all]==2.36.0"
 
 RUN python3 -m pip freeze > requirements.txt
 
+RUN python3 -m pip cache purge
 RUN rm -rf ~/.cache/pip
 
 RUN apt-get autoclean && apt-get clean \
