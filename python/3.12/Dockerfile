@@ -1,4 +1,4 @@
-# docker build -t activeeon/python:3.12 .
+# docker build --no-cache -t activeeon/python:3.12 .
 # docker run -it --rm activeeon/python:3.12 bash
 # docker run -it --rm -v $PWD:/home -w /home activeeon/python:3.12 /bin/bash
 FROM python:3.12
@@ -18,6 +18,7 @@ RUN apt-get install -y \
         git \
         curl \
         unzip \
+        htop \
         nano
 
 # Install java
@@ -39,6 +40,7 @@ RUN export JAVA_HOME
 RUN python -m pip install --upgrade pip
 RUN python -m pip install cython py4j pyyaml wget lxml validators
 
+RUN python3 -m pip cache purge
 RUN rm -rf ~/.cache/pip
 RUN apt-get autoclean && apt-get clean \
         && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
