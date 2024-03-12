@@ -33,6 +33,7 @@ RUN python3 -m pip install skl2onnx==1.14.1
 RUN python3 -m pip install catboost==1.2
 RUN python3 -m pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cpu
 RUN python3 -m pip install transformers==4.31.0
+RUN python3 -m pip install alibi==0.9.5
 
 # https://github.com/triton-inference-server/client
 # RUN python3 -m pip install tritonclient
