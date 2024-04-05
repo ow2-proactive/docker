@@ -3,7 +3,7 @@ FROM activeeon/yarn:latest
 ########  HIVE ########
 
 
-ENV HIVE_VER 2.1.1
+ENV HIVE_VER 3.1.3
 
 RUN wget -O apache-hive.tar.gz https://archive.apache.org/dist/hive/hive-$HIVE_VER/apache-hive-$HIVE_VER-bin.tar.gz && \
 tar -xzf apache-hive.tar.gz -C /usr/local/ && rm apache-hive.tar.gz
@@ -20,8 +20,7 @@ ADD hive-site.xml $HIVE_HOME/conf
 
 
 #ADD mysql-connector-java-5.1.44-bin.jar $HIVE_HOME/lib
-RUN wget -P $HIVE_HOME/lib/ https://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.44/mysql-connector-java-5.1.44.jar
-
+RUN wget -P $HIVE_HOME/lib/ https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar
 
 ########  APPLICATION ########
 
