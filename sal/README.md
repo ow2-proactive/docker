@@ -24,7 +24,7 @@ cp <SAL_REPO_HOME_DIR>/sal-service/build/libs/scheduling-abstraction-layer-13.1.
 
 docker-compose down
 
-docker build -t activeeon/sal:latest -f ./Dockerfile --no-cache .
+docker_build.sh
 
 docker-compose up 
 
