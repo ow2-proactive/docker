@@ -34,4 +34,3 @@ docker-compose up
 
 
 Each time the code is modified in <SAL_REPO_HOME_DIR>, you can simple run this script and it will automatically launch new container with the changes included.
-
