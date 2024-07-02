@@ -1,4 +1,4 @@
-# docker build --no-cache -t activeeon/dlm4:latest .
+# docker build -t activeeon/dlm4:latest .
 # docker run -it --rm activeeon/dlm4 bash
 #
 # Package    Version
@@ -15,7 +15,7 @@
 # wget       3.2
 # wheel      0.37.0
 #
-FROM activeeon/python:3.8
+FROM activeeon/python:3.9
 
 # Update
 RUN apt-get clean && apt-get update -y -qq
@@ -34,6 +34,8 @@ RUN python3 -m pip install catboost==1.2
 RUN python3 -m pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cpu
 RUN python3 -m pip install transformers==4.31.0
 RUN python3 -m pip install alibi==0.9.5
+RUN python3 -m pip install shap==0.45.0
+RUN python3 -m pip install alibi-detect==0.11.5
 
 # https://github.com/triton-inference-server/client
 # RUN python3 -m pip install tritonclient
