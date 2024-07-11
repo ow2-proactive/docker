@@ -44,7 +44,7 @@ RUN python3 -m pip install alibi-detect==0.11.5
 # RUN python3 -m pip install "tritonclient[grpc]"
 RUN python3 -m pip install "tritonclient[all]==2.36.0"
 
-RUN python3 -m pip install duckduckgo-search==6.1.7
+RUN python3 -m pip install duckduckgo-search==6.1.12
 
 RUN python3 -m pip freeze > requirements.txt
 
