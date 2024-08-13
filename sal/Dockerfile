@@ -5,7 +5,7 @@ ARG SAL_WAR_DIR_PATH="**"
 RUN rm -rf ${CATALINA_HOME}/webapps/*
 # NOTE: Switch between local or public builded SAL
 #RUN curl -o /usr/local/tomcat/webapps/sal.war http://repository.activeeon.com/content/groups/proactive/org/ow2/proactive/scheduling-abstraction-layer/13.1.0-SNAPSHOT/scheduling-abstraction-layer-13.1.0-20221027.125525-9.war
-ADD ${SAL_WAR_DIR_PATH}/scheduling-abstraction-layer*.war /usr/local/tomcat/webapps/sal.war
+ADD $SAL_WAR_DIR_PATH/scheduling-abstraction-layer*.war /usr/local/tomcat/webapps/sal.war
 
 ENV EXTERNAL_CONFIG_DIR=${CATALINA_HOME}/conf
 ENV PROPERTIES_FILENAME='sal'
