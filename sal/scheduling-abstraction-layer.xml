@@ -1,3 +1,0 @@
-<Context>
-    <Environment name="configurationPath" value="file:${EXTERNAL_CONFIG_DIR}/{PROPERTIES_FILENAME}.properties" type="java.lang.String"/>
-</Context>
