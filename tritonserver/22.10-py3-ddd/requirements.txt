@@ -1,0 +1,5 @@
+alibi-detect==0.12.0
+torch==2.4.1
+fastapi==0.113.0
+uvicorn==0.30.6
+nicegui==2.1.0
