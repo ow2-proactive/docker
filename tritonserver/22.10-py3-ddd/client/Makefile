@@ -27,7 +27,7 @@ setup: virtualenv
 install: setup
 	@echo "Installing triton-python-client..."
 	set -e; \
-	$(VENV_PYTHON) -m pip install tritonclient[all]
+	$(VENV_PYTHON) -m pip install tritonclient[all] typer
 	@echo "Run the following command to activate the new python env:"
 	@echo "$$ source $(V_ENV)/bin/activate"
 
