@@ -9,9 +9,13 @@ sleep 1
 redis-cli ping
 sleep 1
 
-echo "Running triton proxy"
+echo "Running triton proxy (js)"
 # (cd /opt/triton_proxy/ && node triton_proxy.js &)
 (cd /opt/triton_proxy/ && nodemon triton_proxy.js &)
+sleep 1
+
+echo "Running triton proxy (py)"
+(cd /opt/triton_proxy/ && python3 triton_proxy.py &)
 sleep 1
 
 echo "Running fastapi server"
