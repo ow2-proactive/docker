@@ -69,19 +69,27 @@ def proxy(path):
     # Forward the request to Triton Server
     triton_url = f"{TRITON_SERVER_URL}/{path}"
     headers = dict(request.headers)
-    # Remove 'Host' header if present, requests will set it correctly
+    # Remove 'Host' header if present; requests will set it correctly
     headers.pop('Host', None)
+
+    # Ensure 'Accept-Encoding' header is present to allow gzip encoding
+    if 'Accept-Encoding' not in headers:
+        headers['Accept-Encoding'] = 'gzip'
+
+    # Forward the request to Triton server
     resp = requests.request(
         method=request.method,
         url=triton_url,
         headers=headers,
         data=body,
-        allow_redirects=False,
-        stream=True
+        allow_redirects=False
     )
 
-    # Intercept the response
+    # Read the response content (already decompressed by requests)
     resp_body = resp.content
+
+    # Remove 'Content-Encoding' header since content is decompressed
+    resp.headers.pop('Content-Encoding', None)
 
     # Process the response body
     body_bytes = resp_body
@@ -117,7 +125,15 @@ def proxy(path):
                     for i in range(current_position, current_position + output_size, 4):
                         float_bytes = binary_data[i:i+4]
                         if len(float_bytes) == 4:
-                            float_value = struct.unpack('<f', float_bytes)[0]
+                            # Check datatype to determine how to unpack
+                            datatype = output_entry.get('datatype', 'FP32')
+                            if datatype == 'FP32':
+                                float_value = struct.unpack('<f', float_bytes)[0]
+                            elif datatype == 'INT64':
+                                # Since we're reading 4 bytes, adjust accordingly
+                                float_value = struct.unpack('<i', float_bytes)[0]
+                            else:
+                                float_value = None  # Handle other datatypes as needed
                             output_array.append(float_value)
                     outputs.append(output_array)
                     current_position += output_size
@@ -130,10 +146,16 @@ def proxy(path):
         print('Could not find the end of the JSON object in response.')
 
     # Create a response to send back to the client
-    response = Response(resp.content, status=resp.status_code)
-    # Copy headers from Triton response
-    for key, value in resp.headers.items():
-        response.headers[key] = value
+    response = Response(
+        resp_body,
+        status=resp.status_code,
+        headers=resp.headers.items(),
+        direct_passthrough=True
+    )
+
+    # Update 'Content-Length' header
+    response.headers['Content-Length'] = str(len(resp_body))
+
     return response
 
 if __name__ == '__main__':
