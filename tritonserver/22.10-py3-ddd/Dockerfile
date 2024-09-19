@@ -70,8 +70,8 @@ ENV PASSWORD=
 RUN export PASSWORD
 
 # Expose ports
-# (code-server, api-server, http, grpc, metrics, proxy-server, redis-server)
-EXPOSE 9999 9000 8000 8001 8002 8080 6379
+# (code-server, api-server, http, grpc, metrics, proxy-server (js), proxy-server (py), redis-server)
+EXPOSE 9999 9000 8000 8001 8002 8080 9090 6379
 
 # Configure default container execution command
 COPY entrypoint.sh /opt/entrypoint.sh

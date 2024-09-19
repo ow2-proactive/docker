@@ -1,3 +1,5 @@
 .ipynb_checkpoints
 .idea/
 *.code-workspace
+*._*
+*.DS_*

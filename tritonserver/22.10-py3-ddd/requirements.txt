@@ -3,3 +3,4 @@ torch==2.4.1
 fastapi==0.113.0
 uvicorn==0.30.6
 nicegui==2.1.0
+Flask==3.0.3
