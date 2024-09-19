@@ -1,13 +1,6 @@
 # docker build -t activeeon/tritonserver:22.10-py3-ddd .
 FROM nvcr.io/nvidia/tritonserver:22.10-py3
 
-# Update Python PIP
-RUN python3 -m pip install --upgrade pip
-
-# Install Python Packages
-COPY requirements.txt /opt/requirements.txt
-RUN python3 -m pip install -r /opt/requirements.txt
-
 # Update APT
 RUN apt-get update -y
 
@@ -52,6 +45,13 @@ RUN code-server --install-extension moshfeu.compare-folders
 # Install npm
 RUN apt-get install -y npm
 RUN npm install -g nodemon
+
+# Update Python PIP
+RUN python3 -m pip install --upgrade pip
+
+# Install Python Packages
+COPY requirements.txt /opt/requirements.txt
+RUN python3 -m pip install -r /opt/requirements.txt
 
 # Copy triton proxy server
 COPY triton_proxy/ /opt/triton_proxy/
