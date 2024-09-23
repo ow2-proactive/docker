@@ -1,2 +1,4 @@
 *_env
 *.local.*
+*bkp*
+*log*

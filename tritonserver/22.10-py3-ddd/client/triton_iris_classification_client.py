@@ -1,10 +1,56 @@
 #!/usr/bin/env python3
 
+"""
+Triton Iris Classification Client Script
+
+This script implements a client for the Iris Classification model deployed on the Triton Inference Server.
+It demonstrates how to perform inference requests, handle different protocols (HTTP/gRPC), and process
+both normal and drift data for the Iris dataset.
+
+Key Features:
+1. Supports both HTTP and gRPC protocols for communication with Triton Inference Server.
+2. Handles inference requests for Iris classification and drift detection.
+3. Loads and preprocesses Iris dataset, including options for introducing drift.
+4. Calculates and logs model accuracy.
+5. Flexible configuration options for server URL, model name, version, and operation mode.
+
+Main Components:
+- Triton Client: Communicates with the Triton Inference Server using either HTTP or gRPC.
+- Data Loading: Prepares Iris dataset for inference, with options for introducing drift.
+- Inference Preparation: Formats input data and output requests for Triton server.
+- Results Processing: Handles inference results and calculates accuracy.
+
+Usage:
+Run the script with the following command:
+    python triton_iris_classification_client.py [SERVER_URL] [OPTIONS]
+
+Arguments:
+    SERVER_URL  URL of the Triton server (required)
+
+Options:
+    --model-name TEXT      Name of the model (default: "iris-classification-model")
+    --model-version INT    Version of the model (default: 1)
+    --drift-data BOOLEAN   Flag to indicate whether drift data should be used (default: False)
+    --mode TEXT            Mode of operation: 'predict-label' or 'predict-drift' (default: "predict-label")
+    --protocol TEXT        Protocol to use: 'http' or 'grpc' (default: "http")
+
+The script will then:
+1. Connect to the specified Triton Inference Server.
+2. Load and preprocess the Iris dataset (with or without drift, based on options).
+3. Perform inference using the specified model and protocol.
+4. Process the results and calculate accuracy (if applicable).
+5. Log the results and performance metrics.
+
+Note: This script assumes that the Iris classification model is properly deployed on the Triton server.
+For drift detection, it assumes a corresponding drift detection model is available.
+
+For more detailed information, refer to the function docstrings within the script.
+"""
+
 import sys
 import typer
-import numpy as np
 import logging
-from typing import Tuple, Optional, List, Union
+import numpy as np
 
 import tritonclient.http as httpclient
 import tritonclient.grpc as grpcclient
@@ -14,7 +60,14 @@ from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
+from typing import Tuple, Optional, List, Union
+
 app = typer.Typer()
+
+# Set up logging
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s',
+                    datefmt='%Y-%m-%d %H:%M:%S')
 
 
 def get_triton_client(server_url: str, protocol: str) -> Union[httpclient.InferenceServerClient, grpcclient.InferenceServerClient]:
@@ -174,8 +227,6 @@ def main(
     """
     Main function to run the inference client.
     """
-    # Set up logging
-    logging.basicConfig(level=logging.INFO)
     # Get Triton client
     triton_client = get_triton_client(server_url, protocol)
     # Load data
@@ -186,7 +237,7 @@ def main(
     # Perform inference
     results = perform_inference(triton_client, model_name, inputs, outputs, model_version)
     # Check inference statistics
-    check_inference_statistics(triton_client, model_name, protocol)
+    # check_inference_statistics(triton_client, model_name, protocol)
     # Get output data
     output0_data, output1_data = get_output_data(results, mode)
     # Calculate accuracy
