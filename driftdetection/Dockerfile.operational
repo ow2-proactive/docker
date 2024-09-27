@@ -9,12 +9,9 @@ RUN apt update && apt upgrade -y
 
 # Install python libraries
 # ------------------------
+COPY requirements.operationaldrift.txt .
 RUN python3 -m pip install --upgrade pip
-RUN python3 -m pip install numpy==1.20.3
-RUN python3 -m pip install scikit-learn==1.3.2
-RUN python3 -m pip install scikit-multiflow==0.5.3
-RUN python3 -m pip install prometheus-api-client==0.5.4
-RUN python3 -m pip install requests==2.31.0
+RUN python3 -m pip install -r requirements.operationaldrift.txt
 
 RUN python3 -m pip cache purge
 RUN rm -rf ~/.cache/pip
