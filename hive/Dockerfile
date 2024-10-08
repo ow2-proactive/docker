@@ -3,7 +3,7 @@ FROM activeeon/yarn:latest
 ########  HIVE ########
 
 
-ENV HIVE_VER 3.1.3
+ENV HIVE_VER 2.3.9
 
 RUN wget -O apache-hive.tar.gz https://archive.apache.org/dist/hive/hive-$HIVE_VER/apache-hive-$HIVE_VER-bin.tar.gz && \
 tar -xzf apache-hive.tar.gz -C /usr/local/ && rm apache-hive.tar.gz
