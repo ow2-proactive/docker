@@ -30,8 +30,4 @@ ADD hive_sql.hql $HIVE_HOME/
 
 WORKDIR $HIVE_HOME
 
-ADD bootstrap.sh /etc/bootstrap.sh
-RUN chmod +x /etc/bootstrap.sh
-
-
-CMD ["/etc/bootstrap.sh", "-d"]
+CMD ["/bin/bash"]
