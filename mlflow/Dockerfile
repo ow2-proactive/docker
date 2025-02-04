@@ -12,6 +12,8 @@ FROM bitnami/mlflow:latest
 USER root
 RUN mkdir -p /var/lib/apt/lists/partial && apt-get update && apt-get install -y sqlite3 libsqlite3-dev && apt-get clean
 
+RUN python3 -m pip install py4j
+
 # Ensure /app exists and is writable
 RUN mkdir -p /app /app/mlartifacts /app/tmp && chmod -R 777 /app
 
